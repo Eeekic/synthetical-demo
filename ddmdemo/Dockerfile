@@ -5,5 +5,6 @@ ENV dbuser ddm_001
 ENV dbpwd Ddm@cloud2017
 ENV DbConnectionMaxActive 250
 COPY ddmdemo/target/ $WORKDIR
-RUN sed -i "2i sh /usr/local/tomcat/webapps/ddmdemo/initDemo.sh" /usr/local/tomcat/bin/catalina.sh
+RUN sed -i "2i /usr/local/tomcat/webapps/ddmdemo/initDemo.sh" /usr/local/tomcat/bin/catalina.sh
+RUN chmod 777 /usr/local/tomcat/webapps/ddmdemo/initDemo.sh
 CMD ["catalina.sh", "run"]
