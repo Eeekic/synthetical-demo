@@ -4,4 +4,4 @@ target/classes
 target/generated-sources
 target/generated-test-sources
 target/test-classes
-target/managerdemo.war
+target/manager-demo.war
