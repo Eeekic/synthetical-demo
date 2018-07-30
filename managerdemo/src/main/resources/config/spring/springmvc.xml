@@ -14,7 +14,7 @@
 	<!-- 可以扫描controller、service。。。。 这里让扫描controller，指定controller的包 -->
 	<context:component-scan base-package="com.huawei.controller,com.huawei.service"/>
 	<!-- 由于 spring 只能存在一个 context:property-placeholder -->
-	<context:property-placeholder location="classpath:config/kafka/*.properties"/>
+	<context:property-placeholder location="classpath:config/component/*.properties"/>
 
 	<!-- 静态资源解析 包括:js、css、img、。。。 -->
 	<mvc:resources location="/doc/" mapping="/doc/**" />
