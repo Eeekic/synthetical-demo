@@ -1,6 +1,6 @@
 # DB services config
-dburl=${dburl//\//\\\/}
-dburl=${dburl//&/\\&}
+dbUrl=${dbUrl//\//\\\/}
+dbUrl=${dbUrl//&/\\&}
 dbConfigPath=/usr/local/tomcat/webapps/manager-demo/WEB-INF/classes/config/component/dbservice.properties
 sed -i 's/\(hostAndPort=\).*/\1'$dbUrl'/' $dbConfigPath
 
