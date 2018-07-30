@@ -20,7 +20,7 @@ ENV redispasswd Ddm@cloud2017
 ENV redismaxactive 250
 
 COPY managerdemo/target/ $WORKDIR
-RUN sed -i "2i /usr/local/tomcat/webapps/ddmdemo/initDemo.sh" /usr/local/tomcat/bin/catalina.sh
-RUN chmod 777 /usr/local/tomcat/webapps/ddmdemo/initDemo.sh
+RUN sed -i "2i /usr/local/tomcat/webapps/manager-demo/initDemo.sh" /usr/local/tomcat/bin/catalina.sh
+RUN chmod 777 /usr/local/tomcat/webapps/manager-demo/initDemo.sh
 
 CMD ["catalina.sh", "run"]

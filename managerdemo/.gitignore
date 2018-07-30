@@ -5,3 +5,6 @@ target/generated-sources
 target/generated-test-sources
 target/test-classes
 target/manager-demo.war
+target/maven-archiver/
+target/maven-status/
+target/surefire-reports/
