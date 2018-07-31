@@ -1,7 +1,6 @@
 package com.huawei.test;
 
 import com.alibaba.fastjson.JSONObject;
-import com.huawei.configbean.KafkaConfigBean;
 import com.huawei.manager.ConsumerManager;
 import com.huawei.manager.RedisCacheManager;
 import com.huawei.service.ManagerService;
@@ -14,10 +13,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:/config/spring/*.xml"})
@@ -72,7 +67,7 @@ public class DemoTest {
     }
     @Test
     public void testGoodsList(){
-        System.out.println( managerService.goodsList("Nomal"));
+        System.out.println( managerService.goodsList("Normal"));
     }
 
     @Test
@@ -81,17 +76,17 @@ public class DemoTest {
     }
 
     @Test
-    public void testGoodsDetailOnNomal(){
-        System.out.println( managerService.goodsDetail("2","Nomal"));
+    public void testGoodsDetailOnNormal(){
+        System.out.println( managerService.goodsDetail("2","Normal"));
     }
 
     @Test
-    public void testPayOnNomal(){
+    public void testPayOnNormal(){
         Map<String, Object> urlVariables = new HashMap<>();
         urlVariables.put("userId","1");
         urlVariables.put("goodsId","1");
         urlVariables.put("goodsPrice","2");
-        urlVariables.put("goodsType","Nomal");
+        urlVariables.put("goodsType","Normal");
         System.out.println( managerService.pay(urlVariables));
     }
 

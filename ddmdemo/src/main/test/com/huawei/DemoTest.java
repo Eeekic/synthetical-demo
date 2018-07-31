@@ -52,7 +52,7 @@ public class DemoTest {
             System.out.println("goods is null");
         }
 
-        List<Goods> goodsList = goodsDao.queryGoodsList("Nomal");
+        List<Goods> goodsList = goodsDao.queryGoodsList("Normal");
         for(Goods goods1:goodsList){
             System.out.println(goods1.toString());
         }
