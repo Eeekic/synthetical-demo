@@ -23,13 +23,13 @@ public class ManagerService {
     private RestTemplate restTemplate;
 
     @Autowired
-    DbServiceConfigBean dbServiceConfigBean;
+    private DbServiceConfigBean dbServiceConfigBean;
 
     @Autowired
-    RedisCacheManager redisCacheManager;
+    private RedisCacheManager redisCacheManager;
 
     @Autowired
-    ConsumerManager consumerManager;
+    private ConsumerManager consumerManager;
 
     private final static String POST_Method_TYPE = "Post";
     private final static String GET_Method_TYPE = "Get";

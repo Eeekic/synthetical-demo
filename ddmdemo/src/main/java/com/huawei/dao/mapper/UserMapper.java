@@ -46,4 +46,12 @@ public interface UserMapper {
      * @return
      */
     public User queryUserDetailInfoById(long userId);
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 14:45 2018/7/28
+     *
+     * @return
+     */
+    public long queryUserId(String userName);
 }

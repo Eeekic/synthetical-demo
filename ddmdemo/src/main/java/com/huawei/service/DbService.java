@@ -63,9 +63,13 @@ public class DbService {
     public String addUser(User user){
         JSONObject jsonObject = new JSONObject();
         try {
-            int result = userDao.addUser(user);
+            userDao.addUser(user);
+            long userId=userDao.queryUserId(user.getUserName());
+            user.setUserId(userId);
             jsonObject.put("errCode",CommonUtils.NOMAL_CODE);
-            jsonObject.put("resMsg",result);
+            JSONArray jsonArray = new JSONArray();
+            jsonArray.add(user.toSimpleJson2());
+            jsonObject.put("resMsg",jsonArray);
         }catch (Exception e){
             jsonObject.put("errCode",CommonUtils.ERROR_CODE);
             jsonObject.put("resMsg",getExceptionInfo(e));

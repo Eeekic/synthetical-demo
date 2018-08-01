@@ -12,7 +12,7 @@
     </resultMap>
 
     <select id="queryOrdersList" resultType="com.huawei.projo.Orders" parameterType="long"  resultMap="BaseResultMap">
-    select orders_id,orders_date,orders.goods_id,goods_name,goods_price,goods_picture_path from orders,goods where user_id=#{userId} and goods.goods_id=orders.goods_id
+    select orders_id,orders_date,orders.goods_id,goods_name,goods_price,goods_picture_path from orders,goods where user_id=#{userId} and goods.goods_id=orders.goods_id order by orders_id desc
   </select>
 
     <insert id="addOrders" parameterType="com.huawei.projo.Orders" >

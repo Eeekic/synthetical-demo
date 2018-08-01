@@ -34,4 +34,9 @@ public class UserImpl implements UserDao {
     public User queryUserDetailInfoById(long userId) {
         return userMapper.queryUserDetailInfoById(userId);
     }
+
+    @Override
+    public long queryUserId(String userName) {
+        return userMapper.queryUserId(userName);
+    }
 }

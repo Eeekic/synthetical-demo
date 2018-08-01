@@ -91,6 +91,13 @@ public class User {
         return object;
     }
 
+    public JSONObject toSimpleJson2() {
+        JSONObject object = new JSONObject();
+        object.put("userId", userId);
+        object.put("userName", userName);
+        return object;
+    }
+
     public JSONObject toDetailJson() {
         JSONObject object = new JSONObject();
         object.put("userId", userId);
