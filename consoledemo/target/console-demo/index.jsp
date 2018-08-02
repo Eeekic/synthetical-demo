@@ -11,7 +11,7 @@
 <body>
     <h1>Demo mall</h1>
     <pre>
-        <a href="<%=bpath %>/console-demo/mall" style="font-size:26px;">Demo Mall体验地址</a>
+        <a href="http://49.4.4.124:30000/console-demo/mall" style="font-size:26px;">Demo Mall体验地址</a>
     </pre>
     <h1>Demo Mall 相关资料</h1>
     <pre>
