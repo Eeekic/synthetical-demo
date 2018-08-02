@@ -4,4 +4,4 @@ target/classes
 target/generated-sources
 target/generated-test-sources
 target/test-classes
-target/console-demo.war
+target/console-backstage-demo.war
