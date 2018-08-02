@@ -45,8 +45,6 @@ public class ViewController {
         return "SignOutSuccess";
     }
 
-
-
     @RequestMapping(value="mall", method = RequestMethod.GET)
     public String mall(HttpServletRequest request){
         List<Goods> goodsList = dataSourcesService.getNorMalGoodsList();
