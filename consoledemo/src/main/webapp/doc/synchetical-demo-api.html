@@ -1,0 +1,648 @@
+<!DOCTYPE html><html><head><title>综合Demo后台rest接口使用说明</title><meta charset='utf-8'><link href='https://d31qtcb7c58z3n.cloudfront.net/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="综合demo后台rest接口使用说明"><strong>综合Demo后台rest接口使用说明</strong></h1>
+
+<blockquote>
+  <p>主要包含Manager和Database Control两个模块后台接口的实现（共17个接口），主要对应用户的注册、登录、订单查询以及商品的展示、购买、抢购等业务功能。</p>
+</blockquote>
+
+
+
+<h2 id="一后台主要接口总览"><strong>一、后台主要接口总览</strong></h2>
+
+
+
+<h3 id="1manager模块"><strong>1、Manager模块</strong></h3>
+
+<ul><li><strong>signIn</strong> – 登录接口</li>
+<li><strong>signUp</strong> – 注册接口</li>
+<li><strong>userDetail</strong> – 用户信息接口</li>
+<li><strong>goodsList</strong> – 商品列表接口</li>
+<li><strong>goodsDetail</strong> – 商品信息接口</li>
+<li><strong>pay</strong> – 支付接口</li>
+<li><strong>orderList</strong> – 订单列表接口</li>
+</ul>
+
+
+
+<h3 id="2database-control模块"><strong>2、Database Control模块</strong></h3>
+
+<ul><li><strong>querySimpleUserInfoByName</strong> – 简单用户信息查询接口（用于登录验证）</li>
+<li><strong>queryUserDetailInfoById</strong> – 用户信息详情查询接口</li>
+<li><strong>addUser</strong> – 增加用户接口</li>
+<li><strong>queryGoodsList</strong> – 商品列表查询接口</li>
+<li><strong>queryGoodsDetail</strong> – 商品信息查询接口</li>
+<li><strong>pay</strong> – 支付接口</li>
+<li><strong>queryOrdersList</strong> – 订单列表查询接口</li>
+<li><strong>queryBalance</strong> – 余额查询接口</li>
+<li><strong>queryGoodsCount</strong> – 商品库存查询接口</li>
+</ul>
+
+
+
+<h2 id="二测试接口详细说明"><strong>二、测试接口详细说明</strong></h2>
+
+
+
+<h3 id="1manager模块-1"><strong>1、Manager模块</strong></h3>
+
+<p>Manager模块错误码说明</p>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-text hljs"><div class="hljs-line">    成功：ManagerService.200
+</div><div class="hljs-line">    失败：ManagerService.400
+</div></code></pre>
+
+
+
+<h4 id="1登录接口">1）、登录接口</h4>
+
+<ul><li>rest接口：<strong>v1/rest/signIn</strong></li>
+<li>请求类别：post</li>
+<li>请求参数：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"userName"</span>:<span class="hljs-string">"jack"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"userPwd"</span>:<span class="hljs-string">"xxxxx"</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<ul><li>返回结果：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"errCode"</span>:<span class="hljs-string">"ManagerService.200"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"resMsg"</span>:[
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"userId"</span>:<span class="hljs-number">5</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"userName"</span>:<span class="hljs-string">"Jack"</span>
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    ],
+</div><div class="hljs-line">    <span class="hljs-attr">"signInResult"</span>:<span class="hljs-string">"SignInSuccess"</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+
+
+<h4 id="2注册接口">2)、注册接口</h4>
+
+<ul><li>rest接口：<strong>v1/rest/signUp</strong></li>
+<li>请求类别：Post</li>
+<li>请求参数：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"userName"</span>:<span class="hljs-string">"Marry"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"userPwd"</span>:<span class="hljs-string">"xxxxx"</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<ul><li>返回结果：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"errCode"</span>:<span class="hljs-string">"ManagerService.200"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"resMsg"</span>:<span class="hljs-number">1</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+
+
+<h4 id="3用户信息接口">3)、用户信息接口</h4>
+
+<ul><li>rest接口：<strong>v1/rest/userDetail</strong></li>
+<li>请求类别：Post</li>
+<li>请求参数：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"userId"</span>:<span class="hljs-number">1</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<ul><li>返回结果：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"errCode"</span>:<span class="hljs-string">"ManagerService.200"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"resMsg"</span>:[
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"userBalance"</span>:<span class="hljs-number">972</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"userId"</span>:<span class="hljs-number">1</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"userLevel"</span>:<span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"userName"</span>:<span class="hljs-string">"ssss"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"userSex"</span>:<span class="hljs-string">"-"</span>
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    ]
+</div><div class="hljs-line">}
+</div></code></pre>
+
+
+
+<h4 id="4商品列表接口">4)、商品列表接口</h4>
+
+<ul><li>rest接口：<strong>v1/rest/goodsList</strong></li>
+<li>请求类别：get</li>
+<li>请求参数：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-text hljs"><div class="hljs-line">    goodsType:Normal #Param:Normal or RushToBuy
+</div></code></pre>
+
+<ul><li>返回结果：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"errCode"</span>:<span class="hljs-string">"ManagerService.200"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"resMsg"</span>:[
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsId"</span>:<span class="hljs-number">1</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsName"</span>:<span class="hljs-string">"milk"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPicturePath"</span>:<span class="hljs-string">"xxxx"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPrice"</span>:<span class="hljs-number">2</span>
+</div><div class="hljs-line">        },
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsId"</span>:<span class="hljs-number">2</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsName"</span>:<span class="hljs-string">"apple"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPicturePath"</span>:<span class="hljs-string">"xxxx"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPrice"</span>:<span class="hljs-number">2</span>
+</div><div class="hljs-line">        },
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsId"</span>:<span class="hljs-number">3</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsName"</span>:<span class="hljs-string">"meat"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPicturePath"</span>:<span class="hljs-string">"xxxx"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPrice"</span>:<span class="hljs-number">2</span>
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    ]
+</div><div class="hljs-line">}
+</div></code></pre>
+
+
+
+<h4 id="5商品信息接口">5)、商品信息接口</h4>
+
+<ul><li>rest接口：<strong>v1/rest/userDetail</strong></li>
+<li>请求类别：get</li>
+<li>请求参数：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-text hljs"><div class="hljs-line">    goodsId:1
+</div><div class="hljs-line">    goodsType:Normal #param:Normal or RushToBuy
+</div></code></pre>
+
+<ul><li>返回结果：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"errCode"</span>:<span class="hljs-string">"ManagerService.200"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"resMsg"</span>:[
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsCount"</span>:<span class="hljs-string">"988"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsDescribe"</span>:<span class="hljs-string">"none"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsId"</span>:<span class="hljs-number">1</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsName"</span>:<span class="hljs-string">"milk"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPicturePath"</span>:<span class="hljs-string">"xxxx"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPrice"</span>:<span class="hljs-number">2</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsType"</span>:<span class="hljs-string">"Normal"</span>
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    ]
+</div><div class="hljs-line">}
+</div></code></pre>
+
+
+
+<h4 id="6支付接口">6)、支付接口</h4>
+
+<ul><li>rest接口：<strong>v1/rest/userDetail</strong></li>
+<li>请求类别：post</li>
+<li>请求参数：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"userId"</span>:<span class="hljs-string">"1"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"goodsId"</span>:<span class="hljs-string">"1"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"goodsPrice"</span>:<span class="hljs-string">"2"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"goodsType"</span>:<span class="hljs-string">"Normal"</span> #Param:Normal or RushToBuy
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<ul><li>返回结果：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"errCode"</span>:<span class="hljs-string">"ManagerService.200"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"resMsg"</span>:<span class="hljs-string">"PaySuccess"</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+
+
+<h4 id="7订单列表接口">7)、订单列表接口</h4>
+
+<ul><li>rest接口：<strong>v1/rest/orderList</strong></li>
+<li>请求类别：post</li>
+<li>请求参数：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"userId"</span>:<span class="hljs-string">"1"</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<ul><li>返回结果：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"errCode"</span>:<span class="hljs-string">"ManagerService.200"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"resMsg"</span>:[
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsId"</span>:<span class="hljs-number">1</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsName"</span>:<span class="hljs-string">"milk"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPicturePath"</span>:<span class="hljs-string">"xxxx"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPrice"</span>:<span class="hljs-number">2</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"ordersDate"</span>:<span class="hljs-string">"2017-1-11"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"ordersId"</span>:<span class="hljs-number">1</span>
+</div><div class="hljs-line">        },
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsId"</span>:<span class="hljs-number">2</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsName"</span>:<span class="hljs-string">"apple"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPicturePath"</span>:<span class="hljs-string">"xxxx"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPrice"</span>:<span class="hljs-number">2</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"ordersDate"</span>:<span class="hljs-string">"2017-1-11"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"ordersId"</span>:<span class="hljs-number">2</span>
+</div><div class="hljs-line">        },
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsId"</span>:<span class="hljs-number">3</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsName"</span>:<span class="hljs-string">"meat"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPicturePath"</span>:<span class="hljs-string">"xxxx"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPrice"</span>:<span class="hljs-number">2</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"ordersDate"</span>:<span class="hljs-string">"2017-1-11"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"ordersId"</span>:<span class="hljs-number">3</span>
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    ]
+</div><div class="hljs-line">}
+</div></code></pre>
+
+
+
+<h3 id="2database-control模块-1"><strong>2、Database Control模块</strong></h3>
+
+<p>Database Control模块错误码说明</p>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-text hljs"><div class="hljs-line">    成功：DbService.200
+</div><div class="hljs-line">    失败：DbService.400
+</div></code></pre>
+
+
+
+<h4 id="1简单用户信息查询接口用于登录验证">1）、简单用户信息查询接口（用于登录验证）</h4>
+
+<ul><li>rest接口：<strong>v1/rest/querySimpleUserInfoByName</strong></li>
+<li>请求类别：post</li>
+<li>请求参数：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"userName"</span>:<span class="hljs-string">"jack"</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<ul><li>返回结果：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"errCode"</span>:<span class="hljs-string">"DbService.200"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"resMsg"</span>:[
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"userId"</span>:<span class="hljs-number">5</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"userName"</span>:<span class="hljs-string">"Jack"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"userPwd"</span>:<span class="hljs-string">"xxxxx"</span>
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    ]
+</div><div class="hljs-line">}
+</div></code></pre>
+
+
+
+<h4 id="2用户信息详情查询接口">2）、用户信息详情查询接口</h4>
+
+<ul><li>rest接口：<strong>v1/rest/queryUserDetailInfoById</strong></li>
+<li>请求类别：post</li>
+<li>请求参数：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"userId"</span>:<span class="hljs-string">"1"</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<ul><li>返回结果：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"errCode"</span>:<span class="hljs-string">"DbService.200"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"resMsg"</span>:[
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"userBalance"</span>:<span class="hljs-number">1000</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"userId"</span>:<span class="hljs-number">5</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"userLevel"</span>:<span class="hljs-number">0</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"userName"</span>:<span class="hljs-string">"Jack"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"userSex"</span>:<span class="hljs-string">"-"</span>
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    ]
+</div><div class="hljs-line">}
+</div></code></pre>
+
+
+
+<h4 id="3增加用户接口">3）、增加用户接口</h4>
+
+<ul><li>rest接口：<strong>v1/rest/addUser</strong></li>
+<li>请求类别：post</li>
+<li>请求参数：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"userName"</span>:<span class="hljs-string">"Smith"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"userPwd"</span>:<span class="hljs-string">"xxxxx"</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<ul><li>返回结果：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"errCode"</span>:<span class="hljs-string">"DbService.200"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"resMsg"</span>:<span class="hljs-number">1</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+
+
+<h4 id="4商品列表查询接口">4）、商品列表查询接口</h4>
+
+<ul><li>rest接口：<strong>v1/rest/queryGoodsList</strong></li>
+<li>请求类别：get</li>
+<li>请求参数：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-text hljs"><div class="hljs-line">    goodsType:Normal #Param:Normal or RushToBuy
+</div></code></pre>
+
+<ul><li>返回结果：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"errCode"</span>:<span class="hljs-string">"DbService.200"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"resMsg"</span>:[
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsId"</span>:<span class="hljs-number">1</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsName"</span>:<span class="hljs-string">"milk"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPicturePath"</span>:<span class="hljs-string">"xxxx"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPrice"</span>:<span class="hljs-number">2</span>
+</div><div class="hljs-line">        },
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsId"</span>:<span class="hljs-number">2</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsName"</span>:<span class="hljs-string">"apple"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPicturePath"</span>:<span class="hljs-string">"xxxx"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPrice"</span>:<span class="hljs-number">2</span>
+</div><div class="hljs-line">        },
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsId"</span>:<span class="hljs-number">3</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsName"</span>:<span class="hljs-string">"meat"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPicturePath"</span>:<span class="hljs-string">"xxxx"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPrice"</span>:<span class="hljs-number">2</span>
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    ]
+</div><div class="hljs-line">}
+</div></code></pre>
+
+
+
+<h4 id="5商品信息查询接口">5）、商品信息查询接口</h4>
+
+<ul><li>rest接口：<strong>v1/rest/queryGoodsDetail</strong></li>
+<li>请求类别：get</li>
+<li>请求参数：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-text hljs"><div class="hljs-line">    goodsId:1
+</div></code></pre>
+
+<ul><li>返回结果：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"errCode"</span>:<span class="hljs-string">"DbService.200"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"resMsg"</span>:[
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsCount"</span>:<span class="hljs-string">"986"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsDescribe"</span>:<span class="hljs-string">"none"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsId"</span>:<span class="hljs-number">1</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsName"</span>:<span class="hljs-string">"milk"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPicturePath"</span>:<span class="hljs-string">"xxxx"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPrice"</span>:<span class="hljs-number">2</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsType"</span>:<span class="hljs-string">"Normal"</span>
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    ]
+</div><div class="hljs-line">}
+</div></code></pre>
+
+
+
+<h4 id="6支付接口-1">6）、支付接口</h4>
+
+<ul><li>rest接口：<strong>v1/rest/pay</strong></li>
+<li>请求类别：post</li>
+<li>请求参数：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"userId"</span>:<span class="hljs-string">"1"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"goodsId"</span>:<span class="hljs-string">"1"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"goodsPrice"</span>:<span class="hljs-string">"2"</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<ul><li>返回结果：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"errCode"</span>:<span class="hljs-string">"DbService.200"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"resMsg"</span>:<span class="hljs-string">"PaySuccess"</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+
+
+<h4 id="7订单列表查询接口">7）、订单列表查询接口</h4>
+
+<ul><li>rest接口：<strong>v1/rest/queryOrdersList</strong></li>
+<li>请求类别：post</li>
+<li>请求参数：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"userId"</span>:<span class="hljs-string">"1"</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<ul><li>返回结果：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"errCode"</span>:<span class="hljs-string">"DbService.200"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"resMsg"</span>:[
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsId"</span>:<span class="hljs-number">1</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsName"</span>:<span class="hljs-string">"milk"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPicturePath"</span>:<span class="hljs-string">"xxxx"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPrice"</span>:<span class="hljs-number">2</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"ordersDate"</span>:<span class="hljs-string">"2017-1-11"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"ordersId"</span>:<span class="hljs-number">1</span>
+</div><div class="hljs-line">        },
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsId"</span>:<span class="hljs-number">2</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsName"</span>:<span class="hljs-string">"apple"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPicturePath"</span>:<span class="hljs-string">"xxxx"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPrice"</span>:<span class="hljs-number">2</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"ordersDate"</span>:<span class="hljs-string">"2017-1-11"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"ordersId"</span>:<span class="hljs-number">2</span>
+</div><div class="hljs-line">        },
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsId"</span>:<span class="hljs-number">3</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsName"</span>:<span class="hljs-string">"meat"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPicturePath"</span>:<span class="hljs-string">"xxxx"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsPrice"</span>:<span class="hljs-number">2</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"ordersDate"</span>:<span class="hljs-string">"2017-1-11"</span>,
+</div><div class="hljs-line">            <span class="hljs-attr">"ordersId"</span>:<span class="hljs-number">3</span>
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    ]
+</div><div class="hljs-line">}
+</div></code></pre>
+
+
+
+<h4 id="8余额查询接口">8）、余额查询接口</h4>
+
+<ul><li>rest接口：<strong>v1/rest/queryBalance</strong></li>
+<li>请求类别：post</li>
+<li>请求参数：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"userId"</span>:<span class="hljs-number">1</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<ul><li>返回结果：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"errCode"</span>:<span class="hljs-string">"DbService.200"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"resMsg"</span>:[
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"balance"</span>:<span class="hljs-number">966</span>
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    ]
+</div><div class="hljs-line">}
+</div></code></pre>
+
+
+
+<h4 id="9商品库存查询接口">9）、商品库存查询接口</h4>
+
+<ul><li>rest接口：<strong>v1/rest/queryGoodsCount</strong></li>
+<li>请求类别：post</li>
+<li>请求参数：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"goodsId"</span>:<span class="hljs-string">"1"</span>
+</div><div class="hljs-line">}
+</div></code></pre>
+
+<ul><li>返回结果：</li>
+</ul>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-json hljs"><div class="hljs-line">{
+</div><div class="hljs-line">    <span class="hljs-attr">"errCode"</span>:<span class="hljs-string">"DbService.200"</span>,
+</div><div class="hljs-line">    <span class="hljs-attr">"resMsg"</span>:[
+</div><div class="hljs-line">        {
+</div><div class="hljs-line">            <span class="hljs-attr">"goodsCount"</span>:<span class="hljs-number">985</span>
+</div><div class="hljs-line">        }
+</div><div class="hljs-line">    ]
+</div><div class="hljs-line">}
+</div></code></pre></div></body></html>
