@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    String bpath = request.getContextPath();
+%>
 <html>
 <head>
     <title>用户信息</title>
@@ -27,7 +30,7 @@
         <table align="center">
             <tr>
                 <td>
-                    <img src="${user.userHeadPortraitPath}"  width="200" height="200">
+                    <img src="<%=bpath%>${user.userHeadPortraitPath}"  width="200" height="200">
                 </td>
                 <td width="50"></td>
                 <td>
