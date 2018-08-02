@@ -5,11 +5,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Demo Mall</title>
+    <style type="text/css">
+
+    </style>
 </head>
 <body>
 <jsp:include page="commonHeaderBanner.jsp"/>
 <div align="center" class="title">
-    <H2>抢购商品</H2>
+    <H1>抢购商品</H1>
 </div>
 <div align="center">
     <table align="center">
@@ -34,7 +37,7 @@
 <p/>
 <p/>
 <div align="center" class="title">
-    <H2>普通商品</H2>
+    <H1>普通商品</H1>
 </div>
 <table align="center">
     <c:forEach items="${goodsList }" var="good" varStatus="status">
@@ -43,7 +46,7 @@
         </c:if>
         <td>
             <form id="buyFrom" action="normalGoodsDetail">
-                <img src="${good.goodsPicturePath}"  width="200" height="200">
+                <img src="${good.goodsPicturePath}"  width="300" height="300">
                 <input type="hidden" name="goodsId" value="${good.goodsId}">
                 <table align="center">
                     <tr>

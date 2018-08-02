@@ -79,7 +79,7 @@
         }
 
         .title{
-            margin-right:800px;
+            margin-right:1000px;
         }
 
         .head_div{
@@ -140,7 +140,7 @@
         })
     }
 </script>
-<p></p>
-<p></p>
+<br>
+<br>
 </body>
 </html>

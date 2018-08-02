@@ -29,8 +29,6 @@
 </head>
 <body>
 <jsp:include page="commonHeaderBanner.jsp"/>
-<p></p>
-<p></p>
 <div align="center" class="title">
     <H1>商品详情</H1>
 </div>

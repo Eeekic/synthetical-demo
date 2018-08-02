@@ -24,9 +24,6 @@
 </head>
 <body>
     <jsp:include page="commonHeaderBanner.jsp"/>
-    <p></p>
-    <p></p>
-    <p></p>
     <table align="center">
         <tr>
             <td class="ordersTableStyle"><h3>订单号</h3></td>

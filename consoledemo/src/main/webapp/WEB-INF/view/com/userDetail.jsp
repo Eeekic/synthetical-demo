@@ -23,9 +23,6 @@
 </head>
 <body>
     <jsp:include page="commonHeaderBanner.jsp"/>
-    <p></p>
-    <p></p>
-    <p></p>
     <div align="center">
         <table align="center">
             <tr>

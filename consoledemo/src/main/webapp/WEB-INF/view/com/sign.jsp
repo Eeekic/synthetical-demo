@@ -22,9 +22,6 @@
 </head>
 <body>
     <jsp:include page="commonHeaderBanner.jsp"/>
-    <p></p>
-    <p></p>
-    <p></p>
     <h1 style="color:black" align="center">登录注册</h1>
     <div style="width:100%;text-align:center" align="center">
         <div align="left">
