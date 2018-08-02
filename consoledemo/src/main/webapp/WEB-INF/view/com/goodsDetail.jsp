@@ -25,11 +25,15 @@
             font-size:20px;
             width:150px;
         }
+
+        .goodsInfo{
+            margin-right:800px;
+        }
     </style>
 </head>
 <body>
 <jsp:include page="commonHeaderBanner.jsp"/>
-<div align="center" class="title">
+<div align="center" class="goodsInfo">
     <H1>商品详情</H1>
 </div>
 <div align="center">

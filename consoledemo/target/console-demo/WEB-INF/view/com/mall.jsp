@@ -6,7 +6,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Demo Mall</title>
     <style type="text/css">
-
+        .title{
+            margin-right:1000px;
+        }
     </style>
 </head>
 <body>

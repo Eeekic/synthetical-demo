@@ -47,7 +47,6 @@ public class ManagerServiceController {
     public String goodsDetail(HttpServletRequest request){
         String goodsId = request.getParameter("goodsId");
         String goodsType = request.getParameter("goodsType");
-
         return managerService.goodsDetail(goodsId,goodsType);
     }
 

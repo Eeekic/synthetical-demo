@@ -78,10 +78,6 @@
             width:80px;
         }
 
-        .title{
-            margin-right:1000px;
-        }
-
         .head_div{
             position:absolute;
             width:100%;
