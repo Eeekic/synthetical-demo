@@ -31,12 +31,12 @@ public class ConsumerManager {
         if(kafkaConsumer == null) {
             Properties consumerConfig = kafkaConfigBean.getConsumerConfig();
             kafkaConsumer = new KafkaConsumer<>(consumerConfig);
+            kafkaConsumer.listTopics();
             try {
                 kafkaConsumer.subscribe(Arrays.asList(consumerConfig.getProperty("topic")), new ConsumerListener());
             }catch (Exception e){
                 log.error(e);
             }
-
         }
     }
 
@@ -58,5 +58,16 @@ public class ConsumerManager {
         int pollCount = records.count();
         kafkaConsumer.commitSync();
         return pollCount;
+    }
+
+    public String subscription(){
+        String result = null;
+        try {
+            Set<String> set = kafkaConsumer.subscription();
+            result = set.iterator().next();
+        }catch (Exception e){
+            log.error(e);
+        }
+        return result;
     }
 }

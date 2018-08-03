@@ -179,12 +179,10 @@ public class KafkaConfigBean {
 
     private static String getSaslConfig(){
         return getClassLoader().getResource(SASL_CONFIG).getPath();
-//        return "D:\\Program Files\\apache-tomcat-8.5.32\\webapps\\ROOT\\WEB-INF\\classes\\dms_kafka_client_jaas.conf";
     }
 
     private static String getTrustStorePath(){
         return getClassLoader().getResource(TRUSTSTORE_PATH).getPath();
-//        return "D:\\Program Files\\apache-tomcat-8.5.32\\webapps\\ROOT\\WEB-INF\\classes\\client.truststore.jks";
     }
 
     private static ClassLoader getClassLoader(){
