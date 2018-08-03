@@ -19,5 +19,6 @@ public class ScheduledTask {
     @Scheduled(fixedRate = 60000)
     public void print(){
         log.info("Topic:" + consumerManager.subscription());
+        System.out.println(consumerManager.subscription());
     }
 }

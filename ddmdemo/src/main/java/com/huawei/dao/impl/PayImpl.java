@@ -21,7 +21,7 @@ public class PayImpl implements PayDao {
 
     @Transactional
     @Override
-    public String pay(long userId,long goodsId,int goodsPrice) {
+    public String pay(long userId,long goodsId,int goodsPrice,String rushToBuyToken) {
         String result;
         if(goodsDao.queryGoodsCount(goodsId) > 0){
             if(userDao.queryUserBalance(userId) > goodsPrice) {
@@ -29,6 +29,7 @@ public class PayImpl implements PayDao {
                 orders.setUserId(userId);
                 orders.setGoodsId(goodsId);
                 orders.setOrdersDate(CommonUtils.getNowTime());
+                orders.setRushToBuyToken(rushToBuyToken);
                 ordersDao.addOrders(orders);
                 userDao.updateUserBalance(goodsPrice, userId);
                 goodsDao.updateGoodsCount(goodsId,1);

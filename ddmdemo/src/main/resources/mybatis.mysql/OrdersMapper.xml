@@ -8,7 +8,8 @@
         <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
         <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
         <result column="goods_price" property="goodsPrice" jdbcType="INTEGER" />
-        <result column="goods_picture_path" property="goodsPicturePath" jdbcType="INTEGER" />
+        <result column="goods_picture_path" property="goodsPicturePath" jdbcType="VARCHAR"/>
+        <result column="rush_to_buy_token" property="rushToBuyToken" jdbcType="VARCHAR" />
     </resultMap>
 
     <select id="queryOrdersList" resultType="com.huawei.projo.Orders" parameterType="long"  resultMap="BaseResultMap">
@@ -16,7 +17,7 @@
   </select>
 
     <insert id="addOrders" parameterType="com.huawei.projo.Orders" >
-    insert into orders (user_id,goods_id,orders_date) values(#{userId},#{goodsId},#{ordersDate})
+    insert into orders (user_id,goods_id,orders_date,rush_to_buy_token)values(#{userId},#{goodsId},#{ordersDate},#{rushToBuyToken})
   </insert>
 
 </mapper>

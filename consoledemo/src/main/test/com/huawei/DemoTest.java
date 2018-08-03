@@ -42,7 +42,7 @@ public class DemoTest {
 
     @Test
     public void payTest(){
-        String result = dataSourcesService.pay("1","1","2","RushToBuy");
+        String result = dataSourcesService.pay("1","1","2","Normal");
         System.out.println(result);
     }
 

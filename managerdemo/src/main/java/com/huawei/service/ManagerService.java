@@ -113,23 +113,24 @@ public class ManagerService {
 
     public String pay( Map<String, Object> urlVariables){
         String goodsType = urlVariables.get("goodsType").toString();
-        int rushToBuyToken = -1;
         JSONObject jsonObject;
 
         if(goodsType.equals(CommonUtils.RUSH_TO_BUY)) {
-            rushToBuyToken = consumerManager.consumeMsg(500);
-        }
-        if(rushToBuyToken == 0){
-            jsonObject = new JSONObject();
-            jsonObject.put("errCode",CommonUtils.NOMAL_CODE);
-            jsonObject.put("resMsg",CommonUtils.RUSH_TO_BUY_FAILED);
-        }else {
-            String url = dbServiceConfigBean.getPayUrl();
-            try {
-                jsonObject = getDataFromDbService(url, urlVariables, "Pay", POST_Method_TYPE);
-            } catch (Exception e) {
-                jsonObject = processException(e);
+            String rushToBuyToken = consumerManager.consumeMsg(500);
+            if(rushToBuyToken==null){
+                jsonObject = new JSONObject();
+                jsonObject.put("errCode",CommonUtils.NOMAL_CODE);
+                jsonObject.put("resMsg",CommonUtils.RUSH_TO_BUY_FAILED);
+                return jsonObject.toJSONString();
+            }else {
+                urlVariables.put("rushToBuyToken",rushToBuyToken);
             }
+        }
+        String url = dbServiceConfigBean.getPayUrl();
+        try {
+            jsonObject = getDataFromDbService(url, urlVariables, "Pay", POST_Method_TYPE);
+        } catch (Exception e) {
+            jsonObject = processException(e);
         }
         return jsonObject.toJSONString();
     }

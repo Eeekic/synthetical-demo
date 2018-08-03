@@ -1,5 +1,6 @@
 package com.huawei.controller;
 
+import com.huawei.Utils.CommonUtils;
 import com.huawei.projo.User;
 import com.huawei.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +71,12 @@ public class DbServiceController {
         long userId = Long.parseLong(param.get("userId").toString());
         long goodsId = Long.parseLong(param.get("goodsId").toString());
         int goodsPrice = Integer.parseInt(param.get("goodsPrice").toString());
-        return dbService.pay(userId,goodsId,goodsPrice);
+        String goodsType = param.get("goodsType").toString();
+        String RushToBuyToken = CommonUtils.DEFAULT_VALUE;
+        if(goodsType.equals(CommonUtils.GOODS_TYPE_RUSH_TO_BUY)){
+            RushToBuyToken = param.get("rushToBuyToken").toString();
+        }
+        return dbService.pay(userId,goodsId,goodsPrice,RushToBuyToken);
     }
 
     @RequestMapping(value="v1/rest/queryBalance", method = RequestMethod.POST)

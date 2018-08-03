@@ -128,10 +128,10 @@ public class DbService {
     }
 
 
-    public String pay(long userId,long goodsId,int goodsPrice){
+    public String pay(long userId,long goodsId,int goodsPrice,String rushToBuyToken){
         JSONObject jsonObject = new JSONObject();
         try{
-            String result = payDao.pay(userId,goodsId,goodsPrice);
+            String result = payDao.pay(userId,goodsId,goodsPrice,rushToBuyToken);
             jsonObject.put("errCode",CommonUtils.NOMAL_CODE);
             jsonObject.put("resMsg",result);
         }catch (Exception e){

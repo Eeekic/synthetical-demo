@@ -10,6 +10,7 @@ public class Orders {
     private String goodsName;
     private int goodsPrice;
     private String goodsPicturePath;
+    private String rushToBuyToken;
 
 
     public long getOrdersId() {
@@ -66,6 +67,14 @@ public class Orders {
 
     public void setGoodsPicturePath(String goodsPicturePath) {
         this.goodsPicturePath = goodsPicturePath;
+    }
+
+    public String getRushToBuyToken() {
+        return rushToBuyToken;
+    }
+
+    public void setRushToBuyToken(String rushToBuyToken) {
+        this.rushToBuyToken = rushToBuyToken;
     }
 
     @Override

@@ -68,7 +68,7 @@ public class DemoTest {
 
     @Test
     public void payTest(){
-        System.out.println(dbService.pay(1,1,2));
+//        System.out.println(dbService.pay(1,1,2));
     }
 
 }

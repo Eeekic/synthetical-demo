@@ -2,6 +2,7 @@ package com.huawei.manager;
 
 import com.huawei.configbean.KafkaConfigBean;
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.PartitionInfo;
@@ -53,14 +54,23 @@ public class ConsumerManager {
         }
     }
 
-    public synchronized int consumeMsg(int timeout){
-        ConsumerRecords<String, String> records = kafkaConsumer.poll(timeout);
-        int pollCount = records.count();
-        kafkaConsumer.commitSync();
-        return pollCount;
+    public synchronized String consumeMsg(int timeout){
+        String result = null;
+        try {
+            ConsumerRecords<String, String> records = kafkaConsumer.poll(timeout);
+            Iterator<ConsumerRecord<String, String>> it = records.iterator();
+            if(it.hasNext()){
+                ConsumerRecord<String, String> cr = it.next();
+                result = cr.value();
+            }
+            kafkaConsumer.commitSync();
+        }catch (Exception e){
+            log.error(e);
+        }
+        return result;
     }
 
-    public String subscription(){
+    public synchronized String subscription(){
         String result = null;
         try {
             Set<String> set = kafkaConsumer.subscription();
