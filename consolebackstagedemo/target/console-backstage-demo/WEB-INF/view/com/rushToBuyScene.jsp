@@ -73,14 +73,14 @@
                 <table class="table-style">
                     <tr>
                         <td >
-                            <label for="rushToBuyGoodsCountQuery">抢购商品预置进度</label>
-                            <input id="rushToBuyGoodsCountQuery" class="query-input-style" value="-">
+                            <label for="rushToBuyGoodsCountQuery">抢购商品预置(已完成数量)：</label>
+                            <input id="rushToBuyGoodsCountQuery" class="query-input-style" value="-" readonly="value">
                         </td>
                     </tr>
                     <tr>
                         <td >
-                            <label for="rushToBuyUsersCountQuery">抢购用户预置进度</label>
-                            <input id="rushToBuyUsersCountQuery" class="query-input-style" value="-">
+                            <label for="rushToBuyUsersCountQuery">抢购用户预置(已完成数量)：</label>
+                            <input id="rushToBuyUsersCountQuery" class="query-input-style" value="-" readonly="value">
                         </td>
                         <td id=""></td>
                     </tr>
@@ -88,36 +88,76 @@
             </form>
         </div>
 
-        <h4>3.压测参数查询</h4>
+        <h3>3.压测参数查询</h3>
         <div class="div-left">
-            <input type="button" value="查询" class="bt-style">
+            <input type="button" id="queryParamBt" value="查询" class="bt-style">
             <br>
             <form class="query-from-style">
                 <table class="table-style">
                     <tr>
                         <td >
-                            <label for="rushToBuyGoodsId">抢购商品ID</label>
-                            <input id="rushToBuyGoodsId" class="query-input-style" value="1110">
+                            <label for="rushToBuyGoodsId">抢购商品ID：</label>
+                            <input id="rushToBuyGoodsId" class="query-input-style" value="-" readonly="value">
                         </td>
                     </tr>
                     <tr>
                         <td >
-                            <label for="rushToBuyUsersIdRange">抢购用户ID范围</label>
-                            <input id="rushToBuyUsersIdRange" class="query-input-style" value="1~1000">
+                            <label for="rushToBuyGoodsPrice">抢购商品价格(￥)：</label>
+                            <input id="rushToBuyGoodsPrice" class="query-input-style" value="-" readonly="value">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <label for="rushToBuyGoodsType">抢购商品类型：</label>
+                            <input id="rushToBuyGoodsType" class="query-input-style" value="-" readonly="value">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <label for="rushToBuyUsersIdRange">抢购用户ID范围：</label>
+                            <input id="rushToBuyUsersIdRange" class="query-input-style" value="-" readonly="value">
                         </td>
                     </tr>
                 </table>
             </form>
         </div>
 
-        <h3 align="left">4.压测数据清理</h3>
-        <div class="div-left">
-            <form>
-                <input type="button" value="清理" class="bt-style">
-            </form>
-        </div>
+        <%--<h3 align="left">4.压测数据清理</h3>--%>
+        <%--<div class="div-left">--%>
+            <%--<form>--%>
+                <%--<input type="button" value="清理" class="bt-style">--%>
+            <%--</form>--%>
+        <%--</div>--%>
     </div>
+
     <h2>二、单租户租户调试测试</h2>
+
+    <div class="div-left">
+        <input type="button" id="singleTenantAdjustBt" value="查询" class="bt-style">
+        <form class="query-from-style">
+            <table>
+                <tr>
+                    <td>
+                        <label for="rushToBuyUrlTxt">请求Body：</label>
+                    </td>
+                    <td>
+                        <input type="text" id="rushToBuyUrlTxt" value="xxxx" class="bt-style">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="rushToBuyArea">请求Body：</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <textarea rows="4" cols="50" id="rushToBuyArea"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 
     <h2>三、多租户抢购压力测试</h2>
 </body>
@@ -126,7 +166,7 @@
         var goodsCount = $('#rushToBuyGoodsCount').val();
         var usersCount = $('#rushToBuyUsersCount').val();
         if(usersCount == "" || goodsCount == ""){
-            alert("提示：提交信息不能为空！" + goodsCount+usersCount)
+            alert("提示：提交信息不能为空！");
         }else{
             $.ajax({
                 type:'get',
@@ -148,11 +188,41 @@
     $('#queryProcessBt').on('click',function () {
         $.ajax({
             type:'get',
-            url:'queryTestUserCount',
+            url:'testUserCount',
             data:'',
             success:function (data) {
                 if(data != -1) {
                     $('#rushToBuyUsersCountQuery').attr("value",data);
+                }
+            }
+        });
+    });
+
+    $('#queryParamBt').on('click',function () {
+        $.ajax({
+            type:'get',
+            url:'rushToBuyGoodsDetail',
+            data:'',
+            success:function (data) {
+                if(data != "") {
+                    var goodsDetailJson = jQuery.parseJSON(data);
+                    $('#rushToBuyGoodsId').attr("value",goodsDetailJson.goodsId);
+                    $('#rushToBuyGoodsPrice').attr("value",goodsDetailJson.goodsPrice);
+                    $('#rushToBuyGoodsType').attr("value",goodsDetailJson.goodsType);
+                }else {
+                    $('#rushToBuyGoodsId').attr("value","请重试...");
+                }
+            }
+        });
+        $.ajax({
+            type:'get',
+            url:'testUserIdRange',
+            data:'',
+            success:function (data) {
+                if(data != "") {
+                    $('#rushToBuyUsersIdRange').attr("value",data);
+                }else {
+                    $('#rushToBuyUsersIdRange').attr("value","请重试...");
                 }
             }
         });

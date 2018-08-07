@@ -42,15 +42,23 @@ public class RushToBuyTestSceneController {
     }
 
 
-    @RequestMapping(value="v1/rest/rushToBuySuccessUser", method = RequestMethod.GET)
+    @RequestMapping(value="v1/rest/queryRushToBuySuccessUser", method = RequestMethod.GET)
     @ResponseBody
-    public String rushToBuySuccessUser(){
-        return rushToBuyTestSceneDbServices.rushToBuySuccessUser();
+    public String queryRushToBuySuccessUser(){
+        return rushToBuyTestSceneDbServices.queryRushToBuySuccessUser();
     }
 
-    @RequestMapping(value="v1/rest/rushToBuySuccessCount", method = RequestMethod.GET)
+    @RequestMapping(value="v1/rest/queryRushToBuySuccessCount", method = RequestMethod.GET)
     @ResponseBody
-    public String rushToBuySuccessCount(){
-        return rushToBuyTestSceneDbServices.rushToBuySuccessCount();
+    public String queryRushToBuySuccessCount(){
+        return rushToBuyTestSceneDbServices.queryRushToBuySuccessCount();
     }
+
+    @RequestMapping(value="v1/rest/queryTestUserIdRange", method = RequestMethod.GET)
+    @ResponseBody
+    public String queryTestUserIdRange(){
+        return rushToBuyTestSceneDbServices.queryTestUserIdRange();
+    }
+
+
 }

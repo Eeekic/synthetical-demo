@@ -65,7 +65,7 @@ public interface UserDao {
      *
      * @return
      */
-    public int addTestUser(String userName,String userPwd,String userType);
+    public int addUser(String userName,String userPwd,String userType);
 
     /**
      * create by: sunpeng
@@ -74,7 +74,7 @@ public interface UserDao {
      *
      * @return
      */
-    public List<User> queryTestUser(String userType);
+    public List<User> queryUser(String userType);
 
     /**
      * create by: sunpeng
@@ -83,7 +83,7 @@ public interface UserDao {
      *
      * @return
      */
-    public int cleanTestUser(String userType);
+    public int cleanUser(String userType);
 
     /**
      * create by: sunpeng
@@ -92,6 +92,24 @@ public interface UserDao {
      *
      * @return
      */
-    public int queryTestUserCount(String userType);
+    public int queryUserCount(String userType);
+
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 14:45 2018/7/28
+     *
+     * @return
+     */
+    public int queryUserMaxId(String userType);
+
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 14:45 2018/7/28
+     *
+     * @return
+     */
+    public int queryUserMinId(String userType);
 
 }

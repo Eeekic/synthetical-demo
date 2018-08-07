@@ -71,7 +71,7 @@ public interface UserMapper {
      *
      * @return
      */
-    public List<User> queryTestUser(String userType);
+    public List<User> queryUser(String userType);
 
     public long queryUserId(String userName);
     /**
@@ -81,7 +81,7 @@ public interface UserMapper {
      *
      * @return
      */
-    public int cleanTestUser(String userType);
+    public int cleanUser(String userType);
     /**
      * create by: sunpeng
      * description:
@@ -89,6 +89,24 @@ public interface UserMapper {
      *
      * @return
      */
-    public int queryTestUserCount(String userType);
+    public int queryUserCount(String userType);
+
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 14:45 2018/7/28
+     *
+     * @return
+     */
+    public int queryUserMaxId(String userType);
+
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 14:45 2018/7/28
+     *
+     * @return
+     */
+    public int queryUserMinId(String userType);
 
 }

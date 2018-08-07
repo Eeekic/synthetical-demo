@@ -42,23 +42,33 @@ public class UserImpl implements UserDao {
     }
 
     @Override
-    public int addTestUser(String userName,String userPwd,String userType){
+    public int addUser(String userName,String userPwd,String userType){
         return userMapper.addTestUser(userName,userPwd,userType);
     }
 
     @Override
-    public List<User> queryTestUser(String userType) {
-        return userMapper.queryTestUser(userType);
+    public List<User> queryUser(String userType) {
+        return userMapper.queryUser(userType);
     }
 
     @Override
-    public int cleanTestUser(String userType) {
-        return userMapper.cleanTestUser(userType);
+    public int cleanUser(String userType) {
+        return userMapper.cleanUser(userType);
     }
 
     @Override
-    public int queryTestUserCount(String userType) {
-        return userMapper.queryTestUserCount(userType);
+    public int queryUserCount(String userType) {
+        return userMapper.queryUserCount(userType);
+    }
+
+    @Override
+    public int queryUserMaxId(String userType) {
+        return userMapper.queryUserMaxId(userType);
+    }
+
+    @Override
+    public int queryUserMinId(String userType) {
+        return userMapper.queryUserMinId(userType);
     }
 
 }

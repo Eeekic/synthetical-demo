@@ -5,10 +5,11 @@ public class DbServicesConfigBean {
     private String addTestUserMethod;
     private String queryTestUserMethod;
     private String cleanTestUserMethod;
-    private String rushToBuySuccessUserMethod;
-    private String rushToBuySuccessCountMethod;
+    private String queryRushToBuySuccessUserMethod;
+    private String queryRushToBuySuccessCountMethod;
     private String queryTestUserCountMethod;
     private String queryGoodsListMethod;
+    private String queryTestUserIdRangeMethod;
 
     public void setHostAndPort(String hostAndPort) {
         this.hostAndPort = hostAndPort;
@@ -38,20 +39,20 @@ public class DbServicesConfigBean {
         this.cleanTestUserMethod = cleanTestUserMethod;
     }
 
-    public String getRushToBuySuccessUserMethodUrl() {
-        return hostAndPort + "/" + rushToBuySuccessUserMethod;
+    public String getQueryRushToBuySuccessUserMethodUrl() {
+        return hostAndPort + "/" + queryRushToBuySuccessUserMethod;
     }
 
-    public void setRushToBuySuccessUserMethod(String rushToBuySuccessUserMethod) {
-        this.rushToBuySuccessUserMethod = rushToBuySuccessUserMethod;
+    public void setQueryRushToBuySuccessUserMethod(String queryRushToBuySuccessUserMethod) {
+        this.queryRushToBuySuccessUserMethod = queryRushToBuySuccessUserMethod;
     }
 
-    public String getRushToBuySuccessCountMethodUrl() {
-        return hostAndPort + "/" + rushToBuySuccessCountMethod;
+    public String getQueryRushToBuySuccessCountMethodUrl() {
+        return hostAndPort + "/" + queryRushToBuySuccessCountMethod;
     }
 
-    public void setRushToBuySuccessCountMethod(String rushToBuySuccessCountMethod) {
-        this.rushToBuySuccessCountMethod = rushToBuySuccessCountMethod;
+    public void setQueryRushToBuySuccessCountMethod(String queryRushToBuySuccessCountMethod) {
+        this.queryRushToBuySuccessCountMethod = queryRushToBuySuccessCountMethod;
     }
 
     public String getQueryTestUserCountMethodUrl() {
@@ -68,5 +69,13 @@ public class DbServicesConfigBean {
 
     public void setQueryGoodsListMethod(String queryGoodsListMethod) {
         this.queryGoodsListMethod = queryGoodsListMethod;
+    }
+
+    public String getQueryTestUserIdRangeMethodUrl() {
+        return hostAndPort + "/" + queryTestUserIdRangeMethod;
+    }
+
+    public void setQueryTestUserIdRangeMethod(String queryTestUserIdRangeMethod) {
+        this.queryTestUserIdRangeMethod = queryTestUserIdRangeMethod;
     }
 }

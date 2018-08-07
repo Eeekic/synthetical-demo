@@ -37,10 +37,11 @@
         <property name="addTestUserMethod"  value="${addTestUserMethod}"/>
         <property name="queryTestUserMethod"  value="${queryTestUserMethod}"/>
         <property name="cleanTestUserMethod"  value="${cleanTestUserMethod}"/>
-        <property name="rushToBuySuccessUserMethod"  value="${rushToBuySuccessUserMethod}"/>
-        <property name="rushToBuySuccessCountMethod"  value="${rushToBuySuccessCountMethod}"/>
+        <property name="queryRushToBuySuccessCountMethod"  value="${queryRushToBuySuccessCountMethod}"/>
+        <property name="queryRushToBuySuccessUserMethod"  value="${queryRushToBuySuccessUserMethod}"/>
         <property name="queryTestUserCountMethod"  value="${queryTestUserCountMethod}"/>
         <property name="queryGoodsListMethod"  value="${queryGoodsListMethod}"/>
+        <property name="queryTestUserIdRangeMethod"  value="${queryTestUserIdRangeMethod}"/>
     </bean>
 
     <bean id="prepareTestUserRunnable" class="com.huawei.runnable.PrepareTestUserRunnable"/>

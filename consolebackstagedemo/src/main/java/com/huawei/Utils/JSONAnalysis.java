@@ -6,16 +6,15 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 
 public class JSONAnalysis {
+
     private static Logger log = Logger.getLogger(JSONAnalysis.class);
-    public static int NormalAnalysisForObjectCount(JSONObject jsonObject){
+
+    public static int analysisForObjectCount(JSONObject jsonObject,String key){
         int result = -1;
         try {
-            JSONArray resMsgJsonArray = commonAnalysis(jsonObject);
-            if(resMsgJsonArray != null && resMsgJsonArray.size() > 0){
-                JSONObject resMsgJson = resMsgJsonArray.getJSONObject(0);
-                if(resMsgJson != null && resMsgJson.getString("testUserCount") != null){
-                    result = Integer.parseInt(resMsgJson.getString("testUserCount"));
-                }
+            JSONObject resMsgJson = JsonObjectAnalysis(jsonObject);
+            if(resMsgJson != null && resMsgJson.getString(key) != null){
+                result = Integer.parseInt(resMsgJson.getString(key));
             }
         }catch (Exception e){
             result = -1;
@@ -24,6 +23,29 @@ public class JSONAnalysis {
         return result;
     }
 
+    public static String analysisObjectString(JSONObject jsonObject ,String key){
+        String result = "";
+        try {
+            JSONObject resMsgJson = JsonObjectAnalysis(jsonObject);
+            if(resMsgJson != null && resMsgJson.getString(key) != null){
+                result = resMsgJson.getString(key);
+            }
+        }catch (Exception e){
+            result = "";
+            log.error(e);
+        }
+        return result;
+    }
+
+    public static JSONObject analysisObjectJson(JSONObject jsonObject){
+        JSONObject resMsgJson = null;
+        try {
+            resMsgJson = JsonObjectAnalysis(jsonObject);
+        }catch (Exception e){
+            log.error(e);
+        }
+        return resMsgJson;
+    }
 
 
     private static JSONArray commonAnalysis(JSONObject jsonObject){
@@ -37,5 +59,18 @@ public class JSONAnalysis {
             log.error(e);
         }
         return jsonArray;
+    }
+
+    private static JSONObject JsonObjectAnalysis(JSONObject jsonObject){
+        JSONObject resMsgJson = null;
+        JSONArray resMsgJsonArray = commonAnalysis(jsonObject);
+        try {
+            if(resMsgJsonArray != null && resMsgJsonArray.size() > 0) {
+                resMsgJson = resMsgJsonArray.getJSONObject(0);
+            }
+        }catch (Exception e){
+            log.error(e);
+        }
+        return resMsgJson;
     }
 }

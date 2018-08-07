@@ -31,11 +31,11 @@
     insert into orders (user_id,goods_id,orders_date,rush_to_buy_token)values(#{userId},#{goodsId},#{ordersDate},#{rushToBuyToken})
   </insert>
 
-    <select id="rushToBuySuccessCount" resultType="int">
+    <select id="queryRushToBuySuccessCount" resultType="int">
     select count(1) from orders,user where orders.user_id=user.user_id and user_type=#{userType} and rush_to_buy_token!=#{tokenDefaultValue}
   </select>
 
-    <select id="rushToBuySuccessUser" resultType="com.huawei.projo.User" resultMap="UserResultMap">
+    <select id="queryRushToBuySuccessUser" resultType="com.huawei.projo.User" resultMap="UserResultMap">
     select user.user_id,user_name from user,orders where user.user_id=orders.user_id and user_type=#{userType} and rush_to_buy_token !=#{tokenDefaultValue} order by user.user_id
   </select>
 

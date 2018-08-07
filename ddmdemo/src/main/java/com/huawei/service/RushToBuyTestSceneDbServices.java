@@ -3,9 +3,7 @@ package com.huawei.service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huawei.Utils.CommonUtils;
-import com.huawei.dao.GoodsDao;
 import com.huawei.dao.OrdersDao;
-import com.huawei.dao.PayDao;
 import com.huawei.dao.UserDao;
 import com.huawei.projo.User;
 import org.apache.log4j.Logger;
@@ -29,7 +27,7 @@ public class RushToBuyTestSceneDbServices {
         try {
             int result = 0;
             for(int i=0;i<count;i++) {
-                result += userDao.addTestUser("test" + System.currentTimeMillis() + i,"123",CommonUtils.USER_TEST_TYPE);
+                result += userDao.addUser("test" + System.currentTimeMillis() + i,"123",CommonUtils.USER_TEST_TYPE);
             }
             jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             JSONArray jsonArray = new JSONArray();
@@ -47,7 +45,7 @@ public class RushToBuyTestSceneDbServices {
     public String queryTestUser(){
         JSONObject jsonObject = new JSONObject();
         try {
-            List<User> userList = userDao.queryTestUser(CommonUtils.USER_TEST_TYPE);
+            List<User> userList = userDao.queryUser(CommonUtils.USER_TEST_TYPE);
             jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             jsonObject.put("resMsg",User.toJsonArray(userList));
         }catch (Exception e){
@@ -60,7 +58,7 @@ public class RushToBuyTestSceneDbServices {
     public String queryTestUserCount(){
         JSONObject jsonObject = new JSONObject();
         try {
-            int result = userDao.queryTestUserCount(CommonUtils.USER_TEST_TYPE);
+            int result = userDao.queryUserCount(CommonUtils.USER_TEST_TYPE);
             jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             JSONArray jsonArray = new JSONArray();
             JSONObject resultJson = new JSONObject();
@@ -77,7 +75,7 @@ public class RushToBuyTestSceneDbServices {
     public String cleanTestUser(){
         JSONObject jsonObject = new JSONObject();
         try {
-            int result = userDao.cleanTestUser(CommonUtils.USER_TEST_TYPE);
+            int result = userDao.cleanUser(CommonUtils.USER_TEST_TYPE);
             jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             JSONArray jsonArray = new JSONArray();
             JSONObject resultJson = new JSONObject();
@@ -91,14 +89,14 @@ public class RushToBuyTestSceneDbServices {
         return jsonObject.toJSONString();
     }
 
-    public String rushToBuySuccessCount(){
+    public String queryRushToBuySuccessCount(){
         JSONObject jsonObject = new JSONObject();
         try {
-            int result = ordersDao.rushToBuySuccessCount(CommonUtils.USER_TEST_TYPE,CommonUtils.DEFAULT_VALUE);
+            int result = ordersDao.queryRushToBuySuccessCount(CommonUtils.USER_TEST_TYPE,CommonUtils.DEFAULT_VALUE);
             jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             JSONArray jsonArray = new JSONArray();
             JSONObject resultJson = new JSONObject();
-            resultJson.put("rushToBuySuccessCount",result);
+            resultJson.put("queryRushToBuySuccessCount",result);
             jsonArray.add(resultJson);
             jsonObject.put("resMsg",jsonArray);
         }catch (Exception e){
@@ -107,12 +105,30 @@ public class RushToBuyTestSceneDbServices {
         }
         return jsonObject.toJSONString();
     }
-    public String rushToBuySuccessUser(){
+    public String queryRushToBuySuccessUser(){
         JSONObject jsonObject = new JSONObject();
         try {
-            List<User> userList = ordersDao.rushToBuySuccessUser(CommonUtils.USER_TEST_TYPE,CommonUtils.DEFAULT_VALUE);
+            List<User> userList = ordersDao.queryRushToBuySuccessUser(CommonUtils.USER_TEST_TYPE,CommonUtils.DEFAULT_VALUE);
             jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             jsonObject.put("resMsg",User.toJsonArray(userList));
+        }catch (Exception e){
+            jsonObject.put("errCode",CommonUtils.ERROR_CODE);
+            jsonObject.put("resMsg",ExceptionProcess.getExceptionInfo(e));
+        }
+        return jsonObject.toJSONString();
+    }
+
+    public String queryTestUserIdRange(){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            int minId = userDao.queryUserMinId(CommonUtils.USER_TEST_TYPE);
+            int maxId = userDao.queryUserMaxId(CommonUtils.USER_TEST_TYPE);
+            jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
+            JSONArray jsonArray = new JSONArray();
+            JSONObject resultJson = new JSONObject();
+            resultJson.put("testUserIdRange","[" + minId + "," + maxId +"]");
+            jsonArray.add(resultJson);
+            jsonObject.put("resMsg",jsonArray);
         }catch (Exception e){
             jsonObject.put("errCode",CommonUtils.ERROR_CODE);
             jsonObject.put("resMsg",ExceptionProcess.getExceptionInfo(e));

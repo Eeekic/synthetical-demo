@@ -24,13 +24,13 @@ public class OrdersImpl implements OrdersDao {
     }
 
     @Override
-    public int rushToBuySuccessCount(String userType,String tokenDefaultValue) {
-        return ordersMapper.rushToBuySuccessCount(userType,tokenDefaultValue);
+    public int queryRushToBuySuccessCount(String userType,String tokenDefaultValue) {
+        return ordersMapper.queryRushToBuySuccessCount(userType,tokenDefaultValue);
     }
 
     @Override
-    public List<User> rushToBuySuccessUser(String userType,String tokenDefaultValue) {
-        return ordersMapper.rushToBuySuccessUser(userType,tokenDefaultValue);
+    public List<User> queryRushToBuySuccessUser(String userType,String tokenDefaultValue) {
+        return ordersMapper.queryRushToBuySuccessUser(userType,tokenDefaultValue);
     }
 
 }

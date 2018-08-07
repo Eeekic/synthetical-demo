@@ -1,5 +1,6 @@
 package com.huawei.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.huawei.service.DataSourcesService;
 import com.huawei.tools.PrePareRushToBuyTools;
 import org.apache.log4j.Logger;
@@ -44,16 +45,23 @@ public class ViewController {
         return result;
     }
 
-    @RequestMapping(value="queryTestUserCount", method = RequestMethod.GET)
+    @RequestMapping(value="testUserCount", method = RequestMethod.GET)
     @ResponseBody
     public int queryTestUserCount(){
         return dataSourcesService.queryTestUserCount();
     }
 
-    @RequestMapping(value="queryTestUserCount1", method = RequestMethod.GET)
+    @RequestMapping(value="rushToBuyGoodsDetail", method = RequestMethod.GET)
     @ResponseBody
-    public int queryRushToBuyGoods(){
-        return dataSourcesService.queryTestUserCount();
+    public String queryRushToBuyGoodsDetail(){
+        return dataSourcesService.queryRushToBuyGoodsDetail();
     }
+
+    @RequestMapping(value="testUserIdRange", method = RequestMethod.GET)
+    @ResponseBody
+    public String testUserIdRange(){
+        return dataSourcesService.testUserIdRange();
+    }
+
 
 }

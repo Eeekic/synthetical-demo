@@ -25,6 +25,7 @@ public class DataSourcesService {
     private PrepareTestUserRunnable prepareTestUserRunnable;
 
     public void commitPrepareTestUser(int count){
+        cleanTestUser();
         prepareTestUserRunnable.setCount(count);
         PrePareRushToBuyTools.execute(prepareTestUserRunnable);
     }
@@ -32,13 +33,30 @@ public class DataSourcesService {
     public int queryTestUserCount(){
         String url = dbServicesConfigBean.getQueryTestUserCountMethodUrl();
         JSONObject resultJson = httpClientService.getDataFromManagerServices(url,HttpClientService.GET_Method_TYPE);
-        return JSONAnalysis.NormalAnalysisForObjectCount(resultJson);
+        return JSONAnalysis.analysisForObjectCount(resultJson,"testUserCount");
     }
 
-    public String queryRushToBuyGoodsId(){
+    public String queryRushToBuyGoodsDetail(){
+        String result = "";
         String url = dbServicesConfigBean.getQueryGoodsListMethodUrl(CommonUtils.GOODS_TYPE_RUSH_TO_BUY);
         JSONObject resultJson = httpClientService.getDataFromManagerServices(url,HttpClientService.GET_Method_TYPE);
+        JSONObject jsonObject = JSONAnalysis.analysisObjectJson(resultJson);
+        if (jsonObject != null){
+            jsonObject.put("goodsType",CommonUtils.GOODS_TYPE_RUSH_TO_BUY);
+            result = jsonObject.toJSONString();
+        }
+        return result;
+    }
 
-        return "";
+    public int cleanTestUser(){
+        String url = dbServicesConfigBean.getCleanTestUserMethodUrl();
+        JSONObject resultJson = httpClientService.getDataFromManagerServices(url,HttpClientService.GET_Method_TYPE);
+        return JSONAnalysis.analysisForObjectCount(resultJson,"cleanTestUserCount");
+    }
+
+    public String testUserIdRange(){
+        String url = dbServicesConfigBean.getQueryTestUserIdRangeMethodUrl();
+        JSONObject resultJson = httpClientService.getDataFromManagerServices(url,HttpClientService.GET_Method_TYPE);
+        return JSONAnalysis.analysisObjectString(resultJson,"testUserIdRange");
     }
 }

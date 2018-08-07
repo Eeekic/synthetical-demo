@@ -32,7 +32,7 @@ public interface OrdersDao {
      *
      * @return
      */
-    public int rushToBuySuccessCount(String userType,String tokenDefaultValue);
+    public int queryRushToBuySuccessCount(String userType,String tokenDefaultValue);
     /**
      * create by: sunpeng
      * description:
@@ -40,5 +40,5 @@ public interface OrdersDao {
      *
      * @return
      */
-    public List<User> rushToBuySuccessUser(String userType,String tokenDefaultValue);
+    public List<User> queryRushToBuySuccessUser(String userType,String tokenDefaultValue);
 }

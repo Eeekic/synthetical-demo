@@ -32,7 +32,7 @@ public interface OrdersMapper {
      *
      * @return
      */
-    public int rushToBuySuccessCount(@Param("userType")String userType, @Param("tokenDefaultValue")String tokenDefaultValue);
+    public int queryRushToBuySuccessCount(@Param("userType")String userType, @Param("tokenDefaultValue")String tokenDefaultValue);
     /**
      * create by: sunpeng
      * description:
@@ -40,6 +40,6 @@ public interface OrdersMapper {
      *
      * @return
      */
-    public List<User> rushToBuySuccessUser(@Param("userType")String userType,@Param("tokenDefaultValue")String tokenDefaultValue);
+    public List<User> queryRushToBuySuccessUser(@Param("userType")String userType,@Param("tokenDefaultValue")String tokenDefaultValue);
 
 }
