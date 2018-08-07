@@ -2,6 +2,8 @@ package com.huawei.dao;
 
 import com.huawei.projo.User;
 
+import java.util.List;
+
 public interface UserDao {
     /**
      * create by: sunpeng
@@ -55,4 +57,41 @@ public interface UserDao {
      * @return
      */
     public long queryUserId(String userName);
+
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 19:28 2018/7/26
+     *
+     * @return
+     */
+    public int addTestUser(String userName,String userPwd,String userType);
+
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 14:45 2018/7/28
+     *
+     * @return
+     */
+    public List<User> queryTestUser(String userType);
+
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 14:45 2018/7/28
+     *
+     * @return
+     */
+    public int cleanTestUser(String userType);
+
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 14:45 2018/7/28
+     *
+     * @return
+     */
+    public int queryTestUserCount(String userType);
+
 }

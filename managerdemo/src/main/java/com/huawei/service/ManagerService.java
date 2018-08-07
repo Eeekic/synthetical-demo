@@ -3,7 +3,8 @@ package com.huawei.service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huawei.Utils.CommonUtils;
-import com.huawei.configbean.DbServiceConfigBean;
+import com.huawei.configbean.DbServicesConfigBean;
+import com.huawei.configbean.KafkaConfigBean;
 import com.huawei.manager.ConsumerManager;
 import com.huawei.manager.RedisCacheManager;
 import org.apache.log4j.Logger;
@@ -23,7 +24,7 @@ public class ManagerService {
     private RestTemplate restTemplate;
 
     @Autowired
-    private DbServiceConfigBean dbServiceConfigBean;
+    private DbServicesConfigBean dbServicesConfigBean;
 
     @Autowired
     private RedisCacheManager redisCacheManager;
@@ -38,7 +39,7 @@ public class ManagerService {
 
 
     public String signIn(Map<String, Object> urlVariables){
-        String url = dbServiceConfigBean.querySimpleUserInfoUrl();
+        String url = dbServicesConfigBean.querySimpleUserInfoUrl();
         JSONObject resultJson;
         try {
             Map<String,Object> dbUrlVariables = new HashMap<>();
@@ -67,7 +68,7 @@ public class ManagerService {
     }
 
     public String userDetail(Map<String, Object> urlVariables){
-        String url = dbServiceConfigBean.queryUserDetailInfoByIdUrl();
+        String url = dbServicesConfigBean.queryUserDetailInfoByIdUrl();
         JSONObject jsonObject;
         try {
             jsonObject = getDataFromDbService( url, urlVariables,"UserDetail",POST_Method_TYPE);
@@ -78,7 +79,7 @@ public class ManagerService {
     }
 
     public String signUp(Map<String, Object> urlVariables){
-        String url = dbServiceConfigBean.getAddUserUrl();
+        String url = dbServicesConfigBean.getAddUserUrl();
         JSONObject jsonObject;
         try {
             jsonObject = getDataFromDbService( url, urlVariables,"SignUp",POST_Method_TYPE);
@@ -90,7 +91,7 @@ public class ManagerService {
 
 
     public String goodsList(String goodsType){
-        String url = dbServiceConfigBean.getQueryGoodsListUrl(goodsType);
+        String url = dbServicesConfigBean.getQueryGoodsListUrl(goodsType);
         JSONObject jsonObject;
         try {
             jsonObject = getDataFromDbService( url, "GoodsList",GET_Method_TYPE);
@@ -101,7 +102,7 @@ public class ManagerService {
     }
 
     public String goodsDetail(String goodsId,String goodsType){
-        String url = dbServiceConfigBean.getQueryGoodsDetailUrl(goodsId);
+        String url = dbServicesConfigBean.getQueryGoodsDetailUrl(goodsId);
         JSONObject jsonObject;
         try {
             jsonObject = getDataWithRedis( url,"GoodsDetail",GET_Method_TYPE,goodsId,goodsType);
@@ -126,7 +127,7 @@ public class ManagerService {
                 urlVariables.put("rushToBuyToken",rushToBuyToken);
             }
         }
-        String url = dbServiceConfigBean.getPayUrl();
+        String url = dbServicesConfigBean.getPayUrl();
         try {
             jsonObject = getDataFromDbService(url, urlVariables, "Pay", POST_Method_TYPE);
         } catch (Exception e) {
@@ -137,7 +138,7 @@ public class ManagerService {
 
 
     public String orderList( Map<String, Object> urlVariables){
-        String url = dbServiceConfigBean.getQueryOrdersListUrl();
+        String url = dbServicesConfigBean.getQueryOrdersListUrl();
         JSONObject jsonObject;
         try {
             jsonObject = getDataFromDbService( url, urlVariables,"OrderList",POST_Method_TYPE);
@@ -150,6 +151,9 @@ public class ManagerService {
     private JSONObject getDataFromDbService(String url,String method,String methodType){
         return getDataFromDbService( url, null,method,methodType);
     }
+
+    @Autowired
+    KafkaConfigBean kafkaConfigBean;
 
     private JSONObject getDataFromDbService(String url,Map<String, Object> urlVariables,String method,String methodType){
         JSONObject jsonObject =new JSONObject();

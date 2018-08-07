@@ -21,7 +21,7 @@
         <constructor-arg ref="httpClientFactory"/>
     </bean>
 
-    <bean id="managerServicesConfigBean" class="com.huawei.bean.ManagerServicesConfigBean">
+    <bean id="managerServicesConfigBean" class="com.huawei.configbean.ManagerServicesConfigBean">
         <property name="managerServicesUrl" value="${managerServicesUrl}"/>
         <property name="signInMethod"  value="${signInMethod}"/>
         <property name="signUpMethod"  value="${signUpMethod}"/>
@@ -31,5 +31,18 @@
         <property name="payMethod"  value="${payMethod}"/>
         <property name="orderListMethod"  value="${orderListMethod}"/>
     </bean>
+
+    <bean id="dbServiceConfig" class="com.huawei.configbean.DbServicesConfigBean">
+        <property name="hostAndPort"  value="${hostAndPort}"/>
+        <property name="addTestUserMethod"  value="${addTestUserMethod}"/>
+        <property name="queryTestUserMethod"  value="${queryTestUserMethod}"/>
+        <property name="cleanTestUserMethod"  value="${cleanTestUserMethod}"/>
+        <property name="rushToBuySuccessUserMethod"  value="${rushToBuySuccessUserMethod}"/>
+        <property name="rushToBuySuccessCountMethod"  value="${rushToBuySuccessCountMethod}"/>
+        <property name="queryTestUserCountMethod"  value="${queryTestUserCountMethod}"/>
+        <property name="queryGoodsListMethod"  value="${queryGoodsListMethod}"/>
+    </bean>
+
+    <bean id="prepareTestUserRunnable" class="com.huawei.runnable.PrepareTestUserRunnable"/>
 
 </beans>

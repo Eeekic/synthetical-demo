@@ -29,11 +29,11 @@
                 <table border="0" align="center">
                     <tr>
                         <td>账号：</td>
-                        <td><input type="text" name="username" required="required"></td>
+                        <td><input type="text" id="userName" name="username" required="required"></td>
                     </tr>
                     <tr>
                         <td>密码：</td>
-                        <td><input type="password" name="password" required="required">
+                        <td><input type="password" id="userPwd" name="password" required="required">
                         </td>
                     </tr>
                 </table>
@@ -47,33 +47,45 @@
     </div>
     <script type="text/javascript">
         $('#signInBt').on('click',function () {
-            $.ajax({
-                type:'post',
-                url:'signIn',
-                data:$('#loginForm').serialize(),
-                success:function (data) {
-                    if(data=="success"){
-                        window.location.href="mall";
-                    }else{
-                        alert("提示：登陆失败，请检查输入信息是否正确！");
+            var userName = $('#userName').val();
+            var userPwd = $('#userPwd').val();
+            if(userName == "" || userPwd == ""){
+                alert("提示：账号或密码不能为空！")
+            }else{
+                $.ajax({
+                    type:'post',
+                    url:'signIn',
+                    data:$('#loginForm').serialize(),
+                    success:function (data) {
+                        if(data=="success"){
+                            window.location.href="mall";
+                        }else{
+                            alert("提示：登陆失败，请检查输入信息是否正确！");
+                        }
                     }
-                }
-            })
+                });
+            }
         });
 
         $('#signUpBt').on('click',function () {
-            $.ajax({
-                type:'post',
-                url:'signUp',
-                data:$('#loginForm').serialize(),
-                success:function (data) {
-                    if(data=="success"){
-                        window.location.href="mall";
-                    }else{
-                        alert("注册失败，已存在同名用户！");
+            var userName = $('#userName').val();
+            var userPwd = $('#userPwd').val();
+            if(userName == "" || userPwd == ""){
+                alert("提示：账号或密码不能为空！")
+            }else {
+                $.ajax({
+                    type: 'post',
+                    url: 'signUp',
+                    data: $('#loginForm').serialize(),
+                    success: function (data) {
+                        if (data == "success") {
+                            window.location.href = "mall";
+                        } else {
+                            alert("注册失败，已存在同名用户！");
+                        }
                     }
-                }
-            })
+                });
+            }
         });
     </script>
 </body>

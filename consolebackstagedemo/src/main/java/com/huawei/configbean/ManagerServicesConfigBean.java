@@ -1,4 +1,4 @@
-package com.huawei.bean;
+package com.huawei.configbean;
 
 public class ManagerServicesConfigBean {
     private String managerServicesUrl;

@@ -1,6 +1,8 @@
 package com.huawei.dao.mapper;
 
 import com.huawei.projo.Orders;
+import com.huawei.projo.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,5 +24,22 @@ public interface OrdersMapper {
      * @return 
      */
     public int addOrders(Orders orders);
+
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 0:19 2018/7/27
+     *
+     * @return
+     */
+    public int rushToBuySuccessCount(@Param("userType")String userType, @Param("tokenDefaultValue")String tokenDefaultValue);
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 0:19 2018/7/27
+     *
+     * @return
+     */
+    public List<User> rushToBuySuccessUser(@Param("userType")String userType,@Param("tokenDefaultValue")String tokenDefaultValue);
 
 }

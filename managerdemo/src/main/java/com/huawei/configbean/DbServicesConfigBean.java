@@ -1,6 +1,6 @@
 package com.huawei.configbean;
 
-public class DbServiceConfigBean {
+public class DbServicesConfigBean {
     private String hostAndPort;
     private String querySimpleUserInfoMethod;
     private String queryUserDetailInfoByIdMethod;

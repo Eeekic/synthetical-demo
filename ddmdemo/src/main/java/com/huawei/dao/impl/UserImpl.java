@@ -5,6 +5,8 @@ import com.huawei.dao.mapper.UserMapper;
 import com.huawei.projo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 public class UserImpl implements UserDao {
 
     @Autowired
@@ -19,7 +21,6 @@ public class UserImpl implements UserDao {
     public int addUser(User user){
         return userMapper.addUser(user);
     }
-
     @Override
     public int updateUserBalance(int price,long userId) {
         return userMapper.updateUserBalance(price,userId);
@@ -39,4 +40,25 @@ public class UserImpl implements UserDao {
     public long queryUserId(String userName) {
         return userMapper.queryUserId(userName);
     }
+
+    @Override
+    public int addTestUser(String userName,String userPwd,String userType){
+        return userMapper.addTestUser(userName,userPwd,userType);
+    }
+
+    @Override
+    public List<User> queryTestUser(String userType) {
+        return userMapper.queryTestUser(userType);
+    }
+
+    @Override
+    public int cleanTestUser(String userType) {
+        return userMapper.cleanTestUser(userType);
+    }
+
+    @Override
+    public int queryTestUserCount(String userType) {
+        return userMapper.queryTestUserCount(userType);
+    }
+
 }

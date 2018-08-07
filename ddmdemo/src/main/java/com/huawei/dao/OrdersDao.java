@@ -1,6 +1,7 @@
 package com.huawei.dao;
 
 import com.huawei.projo.Orders;
+import com.huawei.projo.User;
 
 import java.util.List;
 
@@ -23,4 +24,21 @@ public interface OrdersDao {
      * @return
      */
     public int addOrders(Orders orders);
+
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 0:19 2018/7/27
+     *
+     * @return
+     */
+    public int rushToBuySuccessCount(String userType,String tokenDefaultValue);
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 0:19 2018/7/27
+     *
+     * @return
+     */
+    public List<User> rushToBuySuccessUser(String userType,String tokenDefaultValue);
 }

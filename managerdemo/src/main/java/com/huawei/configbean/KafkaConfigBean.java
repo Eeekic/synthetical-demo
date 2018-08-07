@@ -138,6 +138,8 @@ public class KafkaConfigBean {
         this.maxPollRecords = maxPollRecords;
     }
 
+
+
     private void setSslTruststoreLocation() {
         if(sslTruststoreLocation == null){
             try{

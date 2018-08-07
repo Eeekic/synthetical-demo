@@ -35,4 +35,21 @@
     select user_id from user where user_name=#{userName}
   </select>
 
+  <insert id="addTestUser">
+    insert into user (user_name,user_pwd,user_type) values(#{userName},#{userPwd},#{userType})
+  </insert>
+
+  <select id="queryTestUser" resultType="com.huawei.projo.User" parameterType="String" resultMap="BaseResultMap">
+    select user_id,user_name from user where user_type=#{userType} order by user_id asc
+  </select>
+
+  <delete id="cleanTestUser" parameterType="String">
+    delete from user where user_type=#{userType}
+  </delete>
+
+
+  <select id="queryTestUserCount" resultType="int" parameterType="String" >
+    select count(1) from user where user_type=#{userType}
+  </select>
+
 </mapper>

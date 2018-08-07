@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class CommonUtils {
 
-    public final static String NOMAL_CODE = "DbService.200";
+    public final static String NORMAL_CODE = "DbService.200";
     public final static String ERROR_CODE = "DbService.400";
 
 
@@ -17,6 +17,8 @@ public class CommonUtils {
     public final static String  GOODS_TYPE_RUSH_TO_BUY = "RushToBuy";
 
     public final static String  DEFAULT_VALUE = "-";
+
+    public final static String USER_TEST_TYPE = "test";
 
 
     public static String getNowTime(){

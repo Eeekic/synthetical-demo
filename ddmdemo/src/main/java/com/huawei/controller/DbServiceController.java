@@ -2,7 +2,7 @@ package com.huawei.controller;
 
 import com.huawei.Utils.CommonUtils;
 import com.huawei.projo.User;
-import com.huawei.service.DbService;
+import com.huawei.service.DbServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,19 +17,19 @@ import java.util.Map;
 public class DbServiceController {
 
     @Autowired
-    DbService dbService;
+    DbServices dbServices;
 
     @RequestMapping(value="v1/rest/querySimpleUserInfoByName", method = RequestMethod.POST)
     @ResponseBody
     public String querySimpleUserInfoByName(@RequestBody Map<String, Object> param){
         String userName = param.get("userName").toString();
-        return dbService.querySimpleUserInfoByName(userName);
+        return dbServices.querySimpleUserInfoByName(userName);
     }
     @RequestMapping(value="v1/rest/queryUserDetailInfoById", method = RequestMethod.POST)
     @ResponseBody
     public String queryUserDetailInfoById(@RequestBody Map<String, Object> param){
         long userId = Long.parseLong(param.get("userId").toString());
-        return dbService.queryUserDetailInfoById(userId);
+        return dbServices.queryUserDetailInfoById(userId);
     }
 
 
@@ -41,28 +41,28 @@ public class DbServiceController {
         User user = new User();
         user.setUserName(userName);
         user.setUserPwd(userPwd);
-        return dbService.addUser(user);
+        return dbServices.addUser(user);
     }
 
     @RequestMapping(value="v1/rest/queryGoodsDetail", method = RequestMethod.GET)
     @ResponseBody
     public String queryGoodsDetail(HttpServletRequest request){
         long goodsId = Long.parseLong(request.getParameter("goodsId"));
-        return dbService.queryGoodsDetail(goodsId);
+        return dbServices.queryGoodsDetail(goodsId);
     }
 
     @RequestMapping(value="v1/rest/queryGoodsList", method = RequestMethod.GET)
     @ResponseBody
     public String queryGoodsList(HttpServletRequest request){
         String goodsType = request.getParameter("goodsType");
-        return dbService.queryGoodsList(goodsType);
+        return dbServices.queryGoodsList(goodsType);
     }
 
     @RequestMapping(value="v1/rest/queryOrdersList", method = RequestMethod.POST)
     @ResponseBody
     public String queryOrdersList(@RequestBody Map<String, Object> param){
         long userId = Long.parseLong(param.get("userId").toString());
-        return dbService.queryOrdersList(userId);
+        return dbServices.queryOrdersList(userId);
     }
 
     @RequestMapping(value="v1/rest/pay", method = RequestMethod.POST)
@@ -76,23 +76,20 @@ public class DbServiceController {
         if(goodsType.equals(CommonUtils.GOODS_TYPE_RUSH_TO_BUY)){
             RushToBuyToken = param.get("rushToBuyToken").toString();
         }
-        return dbService.pay(userId,goodsId,goodsPrice,RushToBuyToken);
+        return dbServices.pay(userId,goodsId,goodsPrice,RushToBuyToken);
     }
 
     @RequestMapping(value="v1/rest/queryBalance", method = RequestMethod.POST)
     @ResponseBody
     public String queryBalance(@RequestBody Map<String, Object> param){
         long userId = Long.parseLong(param.get("userId").toString());
-        return dbService.queryUserBalance(userId);
+        return dbServices.queryUserBalance(userId);
     }
 
     @RequestMapping(value="v1/rest/queryGoodsCount", method = RequestMethod.POST)
     @ResponseBody
     public String queryGoodsCount(@RequestBody Map<String, Object> param){
         long goodsId = Long.parseLong(param.get("goodsId").toString());
-        return dbService.queryGoodsCount(goodsId);
+        return dbServices.queryGoodsCount(goodsId);
     }
-
-
-
 }

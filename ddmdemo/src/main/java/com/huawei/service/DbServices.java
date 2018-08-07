@@ -17,9 +17,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class DbService {
-
-    private static Logger log = Logger.getLogger(DbService.class);
+public class DbServices {
 
     @Resource
     private UserDao userDao;
@@ -35,12 +33,12 @@ public class DbService {
         try {
             jsonObject = new JSONObject();
             User user = userDao.querySimpleUserInfoByName(userName);
-            jsonObject.put("errCode",CommonUtils.NOMAL_CODE);
+            jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             JSONArray jsonArray = new JSONArray();
             jsonArray.add(user.toSimpleJson());
             jsonObject.put("resMsg",jsonArray);
         }catch (Exception e){
-            jsonObject = processExceptionWithJsonArray(e);
+            jsonObject = ExceptionProcess.processExceptionWithJsonArray(e);
         }
         return jsonObject.toJSONString();
     }
@@ -50,12 +48,12 @@ public class DbService {
         try {
             jsonObject = new JSONObject();
             User user = userDao.queryUserDetailInfoById(userId);
-            jsonObject.put("errCode",CommonUtils.NOMAL_CODE);
+            jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             JSONArray jsonArray = new JSONArray();
             jsonArray.add(user.toDetailJson());
             jsonObject.put("resMsg",jsonArray);
         }catch (Exception e){
-            jsonObject = processExceptionWithJsonArray(e);
+            jsonObject = ExceptionProcess.processExceptionWithJsonArray(e);
         }
         return jsonObject.toJSONString();
     }
@@ -66,13 +64,13 @@ public class DbService {
             userDao.addUser(user);
             long userId=userDao.queryUserId(user.getUserName());
             user.setUserId(userId);
-            jsonObject.put("errCode",CommonUtils.NOMAL_CODE);
+            jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             JSONArray jsonArray = new JSONArray();
             jsonArray.add(user.toSimpleJson2());
             jsonObject.put("resMsg",jsonArray);
         }catch (Exception e){
             jsonObject.put("errCode",CommonUtils.ERROR_CODE);
-            jsonObject.put("resMsg",getExceptionInfo(e));
+            jsonObject.put("resMsg",ExceptionProcess.getExceptionInfo(e));
         }
         return jsonObject.toJSONString();
     }
@@ -82,12 +80,12 @@ public class DbService {
         try {
             jsonObject = new JSONObject();
             Goods goods = goodsDao.queryGoodsDetail(goodsId);
-            jsonObject.put("errCode",CommonUtils.NOMAL_CODE);
+            jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             JSONArray jsonArray = new JSONArray();
             jsonArray.add(goods.toJson());
             jsonObject.put("resMsg",jsonArray);
         }catch (Exception e){
-            jsonObject = processExceptionWithJsonArray(e);
+            jsonObject = ExceptionProcess.processExceptionWithJsonArray(e);
         }
         return jsonObject.toJSONString();
     }
@@ -97,14 +95,14 @@ public class DbService {
         try {
             jsonObject = new JSONObject();
             List<Goods> goodsList = goodsDao.queryGoodsList(goodsType);
-            jsonObject.put("errCode",CommonUtils.NOMAL_CODE);
+            jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             JSONArray jsonArray = new JSONArray();
             for (Goods goods:goodsList) {
                 jsonArray.add(goods.toJson());
             }
             jsonObject.put("resMsg",jsonArray);
         }catch (Exception e){
-            jsonObject = processExceptionWithJsonArray(e);
+            jsonObject = ExceptionProcess.processExceptionWithJsonArray(e);
         }
 
         return jsonObject.toJSONString();
@@ -115,14 +113,14 @@ public class DbService {
         try {
             jsonObject = new JSONObject();
             List<Orders> ordersList = ordersDao.queryOrdersList(userId);
-            jsonObject.put("errCode",CommonUtils.NOMAL_CODE);
+            jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             JSONArray jsonArray = new JSONArray();
             for (Orders orders:ordersList) {
                 jsonArray.add(orders.toJson());
             }
             jsonObject.put("resMsg",jsonArray);
         }catch (Exception e){
-            jsonObject = processExceptionWithJsonArray(e);
+            jsonObject = ExceptionProcess.processExceptionWithJsonArray(e);
         }
         return jsonObject.toJSONString();
     }
@@ -132,11 +130,11 @@ public class DbService {
         JSONObject jsonObject = new JSONObject();
         try{
             String result = payDao.pay(userId,goodsId,goodsPrice,rushToBuyToken);
-            jsonObject.put("errCode",CommonUtils.NOMAL_CODE);
+            jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             jsonObject.put("resMsg",result);
         }catch (Exception e){
             jsonObject.put("errCode",CommonUtils.ERROR_CODE);
-            jsonObject.put("resMsg",getExceptionInfo(e));
+            jsonObject.put("resMsg",ExceptionProcess.getExceptionInfo(e));
         }
         return jsonObject.toJSONString();
     }
@@ -145,7 +143,7 @@ public class DbService {
         JSONObject jsonObject = new JSONObject();
         try{
             int result = goodsDao.queryGoodsCount(goodsId);
-            jsonObject.put("errCode",CommonUtils.NOMAL_CODE);
+            jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             JSONArray jsonArray = new JSONArray();
             JSONObject countJson = new JSONObject();
             countJson.put("goodsCount",result);
@@ -153,7 +151,7 @@ public class DbService {
             jsonObject.put("resMsg",jsonArray);
         }catch (Exception e){
             jsonObject.put("errCode",CommonUtils.ERROR_CODE);
-            jsonObject.put("resMsg",getExceptionInfo(e));
+            jsonObject.put("resMsg",ExceptionProcess.getExceptionInfo(e));
         }
         return jsonObject.toJSONString();
     }
@@ -162,7 +160,7 @@ public class DbService {
         JSONObject jsonObject = new JSONObject();
         try{
             int result = userDao.queryUserBalance(userId);
-            jsonObject.put("errCode",CommonUtils.NOMAL_CODE);
+            jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             JSONArray jsonArray = new JSONArray();
             JSONObject balanceJson = new JSONObject();
             balanceJson.put("balance",result);
@@ -170,28 +168,8 @@ public class DbService {
             jsonObject.put("resMsg",jsonArray);
         }catch (Exception e){
             jsonObject.put("errCode",CommonUtils.ERROR_CODE);
-            jsonObject.put("resMsg",getExceptionInfo(e));
+            jsonObject.put("resMsg",ExceptionProcess.getExceptionInfo(e));
         }
         return jsonObject.toJSONString();
     }
-
-    private static String getExceptionInfo(Exception e){
-        log.error(e);
-        return e.getCause() + ":" + e.getMessage();
-    }
-
-    private JSONObject processExceptionWithJsonArray(Exception e){
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("errCode",CommonUtils.ERROR_CODE);
-        JSONArray jsonArray = new JSONArray();
-
-        JSONObject jsonTmp = new JSONObject();
-        jsonTmp.put("errMsg",getExceptionInfo(e));
-
-        jsonArray.add(jsonTmp);
-
-        jsonObject.put("resMsg",jsonArray);
-        return jsonObject;
-    }
-
 }

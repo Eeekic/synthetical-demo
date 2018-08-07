@@ -1,6 +1,5 @@
 package com.huawei.controller;
 
-import com.huawei.manager.ConsumerManager;
 import com.huawei.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,12 +60,10 @@ public class ManagerServiceController {
         return managerService.orderList(param);
     }
 
-    @Autowired
-    ConsumerManager consumerManager;
 
-    @RequestMapping(value="v1/rest/kafkaTest", method = RequestMethod.GET)
+    @RequestMapping(value="v1/rest/kafkaConfig", method = RequestMethod.GET)
     @ResponseBody
-    public String kafkaTest(){
-        return consumerManager.consumeMsg(200)+"";
+    public String kafkaConfig(){
+        return "";
     }
 }

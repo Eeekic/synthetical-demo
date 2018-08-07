@@ -1,6 +1,9 @@
 package com.huawei.projo;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
+import java.util.List;
 
 public class User {
     private long userId;
@@ -96,6 +99,14 @@ public class User {
         object.put("userId", userId);
         object.put("userName", userName);
         return object;
+    }
+
+    public static JSONArray toJsonArray(List<User> userList){
+        JSONArray jsonArray = new JSONArray();
+        for(int i=0;i<userList.size();i++){
+            jsonArray.add(userList.get(i).toSimpleJson());
+        }
+        return jsonArray;
     }
 
     public JSONObject toDetailJson() {

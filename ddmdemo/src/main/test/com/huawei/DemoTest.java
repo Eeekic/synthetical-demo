@@ -6,7 +6,7 @@ import com.huawei.dao.UserDao;
 import com.huawei.projo.Goods;
 import com.huawei.projo.Orders;
 import com.huawei.projo.User;
-import com.huawei.service.DbService;
+import com.huawei.service.DbServices;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class DemoTest {
     @Autowired
     OrdersDao ordersDao;
     @Autowired
-    private DbService dbService;
+    private DbServices dbServices;
 
     @Test
     public void userTest(){
@@ -51,7 +51,6 @@ public class DemoTest {
         }else {
             System.out.println("goods is null");
         }
-
         List<Goods> goodsList = goodsDao.queryGoodsList("Normal");
         for(Goods goods1:goodsList){
             System.out.println(goods1.toString());

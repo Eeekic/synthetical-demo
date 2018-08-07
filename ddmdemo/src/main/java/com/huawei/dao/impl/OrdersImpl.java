@@ -3,6 +3,7 @@ package com.huawei.dao.impl;
 import com.huawei.dao.OrdersDao;
 import com.huawei.dao.mapper.OrdersMapper;
 import com.huawei.projo.Orders;
+import com.huawei.projo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -21,4 +22,15 @@ public class OrdersImpl implements OrdersDao {
     public int addOrders(Orders orders) {
         return ordersMapper.addOrders(orders);
     }
+
+    @Override
+    public int rushToBuySuccessCount(String userType,String tokenDefaultValue) {
+        return ordersMapper.rushToBuySuccessCount(userType,tokenDefaultValue);
+    }
+
+    @Override
+    public List<User> rushToBuySuccessUser(String userType,String tokenDefaultValue) {
+        return ordersMapper.rushToBuySuccessUser(userType,tokenDefaultValue);
+    }
+
 }

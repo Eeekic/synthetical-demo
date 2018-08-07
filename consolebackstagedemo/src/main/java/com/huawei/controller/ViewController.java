@@ -1,29 +1,59 @@
 package com.huawei.controller;
 
-import com.huawei.Utils.CommonUtils;
-import com.huawei.projo.Goods;
-import com.huawei.projo.Orders;
-import com.huawei.projo.User;
 import com.huawei.service.DataSourcesService;
+import com.huawei.tools.PrePareRushToBuyTools;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 public class ViewController {
+
+    private static Logger log = Logger.getLogger(ViewController.class);
+
     @Autowired
     DataSourcesService dataSourcesService;
 
-    @RequestMapping(value="testGet", method = RequestMethod.GET)
-    @ResponseBody
+    @RequestMapping(value="rushToBuyScene", method = RequestMethod.GET)
     public String sign(HttpServletRequest request){
-        return "Hello world!";
+        return "com/rushToBuyScene";
+    }
+
+    @RequestMapping(value="commitPresetData", method = RequestMethod.GET)
+    @ResponseBody
+    public String commitPresetData(HttpServletRequest request){
+        String result=null;
+        try {
+            int rushToBuyGoodsCount = Integer.parseInt(request.getParameter("rushToBuyGoodsCount"));
+            int rushToBuyUsersCount = Integer.parseInt(request.getParameter("rushToBuyUsersCount"));
+            if (PrePareRushToBuyTools.getPrivilegeOfCommitData()) {
+                dataSourcesService.commitPrepareTestUser(rushToBuyUsersCount);
+                result = "success";
+            } else {
+                result = "Please do not repeat the submission!";
+            }
+        }catch (Exception e){
+            result = "failed";
+            log.error(e);
+        }
+        return result;
+    }
+
+    @RequestMapping(value="queryTestUserCount", method = RequestMethod.GET)
+    @ResponseBody
+    public int queryTestUserCount(){
+        return dataSourcesService.queryTestUserCount();
+    }
+
+    @RequestMapping(value="queryTestUserCount1", method = RequestMethod.GET)
+    @ResponseBody
+    public int queryRushToBuyGoods(){
+        return dataSourcesService.queryTestUserCount();
     }
 
 }
