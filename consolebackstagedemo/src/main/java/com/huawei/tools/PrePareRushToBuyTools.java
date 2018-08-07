@@ -15,14 +15,14 @@ public class PrePareRushToBuyTools {
     private static int executeCount = 0;
 
     public static void execute(Runnable runnable){
-        synchronized (CommonUtils.class){
+        synchronized (PrePareRushToBuyTools.class){
             executeCount++;
         }
         executorService.execute(runnable);
     }
 
     public static boolean getPrivilegeOfCommitData(){
-        synchronized (CommonUtils.class){
+        synchronized (PrePareRushToBuyTools.class){
             if(COMMIT_FLAG == 0){
                 COMMIT_FLAG = 1;
                 return true;
@@ -31,7 +31,7 @@ public class PrePareRushToBuyTools {
         return false;
     }
     public static void resetPrivilegeOfCommitData(){
-        synchronized (CommonUtils.class){
+        synchronized (PrePareRushToBuyTools.class){
             COMMIT_SUCCESS++;
             if(COMMIT_SUCCESS >= executeCount){
                 COMMIT_SUCCESS = 0;
