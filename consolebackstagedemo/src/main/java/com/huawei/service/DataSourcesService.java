@@ -12,6 +12,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service("dataSourcesService")
 public class DataSourcesService {
 
@@ -58,5 +60,20 @@ public class DataSourcesService {
         String url = dbServicesConfigBean.getQueryTestUserIdRangeMethodUrl();
         JSONObject resultJson = httpClientService.getDataFromManagerServices(url,HttpClientService.GET_Method_TYPE);
         return JSONAnalysis.analysisObjectString(resultJson,"testUserIdRange");
+    }
+
+
+
+    public String pay(String url,Map<String,Object> urlMap){
+
+        long startTime = System.currentTimeMillis();
+        JSONObject responseJson = httpClientService.getDataFromManagerServices(url,urlMap,HttpClientService.POST_Method_TYPE);
+        long endTime = System.currentTimeMillis();
+
+        JSONObject resultJson = new JSONObject();
+        resultJson.put("delay",endTime - startTime);
+        resultJson.put("rushToBuyResult",responseJson);
+        System.out.println(resultJson.toJSONString());
+        return resultJson.toJSONString();
     }
 }

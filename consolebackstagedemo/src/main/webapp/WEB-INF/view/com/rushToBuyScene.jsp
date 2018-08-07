@@ -37,6 +37,14 @@
             margin-left: 20px;
             /*display:none;*/
         }
+
+        .rushToBuy-txt-style{
+            width: 370px;
+            font-size:15px;
+        }
+        .red {
+            color:#FF0000
+        }
     </style>
 </head>
 <script src="<%=path%>/js/jquery-3.3.1.min.js"></script>
@@ -133,15 +141,17 @@
     <h2>二、单租户租户调试测试</h2>
 
     <div class="div-left">
-        <input type="button" id="singleTenantAdjustBt" value="查询" class="bt-style">
+        <input type="button" id="singleTenantCallBt" value="发送" class="bt-style">
+        <br>
+        <br>
         <form class="query-from-style">
-            <table>
+            <table class="table-style">
                 <tr>
                     <td>
-                        <label for="rushToBuyUrlTxt">请求Body：</label>
+                        <label for="rushToBuyUrlTxt">请求Url：</label>
                     </td>
                     <td>
-                        <input type="text" id="rushToBuyUrlTxt" value="xxxx" class="bt-style">
+                        <input type="text" id="rushToBuyUrlTxt" value="${rushToBuyUrl}" class="rushToBuy-txt-style">
                     </td>
                 </tr>
                 <tr>
@@ -152,7 +162,32 @@
                 <tr>
                     <td></td>
                     <td>
-                        <textarea rows="4" cols="50" id="rushToBuyArea"></textarea>
+<textarea rows="7" cols="50" id="rushToBuyArea">{
+    'userId':'1',
+    'goodsId':'5',
+    'goodsPrice':'2',
+    'goodsType':'RushToBuy'
+}</textarea>
+                    </td>
+                </tr>
+                <tr><td></td></tr>
+                <tr>
+                    <td>
+                        <label for="responseTimeTxt">请求响应时间(ms)：</label>
+                    </td>
+                    <td>
+                        <input id="responseTimeTxt" class="query-input-style" value="-" readonly="value">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="rushToBuyResultArea">请求返回值：</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <textarea rows="7" cols="50" id="rushToBuyResultArea" disabled="disabled"></textarea>
                     </td>
                 </tr>
             </table>
@@ -160,6 +195,9 @@
     </div>
 
     <h2>三、多租户抢购压力测试</h2>
+    <div class="div-left">
+        <h3 align="left" class="red">多租户场景请结合华为云CPTS进行压测</h3>
+    </div>
 </body>
 <script type="text/javascript">
     $('#paramPresetBt').on('click',function () {
@@ -226,6 +264,25 @@
                 }
             }
         });
+    });
+
+    $('#singleTenantCallBt').on('click',function () {
+        var rushToBuyUrl = $('#rushToBuyUrlTxt').val();
+        var requestBody = $('#rushToBuyArea').val().replace(/[\r\n]/g,"").replace(/[ ]/g,"");
+        if(rushToBuyUrl != "" && requestBody != "") {
+            $.ajax({
+                type: 'post',
+                url: 'pay',
+                data:  'rushToBuyUrl=' + rushToBuyUrl + '&requestBody=' + requestBody,
+                success: function (data) {
+                    var callJson = jQuery.parseJSON(data);
+                    $('#responseTimeTxt').attr("value",callJson.delay);
+                    $('#rushToBuyResultArea').val(JSON.stringify(callJson.rushToBuyResult));
+                }
+            });
+        }else {
+            alert("提示：Url或者请求体不能为空！");
+        }
     });
 </script>
 </html>
