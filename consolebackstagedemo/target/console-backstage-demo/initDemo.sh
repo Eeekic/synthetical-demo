@@ -8,6 +8,6 @@ sed -i 's/\(managerServicesUrl=\).*/\1'$managerServicesUrl'/' $managerServicesCo
 dbServicesUrl=${dbServicesUrl//\//\\\/}
 dbServicesUrl=${dbServicesUrl//&/\\&}
 dbServicesConfigPath=/usr/local/tomcat/webapps/console-backstage-demo/WEB-INF/classes/config/dbservices.properties
-sed -i 's/\(hostAndPort=\).*/\1'$dbServicesUrl'/' dbServicesConfigPath
+sed -i 's/\(hostAndPort=\).*/\1'$dbServicesUrl'/' $dbServicesConfigPath
 
 #DMS Kafka config
