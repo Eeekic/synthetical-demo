@@ -22,6 +22,7 @@
     <log4j.version>1.2.17</log4j.version>
   </properties>
 
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -70,6 +71,62 @@
       <version>${spring.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.huawei.dmsdemo</groupId>
+      <artifactId>dms.kafka.restapi</artifactId>
+      <version>1.0.0</version>
+      <type>jar</type>
+      <scope>system</scope>
+      <systemPath>${basedir}/libs/httpclient-4.5.2.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.huawei.dmsdemo</groupId>
+      <artifactId>dms.kafka.httpcore</artifactId>
+      <version>1.0.0</version>
+      <type>jar</type>
+      <scope>system</scope>
+      <systemPath>${basedir}/libs/httpcore-4.4.4.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.huawei.dmsdemo</groupId>
+      <artifactId>dms.kafka.jackson-annotation</artifactId>
+      <version>1.0.0</version>
+      <type>jar</type>
+      <scope>system</scope>
+      <systemPath>${basedir}/libs/jackson-annotations-2.8.1.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.huawei.dmsdemo</groupId>
+      <artifactId>dms.kafka.jackson-core</artifactId>
+      <version>1.0.0</version>
+      <type>jar</type>
+      <scope>system</scope>
+      <systemPath>${basedir}/libs/jackson-core-2.8.1.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.huawei.dmsdemo</groupId>
+      <artifactId>dms.kafka.jackson-databind</artifactId>
+      <version>1.0.0</version>
+      <type>jar</type>
+      <scope>system</scope>
+      <systemPath>${basedir}/libs/jackson-databind-2.8.1.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.huawei.dmsdemo</groupId>
+      <artifactId>dms.kafka.javasdkcore</artifactId>
+      <version>1.0.0</version>
+      <type>jar</type>
+      <scope>system</scope>
+      <systemPath>${basedir}/libs/java-sdk-core-2.0.1.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.huawei.dmsdemo</groupId>
+      <artifactId>dms.kafka.joda-time</artifactId>
+      <version>1.0.0</version>
+      <type>jar</type>
+      <scope>system</scope>
+      <systemPath>${basedir}/libs/joda-time-2.7.jar</systemPath>
+    </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context-support</artifactId>
