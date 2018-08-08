@@ -118,6 +118,9 @@ public class ManagerService {
 
         if(goodsType.equals(CommonUtils.RUSH_TO_BUY)) {
             String rushToBuyToken = consumerManager.consumeMsg(500);
+
+            log.info(rushToBuyToken);
+
             if(rushToBuyToken==null){
                 jsonObject = new JSONObject();
                 jsonObject.put("errCode",CommonUtils.NOMAL_CODE);
