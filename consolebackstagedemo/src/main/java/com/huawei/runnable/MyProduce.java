@@ -4,6 +4,7 @@ import com.huawei.Utils.JSONAnalysis;
 import com.huawei.configbean.ManagerServicesConfigBean;
 import com.huawei.service.ApiUtils;
 import com.huawei.service.DataSourcesService;
+import com.huawei.service.ResponseMessage;
 import com.huawei.tools.PrePareRushToBuyTools;
 
 public class MyProduce implements  Runnable{
@@ -38,12 +39,22 @@ public class MyProduce implements  Runnable{
     @Override
        public void run() {
         try {
-            for (int i = 0; i != this.MsgExistsCount; ++i) {
+            int index=0;
+            while(true){
                 System.out.println(this.MsgExistsCount);
-                dataSourcesService.consumeMessage2(endPointurl, region, ak, sk, projectId, queueId, groupId, serviceName, msgLimit);
+                ResponseMessage rs= dataSourcesService.consumeMessage2(endPointurl, region, ak, sk, projectId, queueId, groupId, serviceName, msgLimit);
+                if(rs.getStatusCode()==200)
+                    index++;
+                if(index>=this.MsgExistsCount)
+                    break;
             }
-            for (int i = 0; i !=MsgProduceCount; ++i) {
-                ApiUtils.sendMessages(JSONAnalysis.ConstructMsg(i), queueId, projectId, endPointurl, serviceName, region, ak, sk);
+            index=0;
+            while(true) {
+                ResponseMessage res = ApiUtils.sendMessages(JSONAnalysis.ConstructMsg(index),queueId, projectId, endPointurl, serviceName, region, ak, sk);
+                if (res.isSuccess())
+                    index++;
+                if (index >= this.MsgProduceCount)
+                    break;
             }
         }catch(Exception e){
             e.printStackTrace();
