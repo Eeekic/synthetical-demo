@@ -1,6 +1,7 @@
 package com.huawei.controller;
 
 import com.huawei.Utils.CommonUtils;
+import com.huawei.bean.ConsoleBackStageConfigBean;
 import com.huawei.projo.Goods;
 import com.huawei.projo.Orders;
 import com.huawei.projo.User;
@@ -19,6 +20,9 @@ import java.util.List;
 public class ViewController {
     @Autowired
     DataSourcesService dataSourcesService;
+
+    @Autowired
+    ConsoleBackStageConfigBean consoleBackStageConfigBean;
 
     @RequestMapping(value="sign", method = RequestMethod.GET)
     public String sign(HttpServletRequest request){
@@ -51,7 +55,7 @@ public class ViewController {
         Goods rushToBuyGoods = dataSourcesService.getRushToBuyGoodsList();
         request.setAttribute("goodsList",goodsList);
         request.setAttribute("rushToBuyGoods",rushToBuyGoods);
-        request.getSession().setAttribute("test","sunpeng");
+        request.getSession().setAttribute("rushToBuyScene",consoleBackStageConfigBean.getRushToBuySceneURL());
         return "com/mall";
     }
 

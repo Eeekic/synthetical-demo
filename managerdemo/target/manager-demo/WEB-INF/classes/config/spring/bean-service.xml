@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--Config bean-->
-    <bean id="dbServiceConfig" class="com.huawei.configbean.DbServiceConfigBean">
+    <bean id="dbServiceConfig" class="com.huawei.configbean.DbServicesConfigBean">
         <property name="hostAndPort"  value="${hostAndPort}"/>
         <property name="querySimpleUserInfoMethod"  value="${querySimpleUserInfo}"/>
         <property name="queryUserDetailInfoByIdMethod"  value="${queryUserDetailInfoById}"/>

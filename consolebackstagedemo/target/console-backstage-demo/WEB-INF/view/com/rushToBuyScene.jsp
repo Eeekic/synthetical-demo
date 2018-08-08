@@ -53,7 +53,14 @@
 </head>
 <body>
     <h1 align="left">抢购场景压测说明</h1>
-    <h2 align="left">一、抢购接口与流程框图</h2>
+    <br>
+    <h2 align="left">一、抢购压测主要流程</h2>
+    <div class="div-left">
+        <img type="image/png" src="<%=path %>/doc/image/rush-to-buy-process.png" width="924" height="159">
+    </div>
+    <br>
+    <br>
+    <h2 align="left">二、抢购接口与流程框图</h2>
     <div class="div-left">
         <h3>（一）、接口说明(manager对应节点)</h3>
         <div class="div-left">
@@ -87,7 +94,7 @@
         </div>
     </div>
 
-    <h2 align="left">二、测试操作说明</h2>
+    <h2 align="left">三、测试操作说明</h2>
     <div class="div-left">
 
         <h3>(一)、多租户压测场景准备</h3>
@@ -201,12 +208,13 @@
                     <tr>
                         <td></td>
                         <td>
-    <textarea rows="7" cols="50" id="rushToBuyArea">{
+    <textarea rows="7" cols="50" id="rushToBuyArea">
+     {
         'userId':'1',
         'goodsId':'5',
         'goodsPrice':'2',
         'goodsType':'RushToBuy'
-    }</textarea>
+     }</textarea>
                         </td>
                     </tr>
                     <tr><td></td></tr>
@@ -235,9 +243,20 @@
 
         <h3>(三)、多租户抢购压力测试</h3>
         <div class="div-left">
-            <h4 align="left" class="red">多租户场景请结合华为云CPTS进行压测</h4>
+            <div>
+                <h4 align="left" class="red">多租户场景请结合华为云CPTS进行压测；</h4>
+            </div>
+            <div>
+                <h4 align="left" class="red">压测相关参数设置：请参照步骤（一）中的“3.压测参数查询”结果。</h4>
+            </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 </body>
 <script type="text/javascript">
     $('#paramPresetBt').on('click',function () {

@@ -196,6 +196,7 @@ public class ManagerService {
                         redisCacheManager.set(key, result);
                     } catch (Exception e) {
                         log.error(e);
+                        e.printStackTrace();
                     }
                 }
             }
@@ -212,6 +213,7 @@ public class ManagerService {
             }
         }catch (Exception e){
             log.error(e);
+            e.printStackTrace();
         }
         return jsonObject;
     }
@@ -225,6 +227,7 @@ public class ManagerService {
 
     private static String getExceptionInfo(Exception e){
         log.error(e);
+        e.printStackTrace();
         return e.getCause() + ":" + e.getMessage();
     }
 

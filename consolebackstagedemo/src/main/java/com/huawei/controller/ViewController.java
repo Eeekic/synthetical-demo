@@ -2,7 +2,6 @@ package com.huawei.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huawei.configbean.ManagerServicesConfigBean;
-import com.huawei.projo.Message_available_status;
 import com.huawei.service.DataSourcesService;
 import com.huawei.tools.PrePareRushToBuyTools;
 import org.apache.log4j.Logger;
@@ -44,7 +43,7 @@ public class ViewController {
             int rushToBuyUsersCount = Integer.parseInt(request.getParameter("rushToBuyUsersCount"));
             if (PrePareRushToBuyTools.getPrivilegeOfCommitData()) {
                 dataSourcesService.commitPrepareTestUser(rushToBuyUsersCount);
-                dataSourcesService.ProduceMessages(rushToBuyGoodsCount);
+                dataSourcesService.produceMessages(rushToBuyGoodsCount);
                 result = "success";
             } else {
                 result = "Please do not repeat the submission!";
@@ -52,14 +51,9 @@ public class ViewController {
         }catch (Exception e){
             result = "failed";
             log.error(e);
+            e.printStackTrace();
         }
         return result;
-    }
-    @RequestMapping(value="queryMsgCount")
-    @ResponseBody
-    public int queryMsgCount(){
-        Message_available_status ms=dataSourcesService.CheckMessageAmount(managerServicesConfigBean.getGroupId());
-        return Integer.parseInt(ms.availableMsg);
     }
 
     @RequestMapping(value="testUserCount", method = RequestMethod.GET)
@@ -99,9 +93,16 @@ public class ViewController {
             JSONObject resultJson = new JSONObject();
             resultJson.put("delay","-");
             resultJson.put("rushToBuyResult",e.toString());
+            e.printStackTrace();
             return resultJson.toJSONString() ;
         }
         return dataSourcesService.pay(url,urlMap);
+    }
+
+    @RequestMapping(value="queryMsgCount")
+    @ResponseBody
+    public int queryMsgCount(){
+        return dataSourcesService.obtainAvailableMessageAmount();
     }
 
 }

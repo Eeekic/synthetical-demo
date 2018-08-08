@@ -7,9 +7,16 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Title</title>
+    <style type="text/css">
+        .div-left{
+            margin-left: 25px;
+        }
+    </style>
 </head>
 <body>
     <h1>后台地址</h1>
-    <a href="rushToBuyScene">点击</a>
+    <div class="div-left">
+        <a href="rushToBuyScene"><h2>请点击</h2></a>
+    </div>
 </body>
 </html>

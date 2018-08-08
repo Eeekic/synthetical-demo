@@ -11,6 +11,7 @@ public class ExceptionProcess {
 
     public static String getExceptionInfo(Exception e){
         log.error(e);
+        e.printStackTrace();
         return e.getCause() + ":" + e.getMessage();
     }
 

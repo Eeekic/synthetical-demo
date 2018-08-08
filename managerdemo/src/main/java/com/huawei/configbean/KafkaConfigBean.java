@@ -146,6 +146,7 @@ public class KafkaConfigBean {
                 sslTruststoreLocation = getTrustStorePath();
             }catch (Exception e){
                 log.error("SslTruststoreLocation:" + e.getCause() + ":" + e.getMessage());
+                e.printStackTrace();
             }
 
         }
@@ -156,6 +157,7 @@ public class KafkaConfigBean {
             System.setProperty("java.security.auth.login.config", getSaslConfig());
         }catch (Exception e){
             log.error("JavaSecurityAuthLoginConfig:" + e.getCause() + ":" + e.getMessage());
+            e.printStackTrace();
         }
     }
 

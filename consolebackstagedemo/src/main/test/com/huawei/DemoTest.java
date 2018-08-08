@@ -34,7 +34,6 @@ public class DemoTest {
         }else {
             result = "Please do not repeat the submission!";
         }
-        System.out.println(result);
     }
 
     @Test

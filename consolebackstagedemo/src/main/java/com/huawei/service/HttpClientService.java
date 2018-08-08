@@ -36,6 +36,7 @@ public class HttpClientService {
             }
         }catch (Exception e){
             log.error(e);
+            e.printStackTrace();
         }
         return result;
     }

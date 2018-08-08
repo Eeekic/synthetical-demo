@@ -37,6 +37,7 @@ public class ConsumerManager {
                 kafkaConsumer.subscribe(Arrays.asList(consumerConfig.getProperty("topic")), new ConsumerListener());
             }catch (Exception e){
                 log.error(e);
+                e.printStackTrace();
             }
         }
     }
@@ -66,6 +67,7 @@ public class ConsumerManager {
             kafkaConsumer.commitSync();
         }catch (Exception e){
             log.error(e);
+            e.printStackTrace();
         }
         return result;
     }
@@ -77,6 +79,7 @@ public class ConsumerManager {
             result = set.iterator().next();
         }catch (Exception e){
             log.error(e);
+            e.printStackTrace();
         }
         return result;
     }

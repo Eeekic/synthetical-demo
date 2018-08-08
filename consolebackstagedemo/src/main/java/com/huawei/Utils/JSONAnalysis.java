@@ -1,10 +1,8 @@
 package com.huawei.Utils;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.huawei.projo.Message_available_status;
-import com.huawei.projo.Messages_consume_status;
+import com.huawei.dmskfakaapi.ResponseMessage;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -23,6 +21,7 @@ public class JSONAnalysis {
         }catch (Exception e){
             result = -1;
             log.error(e);
+            e.printStackTrace();
         }
         return result;
     }
@@ -37,6 +36,7 @@ public class JSONAnalysis {
         }catch (Exception e){
             result = "";
             log.error(e);
+            e.printStackTrace();
         }
         return result;
     }
@@ -47,6 +47,7 @@ public class JSONAnalysis {
             resMsgJson = JsonObjectAnalysis(jsonObject);
         }catch (Exception e){
             log.error(e);
+            e.printStackTrace();
         }
         return resMsgJson;
     }
@@ -61,6 +62,7 @@ public class JSONAnalysis {
             }
         }catch (Exception e){
             log.error(e);
+            e.printStackTrace();
         }
         return jsonArray;
     }
@@ -74,26 +76,37 @@ public class JSONAnalysis {
             }
         }catch (Exception e){
             log.error(e);
+            e.printStackTrace();
         }
         return resMsgJson;
     }
-    public static Message_available_status analysisMessages(JSONObject jsonObject, String gid){
-        Message_available_status re=new Message_available_status();
-        if(jsonObject==null)
-            return re;
-        JSONArray jarray=jsonObject.getJSONArray("groups");
-        if(jarray==null)
-            return re;
-        for(int i=0;i!=jarray.size();++i){
-            JSONObject jsontemp=jarray.getJSONObject(i);
-            if(jsontemp.getString("id").equals(gid)){
-                re.consumedMsg=jsontemp.getString("consumed_messages");
-                re.availableMsg=jsontemp.getString("available_messages");
-                return re;
+
+
+    public static int obtainAvailableMsgAmount(ResponseMessage res, String groupId){
+        int result = -1;
+        if(res.isSuccess()) {
+            try {
+                JSONObject bodyJson = JSONObject.parseObject(res.getBody());
+                if (bodyJson != null) {
+                    JSONArray jsonArray = bodyJson.getJSONArray("groups");
+                    if (jsonArray != null) {
+                        for (int i = 0; i < jsonArray.size(); i++) {
+                            JSONObject jsonTemp = jsonArray.getJSONObject(i);
+                            if (jsonTemp != null && jsonTemp.getString("id") != null
+                                    && jsonTemp.getString("id").equals(groupId)) {
+                                result = Integer.parseInt(jsonTemp.getString("available_messages"));
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                log.error(e);
+                e.printStackTrace();
             }
         }
-        return re;
+        return result;
     }
+
     public static ArrayList<String> analysisProduce(JSONObject jsonObject){
         ArrayList<String> strs=null;
         if(jsonObject==null)
@@ -112,29 +125,18 @@ public class JSONAnalysis {
         }
         return strs;
     }
-    public static String GetMsgBody(JSONObject jsonObject){
-        if(jsonObject==null||jsonObject.getJSONArray("messages")==null)
-            return "null";
-        else{
-            JSONArray jarray=jsonObject.getJSONArray("messages");
-            JSONObject temp=jarray.getJSONObject(0);
-            return temp.getString("body");
+
+    public static String ConstructMsg(int count){
+        JSONObject msgJson = new JSONObject();
+        JSONArray bodyJsonArray = new JSONArray();
+        for(int i = 0;i < count;i++){
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("body",System.nanoTime()+"");
+            bodyJsonArray.add(jsonObject);
         }
-    }
-    public static String ConstructMsg(int n){
-        String msg2="{\"messages\":[{\"body\":\""+String.valueOf(n)+"\"}],\"returnId\":\"true\"}";
-        return msg2;
-    }
-    public static Messages_consume_status analysisMessages_consume(JSONObject jsonObject){
-        Messages_consume_status ms=new Messages_consume_status();
-        System.out.println(jsonObject.getString("success"));
-        System.out.println(jsonObject.getString("fail"));
-        if(jsonObject!=null&&jsonObject.getString("success")!=null){
-            ms.setSuccess(jsonObject.getString("success"));
-        }
-        if(jsonObject!=null&&jsonObject.getString("fail")!=null){
-            ms.setFail(jsonObject.getString("fail"));
-        }
-        return ms;
+        msgJson.put("messages",bodyJsonArray);
+        msgJson.put("returnId","true");
+
+        return msgJson.toJSONString();
     }
 }

@@ -9,6 +9,7 @@ public class ManagerServicesConfigBean {
     private String goodsDetailMethod;
     private String payMethod;
     private String orderListMethod;
+
     private String endPointurl;
     private String region;
     private String ak;

@@ -37,7 +37,7 @@
         <property name="ak" value="N6MTCWQ50U8PTQQKLCAN"/>
         <property name="groupId" value="g-ade3a623-7435-44d8-b79c-be0e489a1011"/>
         <property name="queueId" value="375e7fd4-3726-4eeb-b745-d5769e243d94"/>
-        <property name="msgLimit" value="1"/>
+        <property name="msgLimit" value="10"/>
         <property name="serviceName" value="dms"/>
     </bean>
 
@@ -54,5 +54,19 @@
     </bean>
 
     <bean id="prepareTestUserRunnable" class="com.huawei.runnable.PrepareTestUserRunnable"/>
+
+    <bean id="kafkaConfigBean" class="com.huawei.configbean.KafkaConfigBean">
+        <property name="endPointUrl"  value="${endPointUrl}"/>
+        <property name="region"  value="${region}"/>
+        <property name="ak"  value="${ak}"/>
+        <property name="sk"  value="${sk}"/>
+        <property name="projectId"  value="${projectId}"/>
+        <property name="queueId"  value="${queueId}"/>
+        <property name="groupId"  value="${groupId}"/>
+        <property name="serviceName"  value="${serviceName}"/>
+        <property name="msgLimit"  value="${msgLimit}"/>
+    </bean>
+
+    <bean id="kafkaProduceRunnable" class="com.huawei.runnable.KafkaProduceRunnable"/>
 
 </beans>

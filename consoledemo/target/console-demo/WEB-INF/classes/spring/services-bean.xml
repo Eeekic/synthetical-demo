@@ -32,4 +32,9 @@
         <property name="orderListMethod"  value="${orderListMethod}"/>
     </bean>
 
+    <bean id="consoleBackStageConfigBean" class="com.huawei.bean.ConsoleBackStageConfigBean">
+        <property name="consoleBackstageHost" value="${consoleBackstageHost}"/>
+        <property name="rushToBuyScene"  value="${rushToBuyScene}"/>
+    </bean>
+
 </beans>

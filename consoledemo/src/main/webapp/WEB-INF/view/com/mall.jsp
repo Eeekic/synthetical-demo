@@ -9,6 +9,12 @@
         .title{
             margin-right:1000px;
         }
+        .rush-to-buy-ref-div{
+            margin-right:100px;
+        }
+        .rush-to-buy-ref-color{
+            color:red;
+        }
     </style>
 </head>
 <body>
@@ -16,23 +22,29 @@
 <div align="center" class="title">
     <H1>抢购商品</H1>
 </div>
+
+<div align="right" class="rush-to-buy-ref-div">
+    <a href="${rushToBuyScene}" class="rush-to-buy-ref-color"><h2>●基于DMS Kafka消息队列的商品抢购场景</h2></a>
+</div>
 <div align="center">
     <table align="center">
         <tr>
-            <form  id="rushToBuyFrom" action="rushToBuyGoodsDetail">
-                <img src="${rushToBuyGoods.goodsPicturePath}"  width="400" height="400">
-                <input type="hidden" name="goodsId" value="${rushToBuyGoods.goodsId}">
-                <table align="center">
-                    <tr>
-                        <td>
-                            <input type="submit" class="rushToBuyBtStyle" value="商品详情">
-                        </td>
-                        <td>
-                            <input id="rushToBuyBt" type="button" class="rushToBuyBtStyle" value="抢购" onclick="rushToBuyPay(${rushToBuyGoods.goodsId},${rushToBuyGoods.goodsPrice})">
-                        </td>
-                    <tr/>
-                </table>
-            </form >
+            <td>
+                <form  id="rushToBuyFrom" action="rushToBuyGoodsDetail">
+                    <img src="${rushToBuyGoods.goodsPicturePath}"  width="400" height="400">
+                    <input type="hidden" name="goodsId" value="${rushToBuyGoods.goodsId}">
+                    <table align="center">
+                        <tr>
+                            <td>
+                                <input type="submit" class="rushToBuyBtStyle" value="商品详情">
+                            </td>
+                            <td>
+                                <input id="rushToBuyBt" type="button" class="rushToBuyBtStyle" value="抢购" onclick="rushToBuyPay(${rushToBuyGoods.goodsId},${rushToBuyGoods.goodsPrice})">
+                            </td>
+                        <tr/>
+                    </table>
+                </form >
+            </td>
         </tr>
     </table>
 </div>
