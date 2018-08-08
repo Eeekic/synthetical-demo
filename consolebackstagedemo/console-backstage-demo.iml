@@ -12,10 +12,6 @@
         <webroots>
           <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
-        <sourceRoots>
-          <root url="file://$MODULE_DIR$/src/main/java" />
-          <root url="file://$MODULE_DIR$/src/main/resources" />
-        </sourceRoots>
       </configuration>
     </facet>
   </component>
@@ -25,12 +21,20 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/test" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../../../DMSHttpClient/DMSHttpClient/libs" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../../../DMSHttpClient/DMSHttpClient/libs" recursive="false" />
+      </library>
+    </orderEntry>
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-core:4.0.2.RELEASE" level="project" />
@@ -45,6 +49,69 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:4.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: com.huawei.dmsdemo:dms.kafka.restapi:1.0.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/httpclient-4.5.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: com.huawei.dmsdemo:dms.kafka.httpcore:1.0.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/httpcore-4.4.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: com.huawei.dmsdemo:dms.kafka.jackson-annotation:1.0.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/jackson-annotations-2.8.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: com.huawei.dmsdemo:dms.kafka.jackson-core:1.0.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/jackson-core-2.8.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: com.huawei.dmsdemo:dms.kafka.jackson-databind:1.0.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/jackson-databind-2.8.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: com.huawei.dmsdemo:dms.kafka.javasdkcore:1.0.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/java-sdk-core-2.0.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: com.huawei.dmsdemo:dms.kafka.joda-time:1.0.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/joda-time-2.7.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="Maven: org.springframework:spring-context-support:4.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-test:4.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: javax:javaee-api:7.0" level="project" />

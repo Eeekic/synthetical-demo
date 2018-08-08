@@ -274,6 +274,16 @@
                 }
             }
         });
+        $.ajax({
+            type:'get',
+            url:'queryMsgCount',
+            data:'',
+            success: function (data){
+                if(data!=-1){
+                    $('#rushToBuyGoodsCountQuery').attr("value",data);
+                }
+            }
+        });
     });
 
     $('#queryParamBt').on('click',function () {
