@@ -30,6 +30,15 @@
         <property name="goodsDetailMethod"  value="${goodsDetailMethod}"/>
         <property name="payMethod"  value="${payMethod}"/>
         <property name="orderListMethod"  value="${orderListMethod}"/>
+        <property name="endPointurl"   value="https://dms.cn-north-1.myhuaweicloud.com/"/>
+        <property name="region" value="cn-north-1"/>
+        <property name="projectId" value="0c8e88d2e4f144ba9b98a5006fe3cd02"/>
+        <property name="sk" value="0pWiVajNejIIzgFOdGbwgEfBBfUHyvtjIHYJSeJD"/>
+        <property name="ak" value="N6MTCWQ50U8PTQQKLCAN"/>
+        <property name="groupId" value="g-ade3a623-7435-44d8-b79c-be0e489a1011"/>
+        <property name="queueId" value="375e7fd4-3726-4eeb-b745-d5769e243d94"/>
+        <property name="msgLimit" value="1"/>
+        <property name="serviceName" value="dms"/>
     </bean>
 
     <bean id="dbServiceConfig" class="com.huawei.configbean.DbServicesConfigBean">
