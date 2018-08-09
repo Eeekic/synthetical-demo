@@ -1,7 +1,6 @@
 package com.huawei.projo;
 
 import com.alibaba.fastjson.JSONObject;
-import sun.rmi.runtime.Log;
 
 public class User {
     private long userId;

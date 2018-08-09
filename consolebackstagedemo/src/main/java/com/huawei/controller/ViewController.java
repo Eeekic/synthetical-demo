@@ -34,16 +34,34 @@ public class ViewController {
         return "com/rushToBuyScene";
     }
 
-    @RequestMapping(value="commitPresetData", method = RequestMethod.GET)
+    @RequestMapping(value="commitPresetDataForRushToBuyGoods", method = RequestMethod.GET)
     @ResponseBody
-    public String commitPresetData(HttpServletRequest request){
+    public String commitPresetDataForRushToBuyGoods(HttpServletRequest request){
         String result=null;
         try {
             int rushToBuyGoodsCount = Integer.parseInt(request.getParameter("rushToBuyGoodsCount"));
-            int rushToBuyUsersCount = Integer.parseInt(request.getParameter("rushToBuyUsersCount"));
-            if (PrePareRushToBuyTools.getPrivilegeOfCommitData()) {
-                dataSourcesService.commitPrepareTestUser(rushToBuyUsersCount);
+            if (PrePareRushToBuyTools.getPrivilegeOfCommitData(PrePareRushToBuyTools.PREPARE_RUSH_TO_BUY_GOODS)) {
                 dataSourcesService.produceMessages(rushToBuyGoodsCount);
+                result = "success";
+            } else {
+                result = "Please do not repeat the submission!";
+            }
+        }catch (Exception e){
+            result = "failed";
+            log.error(e);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @RequestMapping(value="commitPresetDataForTestUser", method = RequestMethod.GET)
+    @ResponseBody
+    public String commitPresetDataForTestUser(HttpServletRequest request){
+        String result=null;
+        try {
+            int rushToBuyUsersCount = Integer.parseInt(request.getParameter("rushToBuyUsersCount"));
+            if (PrePareRushToBuyTools.getPrivilegeOfCommitData(PrePareRushToBuyTools.PREPARE_TEST_USER)) {
+                dataSourcesService.commitPrepareTestUser(rushToBuyUsersCount);
                 result = "success";
             } else {
                 result = "Please do not repeat the submission!";

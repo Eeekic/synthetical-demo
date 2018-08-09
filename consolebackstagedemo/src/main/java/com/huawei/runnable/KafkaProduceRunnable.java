@@ -32,7 +32,7 @@ public class KafkaProduceRunnable implements Runnable {
         }
         produceKafkaMsg(this.msgProduceCount%PRODUCE_SPLIT);
 
-        PrePareRushToBuyTools.resetPrivilegeOfCommitData();
+        PrePareRushToBuyTools.resetPrivilegeOfCommitData(PrePareRushToBuyTools.PREPARE_RUSH_TO_BUY_GOODS);
 
     }
 
@@ -56,17 +56,31 @@ public class KafkaProduceRunnable implements Runnable {
     private void cleanKafkaMsg(){
         try {
             int availableMsgAmount = dataSourcesService.obtainAvailableMessageAmount();
-            while (availableMsgAmount >0){
+            do{
                 consumeKafkaMsg(availableMsgAmount);
                 availableMsgAmount = dataSourcesService.obtainAvailableMessageAmount();
-            }
+            }while (availableMsgAmount > 0 || availableMsgAmount == -1);
         }catch (Exception e){
             e.printStackTrace();
             log.error(e);
         }
-
-
     }
+
+//    private void cleanKafkaMsg(){
+//        try {
+//            int availableMsgAmount = 10;
+//            do{
+//                consumeKafkaMsg(availableMsgAmount);
+//                availableMsgAmount = dataSourcesService.obtainAvailableMessageAmount();
+//                if(availableMsgAmount == -1){
+//                    availableMsgAmount = 10;
+//                }
+//            }while (availableMsgAmount==0);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            log.error(e);
+//        }
+//    }
 
     private void consumeKafkaMsg(int count){
         int consumeSplit = Integer.parseInt(kafkaConfigBean.getMsgLimit());

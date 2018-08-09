@@ -29,7 +29,7 @@ public class DemoTest {
         String result=null;
         int rushToBuyGoodsCount = 10;
         int rushToBuyUsersCount = 10;
-        if(PrePareRushToBuyTools.getPrivilegeOfCommitData()) {
+        if(PrePareRushToBuyTools.getPrivilegeOfCommitData(PrePareRushToBuyTools.PREPARE_TEST_USER)) {
             dataSourcesService.commitPrepareTestUser(rushToBuyUsersCount);
         }else {
             result = "Please do not repeat the submission!";

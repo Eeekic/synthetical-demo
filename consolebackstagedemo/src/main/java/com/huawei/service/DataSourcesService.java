@@ -1,6 +1,5 @@
 package com.huawei.service;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.huawei.Utils.CommonUtils;
 import com.huawei.Utils.JSONAnalysis;
@@ -42,7 +41,7 @@ public class DataSourcesService {
     public void commitPrepareTestUser(int count){
         cleanTestUser();
         prepareTestUserRunnable.setCount(count);
-        PrePareRushToBuyTools.execute(prepareTestUserRunnable);
+        PrePareRushToBuyTools.execute(prepareTestUserRunnable,PrePareRushToBuyTools.PREPARE_TEST_USER);
     }
 
     public int queryTestUserCount(){
@@ -101,7 +100,7 @@ public class DataSourcesService {
 
     public void produceMessages(int produceCount){
         kafkaProduceRunnable.setMsgProduceCount(produceCount);
-        PrePareRushToBuyTools.execute(kafkaProduceRunnable);
+        PrePareRushToBuyTools.execute(kafkaProduceRunnable,PrePareRushToBuyTools.PREPARE_RUSH_TO_BUY_GOODS);
     }
 
     public ResponseMessage consumeMessage(

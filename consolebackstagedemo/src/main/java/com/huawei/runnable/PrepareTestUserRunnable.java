@@ -31,6 +31,6 @@ public class PrepareTestUserRunnable implements Runnable{
 
         url = dbServicesConfigBean.getAddTestUserMethodUrl(count%5);
         httpClientService.getDataFromManagerServices(url, HttpClientService.GET_Method_TYPE);
-        PrePareRushToBuyTools.resetPrivilegeOfCommitData();
+        PrePareRushToBuyTools.resetPrivilegeOfCommitData(PrePareRushToBuyTools.PREPARE_TEST_USER);
     }
 }

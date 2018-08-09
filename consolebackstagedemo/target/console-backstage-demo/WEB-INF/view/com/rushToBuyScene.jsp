@@ -101,23 +101,30 @@
         <div class="div-left">
             <h4 align="left">1.压测参数配置</h4>
             <div class="div-left">
-                <form id="paramPresetFrom">
+                <form id="rushToBuyGoodsParamPresetFrom">
                     <table class="table-style">
                         <tr>
                             <td>
-                                <label for="rushToBuyGoodsCount">抢购商品数量</label>
+                                <label for="rushToBuyGoodsCount">预置抢购商品数量</label>
                                 <input id="rushToBuyGoodsCount" name="rushToBuyGoodsCount" type="text">
                             </td>
                         </tr>
+                    </table>
+                </form>
+                <input type="button" id="rushToBuyGoodsParamPresetBt" value="提交" class="bt-style">
+            </div>
+            <div class="div-left">
+                <form id="testUserParamPresetFrom">
+                    <table class="table-style">
                         <tr>
                             <td>
-                                <label for="rushToBuyUsersCount">抢购用户数量</label>
+                                <label for="rushToBuyUsersCount">预置抢购用户数量</label>
                                 <input id="rushToBuyUsersCount" name="rushToBuyUsersCount" type="text">
                             </td>
                         </tr>
                     </table>
                 </form>
-                <input type="button" id="paramPresetBt" value="提交" class="bt-style">
+                <input type="button" id="testUserParamPresetBt" value="提交" class="bt-style">
             </div>
 
             <h4>2.压测参数配置进度查询</h4>
@@ -259,16 +266,37 @@
     <br>
 </body>
 <script type="text/javascript">
-    $('#paramPresetBt').on('click',function () {
+    $('#rushToBuyGoodsParamPresetBt').on('click',function () {
         var goodsCount = $('#rushToBuyGoodsCount').val();
-        var usersCount = $('#rushToBuyUsersCount').val();
-        if(usersCount == "" || goodsCount == ""){
+        if(goodsCount == ""){
             alert("提示：提交信息不能为空！");
         }else{
             $.ajax({
                 type:'get',
-                url:'commitPresetData',
-                data:$('#paramPresetFrom').serialize(),
+                url:'commitPresetDataForRushToBuyGoods',
+                data:$('#rushToBuyGoodsParamPresetFrom').serialize(),
+                success:function (data) {
+                    if(data=="success") {
+                        alert("提示：预置任务启动成功！");
+                    }else if(data=="failed"){
+                        alert("提示：请核对参数输入是否正确！");
+                    }else {
+                        alert("提示：任务正在进行中，请勿重复提交！");
+                    }
+                }
+            });
+        }
+    });
+
+    $('#testUserParamPresetBt').on('click',function () {
+        var usersCount = $('#rushToBuyUsersCount').val();
+        if(usersCount == ""){
+            alert("提示：提交信息不能为空！");
+        }else{
+            $.ajax({
+                type:'get',
+                url:'commitPresetDataForTestUser',
+                data:$('#testUserParamPresetFrom').serialize(),
                 success:function (data) {
                     if(data=="success") {
                         alert("提示：预置任务启动成功！");
