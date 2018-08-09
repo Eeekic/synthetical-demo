@@ -83,6 +83,13 @@
                 根据步骤三种设置的场景，取抢购时所需要的相关参数（userId、goodsId、goodsPrice以及goodsType），结合CPTS进行多人抢购场景测试。
             </div>
         </div>
+
+        <div>
+            <h3>附：</h3>
+            <div class="div-left">
+                <a href="https://github.com/sunpengxx5/synthetical-demo">GitHub代码地址</a>
+            </div>
+        </div>
     </div>
 
     <br>
