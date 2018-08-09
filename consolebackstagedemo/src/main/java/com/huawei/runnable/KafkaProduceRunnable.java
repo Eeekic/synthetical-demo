@@ -12,6 +12,8 @@ public class KafkaProduceRunnable implements Runnable {
 
     private static Logger log = Logger.getLogger(KafkaProduceRunnable.class);
 
+    private static int cleanFlag = 0;
+
     @Autowired
     private KafkaConfigBean kafkaConfigBean;
 
@@ -25,7 +27,11 @@ public class KafkaProduceRunnable implements Runnable {
     @Override
     public void run() {
 
+        cleanFlag = 1;
+
         cleanKafkaMsg();
+
+        cleanFlag = 0;
 
         for(int i = 0;i < this.msgProduceCount/PRODUCE_SPLIT;i++ ){
             produceKafkaMsg(PRODUCE_SPLIT);
@@ -56,31 +62,17 @@ public class KafkaProduceRunnable implements Runnable {
     private void cleanKafkaMsg(){
         try {
             int availableMsgAmount = dataSourcesService.obtainAvailableMessageAmount();
+            log.info("availableMsgAmount:" + availableMsgAmount);
             do{
                 consumeKafkaMsg(availableMsgAmount);
                 availableMsgAmount = dataSourcesService.obtainAvailableMessageAmount();
+                log.info("availableMsgAmount:" + availableMsgAmount);
             }while (availableMsgAmount > 0 || availableMsgAmount == -1);
         }catch (Exception e){
             e.printStackTrace();
             log.error(e);
         }
     }
-
-//    private void cleanKafkaMsg(){
-//        try {
-//            int availableMsgAmount = 10;
-//            do{
-//                consumeKafkaMsg(availableMsgAmount);
-//                availableMsgAmount = dataSourcesService.obtainAvailableMessageAmount();
-//                if(availableMsgAmount == -1){
-//                    availableMsgAmount = 10;
-//                }
-//            }while (availableMsgAmount==0);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            log.error(e);
-//        }
-//    }
 
     private void consumeKafkaMsg(int count){
         int consumeSplit = Integer.parseInt(kafkaConfigBean.getMsgLimit());
@@ -100,5 +92,9 @@ public class KafkaProduceRunnable implements Runnable {
 
     public void setMsgProduceCount(int msgProduceCount) {
         this.msgProduceCount = msgProduceCount;
+    }
+
+    public int getCleanFlag(){
+        return cleanFlag;
     }
 }

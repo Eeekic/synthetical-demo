@@ -85,6 +85,14 @@ public class DataSourcesService {
         return resultJson.toJSONString();
     }
 
+    public int getAvailableMessageAmount(){
+        if(kafkaProduceRunnable.getCleanFlag() == 0) {
+            return obtainAvailableMessageAmount();
+        }else {
+            return -1;
+        }
+    }
+
     public int obtainAvailableMessageAmount(){
         ResponseMessage res = ApiUtils.getGroups(
                 kafkaConfigBean.getQueueId(),
@@ -94,7 +102,6 @@ public class DataSourcesService {
                 kafkaConfigBean.getRegion(),
                 kafkaConfigBean.getAk(),
                 kafkaConfigBean.getSk());
-
         return JSONAnalysis.obtainAvailableMsgAmount(res,kafkaConfigBean.getGroupId());
     }
 

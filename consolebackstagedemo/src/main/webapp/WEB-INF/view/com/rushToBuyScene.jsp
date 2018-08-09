@@ -18,6 +18,9 @@
         .div-left{
             margin-left: 25px;
         }
+        .div-left2{
+            margin-left: 50px;
+        }
         .bt-style{
             font-size:15px;
             width:75px;
@@ -56,8 +59,32 @@
     <br>
     <h2 align="left">一、抢购压测主要流程</h2>
     <div class="div-left">
-        <img type="image/png" src="<%=path %>/doc/image/rush-to-buy-process.png" width="924" height="159">
+        <img type="image/png" src="<%=path %>/doc/image/rush-to-buy-process.png" width="800" height="170">
     </div>
+
+    <br>
+    <div class="div-left2">
+        <div>
+            <h3>●环境申请与Demo部署</h3>
+            <div class="div-left">
+                主要包括Demo在在华为云上所需要的各种资源（主要包括CCE集群、DDM、DCS、DMS以及ELB等）的申请，以及通过整整Demo的部署。
+                <a href="<%=path %>/doc/rushToBuySceneDeploy.html">点击查看更多</a>
+            </div>
+        </div>
+        <div>
+            <h3>●抢购场景设定与调试</h3>
+            <div class="div-left">
+                利用该页面步骤三设置抢购的商品数以及用户数，并利用提供的方法进行调试。
+            </div>
+        </div>
+        <div>
+            <h3>●CPTS配置与压测</h3>
+            <div class="div-left">
+                根据步骤三种设置的场景，取抢购时所需要的相关参数（userId、goodsId、goodsPrice以及goodsType），结合CPTS进行多人抢购场景测试。
+            </div>
+        </div>
+    </div>
+
     <br>
     <br>
     <h2 align="left">二、抢购接口与流程框图</h2>
@@ -256,6 +283,11 @@
             <div>
                 <h4 align="left" class="red">压测相关参数设置：请参照步骤（一）中的“3.压测参数查询”结果。</h4>
             </div>
+            <div>
+                <a href="https://console.huaweicloud.com/cpts/?locale=zh-cn&region=cn-north-1&agencyId=361f64330b7146ac81fadb35662151d0#/home">
+                    <h4 align="left" class="red">华为云CPTS地址</h4>
+                </a>
+            </div>
         </div>
     </div>
     <br>
@@ -326,8 +358,12 @@
             url:'queryMsgCount',
             data:'',
             success: function (data){
-                if(data!=-1){
+                if(data >= 0){
                     $('#rushToBuyGoodsCountQuery').attr("value",data);
+                }else if (data == -1){
+                    $('#rushToBuyGoodsCountQuery').attr("value","正在清理老数据...");
+                } else {
+                    $('#rushToBuyGoodsCountQuery').attr("value","请重试...");
                 }
             }
         });

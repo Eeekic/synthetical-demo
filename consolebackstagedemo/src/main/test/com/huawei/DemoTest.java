@@ -45,4 +45,9 @@ public class DemoTest {
             }
         });
     }
+
+    @Test
+    public void testGetMsgAmount(){
+        System.out.println(dataSourcesService.obtainAvailableMessageAmount());
+    }
 }

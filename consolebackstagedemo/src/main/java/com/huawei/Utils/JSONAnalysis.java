@@ -95,6 +95,7 @@ public class JSONAnalysis {
                             if (jsonTemp != null && jsonTemp.getString("id") != null
                                     && jsonTemp.getString("id").equals(groupId)) {
                                 result = Integer.parseInt(jsonTemp.getString("available_messages"));
+                                break;
                             }
                         }
                     }

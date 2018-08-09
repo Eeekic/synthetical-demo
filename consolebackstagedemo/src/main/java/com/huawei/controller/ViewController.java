@@ -120,7 +120,7 @@ public class ViewController {
     @RequestMapping(value="queryMsgCount")
     @ResponseBody
     public int queryMsgCount(){
-        return dataSourcesService.obtainAvailableMessageAmount();
+        return dataSourcesService.getAvailableMessageAmount();
     }
 
 }

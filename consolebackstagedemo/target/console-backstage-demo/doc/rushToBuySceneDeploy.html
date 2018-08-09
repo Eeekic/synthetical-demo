@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>使用说明</title>
+<meta charset='utf-8'><link href='https://d31qtcb7c58z3n.cloudfront.net/res-min/themes/marxico.css' rel='stylesheet'><style></style>
+
+<style>
+pre{font-size: 14px; font-family: "微软雅黑";}
+</style>
+</head>
+<body>
+<div id='preview-contents' class='note-content'>
+
+
+
+<h2 id="镜像构建说明"><strong>一、镜像构建说明</strong></h2>
+
+
+<pre>
+         <strong>登录github，新建repository</strong>
+	 
+         <img type="image/png" src="./image/1.png" width="60%" height="60%">
+</pre>
+<pre>
+	 <strong>上传本地代码到github新建repository，输入如下命令：</strong>
+	 
+	 <strong>git init</strong>	 
+	 <strong>git add .</strong>
+	 <strong>git commit -m "first commit"</strong>
+	 <strong>git remote add origin https://github.com/JIAJIEQI/mall.git
+	 //注意：https://github.com/JIAJIEQI/mall.git为自己创建repository所获取地址
+	 git push -u origin master</strong>
+	 
+	 <img type="image/png" src="./image/2.png" width="60%" height="60%">
+	 
+<pre>
+         <strong>登录华为云账号，点击进入容器镜像服务SWR，立即使用，选择镜像构建，源码托管，绑定GitHub账号</strong>
+	 
+         <strong>构建镜像，源代码中必须有Dockerfile文件</strong>
+		 
+		 <img type="image/png" src="./image/3.png" width="60%" height="60%">
+		 <img type="image/png" src="./image/4.png" width="60%" height="60%">
+		 
+</pre>
+
+
+<h2 id="部署说明"><strong>二、部署说明</strong></h2>
+
+<pre>
+         <p><strong>进入华为云云容器引擎 CCE 服务，创建Kubernetes集群，创建工作负载，添加容器，选取上一步构建的镜像</strong></p>
+		 
+		 <img type="image/png" src="./image/5.png" width="60%" height="60%">
+		 <img type="image/png" src="./image/6.png" width="60%" height="60%">
+		 <img type="image/png" src="./image/7.png" width="60%" height="60%">
+		 
+</pre>
+
+
+
+
+
+</div>
+</body>
+</html>
