@@ -5,6 +5,7 @@ import com.huawei.Utils.CommonUtils;
 import com.huawei.Utils.JSONAnalysis;
 import com.huawei.bean.ManagerServicesConfigBean;
 import com.huawei.projo.Goods;
+import com.huawei.projo.GoodsInCart;
 import com.huawei.projo.Orders;
 import com.huawei.projo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,6 +107,13 @@ public class DataSourcesService {
         JSONObject resultJson = httpClientService.getDataFromManagerServices(url,map,HttpClientService.POST_Method_TYPE);
 
         return JSONAnalysis.analysisUserDetail(resultJson);
+    }
+    //Below is Lizhi's part
+    public List<GoodsInCart> getGoodsInCart(String userId){
+        String url="http://49.4.4.124:31935/manager-demo/v1/rest/pendingPayment?userId="+userId;
+        JSONObject resultJson = httpClientService.getDataFromManagerServices(url,HttpClientService.GET_Method_TYPE);
+        List<GoodsInCart> goodsInCartList=JSONAnalysis.analysisGoodsInCart(resultJson);
+        return goodsInCartList;
     }
 
 }

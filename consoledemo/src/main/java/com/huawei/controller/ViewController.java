@@ -3,6 +3,7 @@ package com.huawei.controller;
 import com.huawei.Utils.CommonUtils;
 import com.huawei.bean.ConsoleBackStageConfigBean;
 import com.huawei.projo.Goods;
+import com.huawei.projo.GoodsInCart;
 import com.huawei.projo.Orders;
 import com.huawei.projo.User;
 import com.huawei.service.DataSourcesService;
@@ -104,6 +105,13 @@ public class ViewController {
         User user =dataSourcesService.userDetail(userId);
         request.setAttribute("user",user);
         return "com/userDetail";
+    }
+    @RequestMapping(value="RushToBuyCart")
+    public String RushToBuyCart(HttpServletRequest request){
+        //String userId=request.getSession().getAttribute("userId").toString();
+        List<GoodsInCart> goodsInCartList=dataSourcesService.getGoodsInCart("1");
+        request.setAttribute("goodsInCartList",goodsInCartList);
+        return "com/RushToBuyCart";
     }
 
 }
