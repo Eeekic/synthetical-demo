@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huawei.Utils.CommonUtils;
 import com.huawei.Utils.ExceptionProcess;
-import com.huawei.dao.GoodsDao;
-import com.huawei.dao.OrdersDao;
-import com.huawei.dao.PayDao;
-import com.huawei.dao.UserDao;
+import com.huawei.dao.*;
 import com.huawei.projo.Goods;
 import com.huawei.projo.Orders;
 import com.huawei.projo.User;
@@ -27,6 +24,9 @@ public class DbServices {
     private OrdersDao ordersDao;
     @Resource
     private PayDao payDao;
+
+    @Resource
+    private PendingPaymentDao pendingPaymentDao;
 
     public String querySimpleUserInfoByName(String userName){
         JSONObject jsonObject;
@@ -130,6 +130,19 @@ public class DbServices {
         JSONObject jsonObject = new JSONObject();
         try{
             String result = payDao.pay(userId,goodsId,goodsPrice);
+            jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
+            jsonObject.put("resMsg",result);
+        }catch (Exception e){
+            jsonObject.put("errCode",CommonUtils.ERROR_CODE);
+            jsonObject.put("resMsg",ExceptionProcess.getExceptionInfo(e));
+        }
+        return jsonObject.toJSONString();
+    }
+
+    public String payPendingPayment(long pendingPaymentId,long userId,long goodsId,int goodsPrice){
+        JSONObject jsonObject = new JSONObject();
+        try{
+            String result = pendingPaymentDao.payPendingPayment(pendingPaymentId,userId,goodsId,goodsPrice);
             jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             jsonObject.put("resMsg",result);
         }catch (Exception e){

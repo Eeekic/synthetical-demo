@@ -3,6 +3,7 @@ package com.huawei.controller;
 import com.huawei.Utils.CommonUtils;
 import com.huawei.bean.ConsoleBackStageConfigBean;
 import com.huawei.projo.Goods;
+import com.huawei.projo.GoodsInCart;
 import com.huawei.projo.Orders;
 import com.huawei.projo.User;
 import com.huawei.service.DataSourcesService;
@@ -75,17 +76,29 @@ public class ViewController {
     }
 
     @RequestMapping(value="rushToBuy", method = RequestMethod.POST)
-    public String shoppingCart(HttpServletRequest request){
+    @ResponseBody
+    public String rushToBuy(HttpServletRequest request){
         String userId = request.getParameter("userId");
         String goodsId = request.getParameter("goodsId");
+        String result = "Failed";
 
         boolean rushToBuyResult = dataSourcesService.rushToBuyGoods(userId,goodsId);
 
         if(rushToBuyResult) {
-            return "com/shoppingCart";
-        }else {
-            return "com/rushToBuyFailed";
+            List<GoodsInCart> goodsInCartList=dataSourcesService.getGoodsInCart(userId);
+            request.setAttribute("goodsInCartList",goodsInCartList);
+            result = "Success";
         }
+        return result;
+    }
+
+    @RequestMapping(value="shoppingCart", method = RequestMethod.GET)
+    public String shoppingCart(HttpServletRequest request){
+        String userId = request.getParameter("userId");
+        List<GoodsInCart> goodsInCartList=dataSourcesService.getGoodsInCart(userId);
+        request.setAttribute("goodsInCartList",goodsInCartList);
+        request.setAttribute("goodsInCartListSize",goodsInCartList.size());
+        return "com/shoppingCart";
     }
 
     @RequestMapping(value="pay", method = RequestMethod.POST)
@@ -97,11 +110,23 @@ public class ViewController {
         return dataSourcesService.pay(userId,goodsId,goodsPrice);
     }
 
+    @RequestMapping(value="payPendingPayment", method = RequestMethod.POST)
+    @ResponseBody
+    public String payPendingPayment(HttpServletRequest request){
+        String pendingPaymentId = request.getParameter("pendingPaymentId");
+        String userId = request.getParameter("userId");
+        String goodsId = request.getParameter("goodsId");
+        String goodsPrice = request.getParameter("goodsPrice");
+
+        return dataSourcesService.payPendingPayment(pendingPaymentId,userId,goodsId,goodsPrice);
+    }
+
     @RequestMapping(value="orders", method = RequestMethod.GET)
     public String orders(HttpServletRequest request){
         String userId = request.getParameter("userId");
         List<Orders> ordersList = dataSourcesService.ordersList(userId);
         request.setAttribute("ordersList",ordersList);
+        request.setAttribute("ordersListSize",ordersList.size());
         return "com/orders";
     }
 
@@ -111,6 +136,11 @@ public class ViewController {
         User user =dataSourcesService.userDetail(userId);
         request.setAttribute("user",user);
         return "com/userDetail";
+    }
+
+    @RequestMapping(value="rushToBuyFailed", method = RequestMethod.GET)
+    public String rushToBuyFailed(){
+        return "com/rushToBuyFailed";
     }
 
 }

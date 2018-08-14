@@ -16,44 +16,69 @@
     </style>
 </head>
 <body>
-<jsp:include page="commonHeaderBanner.jsp"/>
-<table align="center">
-    <tr>
-        <td class="ordersTableStyle"><h3>商品编号</h3></td>
-        <td class="ordersTableStyle"><h3>商品图像</h3></td>
-        <td class="ordersTableStyle"><h3>价格</h3></td>
-        <td class="ordersTableStyle"><h3>待付款编号</h3></td>
-    </tr>
-    <c:forEach items="${goodsInCartList}" var="orders" varStatus="status">
-        <tr>
-            <td class="ordersTableStyle">${orders.goodsId}</td>
-            <td class="ordersTableStyle">
-                <img src="${orders.goodsPicturePath}"  width="70" height="70">
-            </td>
-            <td class="ordersTableStyle">${orders.goodsPrice}</td>
-            <td class="ordersTableStyle">${orders.pendingPaymentId}</td>
-            <td><input id="pay" onclick="pay(${orders.goodsPrice},${orders.goodsId})"></td>
-        </tr>
-    </c:forEach>
-</table>
+    <jsp:include page="commonHeaderBanner.jsp"/>
+    <div>
+        <form id="goodsFrom">
+        <table align="center" id="ordersTable">
+            <tr>
+                <td class="ordersTableStyle"><h3>待付款编号</h3></td>
+                <td class="ordersTableStyle"><h3>商品编号</h3></td>
+                <td class="ordersTableStyle"><h3>商品图像</h3></td>
+                <td class="ordersTableStyle"><h3>价格</h3></td>
+            </tr>
+            <c:forEach items="${goodsInCartList}" var="orders" varStatus="status">
+                <tr>
+                    <td class="ordersTableStyle">${orders.pendingPaymentId}</td>
+                    <td class="ordersTableStyle">${orders.goodsId}</td>
+                    <td class="ordersTableStyle">
+                        <img src="${orders.goodsPicturePath}"  width="70" height="70">
+                    </td>
+                    <td class="ordersTableStyle">${orders.goodsPrice}</td>
+                    <td><input id="payBt" type="button" onclick="pay(${orders.goodsPrice},${orders.goodsId},${orders.pendingPaymentId})" value="支付"></td>
+                </tr>
+            </c:forEach>
+        </table>
+        </form>
+    </div>
+    <div align="center">
+        <form action="mall" id="noGoodsFrom">
+            <H1>您还没有未付款的商品!</H1>
+            <br>
+            <br>
+            <input type="submit" value="返回首页">
+        </form>
+    </div>
 </body>
 <script type="text/javascript">
-    function pay(Price,Id){
-        //var userId='${sessionScope.userId}'.toString();
-        var userId="1";
+
+    var size = "${goodsInCartListSize}".toString();
+
+    if(size == "0"){
+        $('#goodsFrom').hide();
+        $('#noGoodsFrom').show();
+    }else{
+        $('#goodsFrom').show();
+        $('#noGoodsFrom').hide();
+    }
+
+    function pay(goodsPrice,goodsId,pendingPaymentId){
+        var userId='${sessionScope.userId}'.toString();
         if(userId != "" ){
-            var goodsId=Id.toString();
-            var goodsPrice=Price.toString();
+
+            goodsId=goodsId.toString();
+            goodsPrice=goodsPrice.toString();
+            goodsPrice=pendingPaymentId.toString();
+
             if(!(goodsId==''||goodsPrice=='')) {
                 $.ajax({
                     type: 'post',
-                    url: 'pay',
-                    data: 'userId=' + userId + '&goodsId=' + goodsId + '&goodsPrice=' + goodsPrice,
+                    url: 'payPendingPayment',
+                    data: 'userId=' + userId + '&goodsId=' + goodsId + '&goodsPrice=' + goodsPrice + '&pendingPaymentId=' + pendingPaymentId,
                     success: function (data) {
                         if (data == "PaySuccess") {
-                            window.location.href = "orders?userId=" + userId;
+                            window.location.href = "shoppingCart?userId=" + userId;
                         } else {
-                            alert("提示：付款失败[可能原因：余额不足、库存不足]");
+                            alert("提示：付款失败！");
                         }
                     }
                 })

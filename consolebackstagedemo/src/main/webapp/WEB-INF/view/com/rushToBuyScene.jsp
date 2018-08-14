@@ -43,7 +43,7 @@
         }
 
         .rushToBuy-txt-style{
-            width: 370px;
+            width: 450px;
             font-size:15px;
         }
         .red {
@@ -249,12 +249,10 @@
                     <tr>
                         <td></td>
                         <td>
-    <textarea rows="7" cols="50" id="rushToBuyArea">
+    <textarea rows="5" cols="55" id="rushToBuyArea">
      {
         'userId':'1',
-        'goodsId':'5',
-        'goodsPrice':'2',
-        'goodsType':'RushToBuy'
+        'goodsId':'5'
      }</textarea>
                         </td>
                     </tr>
@@ -275,7 +273,7 @@
                     <tr>
                         <td></td>
                         <td>
-                            <textarea rows="7" cols="50" id="rushToBuyResultArea" disabled="disabled"></textarea>
+                            <textarea rows="7" cols="55" id="rushToBuyResultArea" disabled="disabled"></textarea>
                         </td>
                     </tr>
                 </table>
@@ -412,7 +410,7 @@
         if(rushToBuyUrl != "" && requestBody != "") {
             $.ajax({
                 type: 'post',
-                url: 'pay',
+                url: 'rushToBuy',
                 data:  'rushToBuyUrl=' + rushToBuyUrl + '&requestBody=' + requestBody,
                 success: function (data) {
                     var callJson = jQuery.parseJSON(data);

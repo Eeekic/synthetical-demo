@@ -54,6 +54,12 @@ public class ManagerServiceController {
     public String pay(@RequestBody Map<String, Object> param){
         return managerService.pay(param);
     }
+    @RequestMapping(value="v1/rest/payPendingPayment", method = RequestMethod.POST)
+    @ResponseBody
+    public String payPendingPayment(@RequestBody Map<String, Object> param){
+        return managerService.payPendingPayment(param);
+    }
+
     @RequestMapping(value="v1/rest/orderList", method = RequestMethod.POST)
     @ResponseBody
     public String orderList(@RequestBody Map<String, Object> param){

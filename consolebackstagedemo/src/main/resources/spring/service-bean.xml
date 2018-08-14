@@ -30,6 +30,7 @@
         <property name="goodsDetailMethod"  value="${goodsDetailMethod}"/>
         <property name="payMethod"  value="${payMethod}"/>
         <property name="orderListMethod"  value="${orderListMethod}"/>
+        <property name="rushToBuyMethod"  value="${rushToBuyMethod}"/>
     </bean>
 
     <bean id="dbServiceConfig" class="com.huawei.configbean.DbServicesConfigBean">

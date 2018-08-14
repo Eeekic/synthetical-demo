@@ -22,6 +22,10 @@
 
     <select id="queryPendingPayment" resultType="com.huawei.projo.PendingPayment" parameterType="long"  resultMap="BaseResultMap">
     select pending_payment_id,user_id,goods.goods_id,goods_name,goods_price,goods_picture_path from pending_payment,goods where user_id=#{userId} and pending_payment.goods_id=goods.goods_id and is_payed=false order by pending_payment_id desc
-  </select>
+    </select>
+
+    <update id="setPayedTrue" parameterType="long">
+        update pending_payment set is_payed=true where pending_payment_id=#{pendingPaymentId}
+    </update>
 
 </mapper>

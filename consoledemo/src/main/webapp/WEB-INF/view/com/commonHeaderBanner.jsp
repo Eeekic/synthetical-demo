@@ -12,7 +12,8 @@
 %>
 <html>
     <head>
-    <style>
+        <script src="<%=path%>/js/jquery-3.3.1.min.js"></script>
+        <style>
         ul {
             list-style-type: none;
             margin: 0;
@@ -78,65 +79,73 @@
             width:80px;
         }
 
-        .head_div{
-            position:absolute;
-            width:100%;
-            height:100%;
-            background-color:black;
+        .title-style{
+            color:white;
+            text-decoration:none;
         }
     </style>
 </head>
-    <script src="<%=path%>/js/jquery-3.3.1.min.js"></script>
 <body>
-<ul>
-    <div class="homepage" align="center">
-        <div align="right">
-            <%--<img src="<%=imagePath%>/public/com/imgs/home.png" width="40" height="40">--%>
-            <a href="mall" style="color:white;font-size:16px;margin-top:20px;text-decoration:none;">首页</a>
-        </div>
-    </div>
-    <%--<div align="center">--%>
-        <%--&lt;%&ndash;<img src="<%=imagePath%>/public/com/imgs/home.png" width="40" height="40">&ndash;%&gt;--%>
-        <%--<a style="color:white;font-size:16px;margin-top:20px;text-decoration:none;">Demo Mall</a>--%>
-    <%--</div>--%>
-    <div class="dropdown" >
-        <a id="loginBt" class="dropbtn">请登录</a>
-        <div class="dropdown-content">
-            <form action="" method="post">
-                <a href="userDetail?userId=${sessionScope.userId}" id="personInfoHref" target="_blank" style="display:none">个人信息</a>
-                <a href="orders?userId=${sessionScope.userId}" id="orderInfoHref"target="_blank" style="display:none">您的订单</a>
-                <a onclick="signOut()" id="exitHref" target="" style="display:none">退出</a>
-                <a href="sign" id="signHref" target="_blank">登录注册</a>
-            </form>
-        </div>
-    </div>
-</ul>
-
-<script type="text/javascript">
-    var userId="${sessionScope.userId}".toString();
-    if(userId != "" ){
-        $('#personInfoHref').show();
-        $('#orderInfoHref').show();
-        $('#exitHref').show();
-        $('#signHref').hide();
-        $('#loginBt').text("用户信息");
-    }
-    function signOut(){
-        $.ajax({
-            type: 'get',
-            url: 'signOut',
-            data: '',
-            success: function (data) {
-                if (data == "SignOutSuccess") {
-                    window.location.href = "mall";
-                } else {
-                    alert("提示：退出失败！");
-                }
-            }
-        })
-    }
-</script>
-<br>
-<br>
+    <ul>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td style="width:33%;height:100%;">
+                    <div class="homepage">
+                        <div align="right">
+                            <a href="mall" style="color:white;font-size:16px;text-decoration:none;">首页</a>
+                        </div>
+                    </div>
+                </td>
+                <td style="width:34%;height:100%;">
+                    <div>
+                        <div align="center">
+                            <h2 class="title-style">水果店</h2>
+                        </div>
+                    </div>
+                </td>
+                <td style="width:33%;height:100%;">
+                    <div class="dropdown" >
+                        <a id="loginBt" class="dropbtn">请登录</a>
+                        <div class="dropdown-content">
+                            <form method="post">
+                                <a href="userDetail?userId=${sessionScope.userId}" id="personInfoHref" target="_blank" style="display:none">个人信息</a>
+                                <a href="orders?userId=${sessionScope.userId}" id="orderInfoHref"target="_blank" style="display:none">您的订单</a>
+                                <a href="shoppingCart?userId=${sessionScope.userId}" id="pendingPaymentHref"target="_blank" style="display:none">未支付订单</a>
+                                <a onclick="signOut()" id="exitHref" target="" style="display:none">退出</a>
+                                <a href="sign" id="signHref" target="_blank">登录/注册</a>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </ul>
+    <br>
+    <br>
 </body>
+    <script type="text/javascript">
+        var userId="${sessionScope.userId}".toString();
+        if(userId != "" ){
+            $('#personInfoHref').show();
+            $('#orderInfoHref').show();
+            $('#pendingPaymentHref').show();
+            $('#exitHref').show();
+            $('#signHref').hide();
+            $('#loginBt').text("用户信息");
+        }
+        function signOut(){
+            $.ajax({
+                type: 'get',
+                url: 'signOut',
+                data: '',
+                success: function (data) {
+                    if (data == "SignOutSuccess") {
+                        window.location.href = "mall";
+                    } else {
+                        alert("提示：退出失败！");
+                    }
+                }
+            })
+        }
+    </script>
 </html>

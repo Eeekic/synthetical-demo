@@ -24,25 +24,50 @@
 </head>
 <body>
     <jsp:include page="commonHeaderBanner.jsp"/>
-    <table align="center">
-        <tr>
-            <td class="ordersTableStyle"><h3>订单号</h3></td>
-            <td class="ordersTableStyle"><h3>商品图像</h3></td>
-            <td class="ordersTableStyleLong"><h3>名称</h3></td>
-            <td class="ordersTableStyle"><h3>价格</h3></td>
-            <td class="ordersTableStyleLong"><h3>日期</h3></td>
-        </tr>
-        <c:forEach items="${ordersList }" var="orders" varStatus="status">
-            <tr>
-                <td class="ordersTableStyle">${orders.ordersId}</td>
-                <td class="ordersTableStyle">
-                    <img src="${orders.goodsPicturePath}"  width="70" height="70">
-                </td>
-                <td class="ordersTableStyleLong">${orders.goodsName}</td>
-                <td class="ordersTableStyle">${orders.goodsPrice}</td>
-                <td class="ordersTableStyleLong">${orders.ordersDate}</td>
-            </tr>
-        </c:forEach>
-    </table>
+    <div>
+        <form id="ordersFrom">
+            <table align="center">
+                <tr>
+                    <td class="ordersTableStyle"><h3>订单号</h3></td>
+                    <td class="ordersTableStyle"><h3>商品图像</h3></td>
+                    <td class="ordersTableStyleLong"><h3>名称</h3></td>
+                    <td class="ordersTableStyle"><h3>价格</h3></td>
+                    <td class="ordersTableStyleLong"><h3>日期</h3></td>
+                </tr>
+                <c:forEach items="${ordersList }" var="orders" varStatus="status">
+                    <tr>
+                        <td class="ordersTableStyle">${orders.ordersId}</td>
+                        <td class="ordersTableStyle">
+                            <img src="${orders.goodsPicturePath}"  width="70" height="70">
+                        </td>
+                        <td class="ordersTableStyleLong">${orders.goodsName}</td>
+                        <td class="ordersTableStyle">${orders.goodsPrice}</td>
+                        <td class="ordersTableStyleLong">${orders.ordersDate}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </form>
+    </div>
+    <div align="center">
+        <form action="mall" id="noOrdersFrom">
+            <H1>没有商品订单信息!</H1>
+            <br>
+            <br>
+            <input type="submit" value="返回首页">
+        </form>
+    </div>
 </body>
+<script type="text/javascript">
+
+    var size = "${ordersListSize}".toString();
+
+    if(size == "0"){
+        $('#ordersFrom').hide();
+        $('#noOrdersFrom').show();
+    }else{
+        $('#ordersFrom').show();
+        $('#noOrdersFrom').hide();
+    }
+
+</script>
 </html>

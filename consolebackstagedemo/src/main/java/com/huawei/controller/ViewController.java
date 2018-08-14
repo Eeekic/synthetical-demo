@@ -30,7 +30,7 @@ public class ViewController {
     @RequestMapping(value="rushToBuyScene", method = RequestMethod.GET)
     public String sign(HttpServletRequest request){
 
-        request.setAttribute("rushToBuyUrl",managerServicesConfigBean.getPayMethodUrl());
+        request.setAttribute("rushToBuyUrl",managerServicesConfigBean.getRushToBuyMethodUrl());
 
         return "com/rushToBuyScene";
     }
@@ -93,9 +93,9 @@ public class ViewController {
         return consoleBackstageService.testUserIdRange();
     }
 
-    @RequestMapping(value="pay", method = RequestMethod.POST)
+    @RequestMapping(value="rushToBuy", method = RequestMethod.POST)
     @ResponseBody
-    public String pay(HttpServletRequest request){
+    public String rushToBuy(HttpServletRequest request){
         String url =null;
         Map<String,Object> urlMap;
         try {
@@ -105,8 +105,6 @@ public class ViewController {
             urlMap = new HashMap<>();
             urlMap.put("userId",responseJson.get("userId"));
             urlMap.put("goodsId",responseJson.get("goodsId"));
-            urlMap.put("goodsPrice",responseJson.get("goodsPrice"));
-            urlMap.put("goodsType",responseJson.get("goodsType"));
         }catch (Exception e){
             log.error(e);
             JSONObject resultJson = new JSONObject();
@@ -115,7 +113,7 @@ public class ViewController {
             e.printStackTrace();
             return resultJson.toJSONString() ;
         }
-        return consoleBackstageService.pay(url,urlMap);
+        return consoleBackstageService.rushToBuy(url,urlMap);
     }
 
     @RequestMapping(value="queryRushToBuyGoodsCount")

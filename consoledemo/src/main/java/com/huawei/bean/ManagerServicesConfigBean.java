@@ -11,6 +11,7 @@ public class ManagerServicesConfigBean {
     private String orderListMethod;
     private String rushToBuyMethod;
     private String pendingPaymentMethod;
+    private String payPendingPaymentMethod;
 
     public void setManagerServicesUrl(String managerServicesUrl) {
         this.managerServicesUrl = managerServicesUrl;
@@ -86,5 +87,13 @@ public class ManagerServicesConfigBean {
 
     public void setPendingPaymentMethod(String pendingPaymentMethod) {
         this.pendingPaymentMethod = pendingPaymentMethod;
+    }
+
+    public String getPayPendingPaymentMethod() {
+        return managerServicesUrl + "/" + payPendingPaymentMethod;
+    }
+
+    public void setPayPendingPaymentMethod(String payPendingPaymentMethod) {
+        this.payPendingPaymentMethod = payPendingPaymentMethod;
     }
 }

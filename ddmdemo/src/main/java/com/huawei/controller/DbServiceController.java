@@ -74,6 +74,16 @@ public class DbServiceController {
         return dbServices.pay(userId,goodsId,goodsPrice);
     }
 
+    @RequestMapping(value="v1/rest/payPendingPayment", method = RequestMethod.POST)
+    @ResponseBody
+    public String payPendingPayment(@RequestBody Map<String, Object> param){
+        int pendingPaymentId = Integer.parseInt(param.get("pendingPaymentId").toString());
+        long userId = Long.parseLong(param.get("userId").toString());
+        long goodsId = Long.parseLong(param.get("goodsId").toString());
+        int goodsPrice = Integer.parseInt(param.get("goodsPrice").toString());
+        return dbServices.payPendingPayment(pendingPaymentId,userId,goodsId,goodsPrice);
+    }
+
     @RequestMapping(value="v1/rest/queryBalance", method = RequestMethod.POST)
     @ResponseBody
     public String queryBalance(@RequestBody Map<String, Object> param){

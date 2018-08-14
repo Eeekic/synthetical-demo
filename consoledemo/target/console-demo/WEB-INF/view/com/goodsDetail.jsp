@@ -43,7 +43,7 @@
     <H1>商品详情</H1>
 </div>
 <div align="center">
-    <form id="payForm" action="payPage" method="post">
+    <form id="payForm">
         <table align="center">
             <tr>
                 <td>
@@ -97,8 +97,8 @@
         </table>
         <input name="goodsId" value="${goods.goodsId}" type="hidden">
         <div align="center" class="payBtFloatLeft">
-            <input id="payBt" type="submit" value="购买" class="payBtStyle">
-            <input id="rushToBuyBt" type="submit" value="抢购" class="rushToBuyBt" onclick="rushToBuy()" style="display:none">
+            <input id="payBt" type="submit" value="购买" class="payBtStyle" onclick="sign()">
+            <input id="rushToBuyBt" type="button" value="抢购" class="rushToBuyBt" onclick="rushToBuy()" style="display:none">
         </div>
     </form>
 </div>
@@ -111,8 +111,34 @@
     }
 
     function rushToBuy() {
-        $("#payForm").attr('action','rushToBuy');
-        $("#payForm").attr('method','post')
+        var userId = "${sessionScope.userId}".toString();
+        if(userId == "") {
+            $("#payForm").attr('action', 'sign');
+            $("#payForm").attr('method', 'get');
+            alert("提示：请先登录！");
+        }else {
+            $.ajax({
+                type: 'post',
+                url: 'rushToBuy',
+                data: 'userId=' + userId + '&goodsId=' + ${goods.goodsId},
+                success: function (data) {
+                    if (data == "Success") {
+                        window.location.href = "shoppingCart?userId=" + userId;
+                    } else {
+                        window.location.href = "rushToBuyFailed";
+                    }
+                }
+            });
+        }
+    }
+
+    function sign() {
+        var userId = "${sessionScope.userId}".toString();
+        if(userId == "") {
+            $("#payForm").attr('action', 'sign');
+            $("#payForm").attr('method', 'get');
+            alert("提示：请先登录！");
+        }
     }
 </script>
 </body>

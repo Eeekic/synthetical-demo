@@ -13,7 +13,7 @@
         <H1>已经售罄，抢购失败!</H1>
         <br>
         <br>
-        <<input type="submit" value="返回">
+        <input type="submit" value="返回">
     </form>
 </div>
 

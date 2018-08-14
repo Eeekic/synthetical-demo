@@ -23,4 +23,22 @@ public interface PendingPaymentMapper {
      * @return a
      */
     List<PendingPayment> queryPendingPayment(long userId);
+
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 16:58 2018/8/14
+     *
+     * @return
+     */
+    int setPayedTrue(long pendingPaymentId);
+
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 17:00 2018/8/14
+     *
+     * @return
+     */
+    PendingPayment queryPendingPaymentById(long pendingPaymentId);
 }

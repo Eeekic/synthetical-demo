@@ -1,6 +1,7 @@
 package com.huawei;
 
 import com.huawei.Utils.CommonUtils;
+import com.huawei.projo.GoodsInCart;
 import com.huawei.projo.User;
 import com.huawei.service.ApplicationContextRegister;
 import com.huawei.bean.ManagerServicesConfigBean;
@@ -44,6 +45,18 @@ public class DemoTest {
     public void payTest(){
         String result = dataSourcesService.pay("1","1","2");
         System.out.println(result);
+    }
+    @Test
+    public void TestCart(){
+        List<GoodsInCart> goodsInCartList=dataSourcesService.getGoodsInCart("1");
+        for(int i=0;i!=goodsInCartList.size();++i){
+            System.out.println(goodsInCartList.get(i).toString());
+        }
+    }
+
+    @Test
+    public void testRushToBuy(){
+        System.out.println(dataSourcesService.rushToBuyGoods("1","5"));
     }
 
 }

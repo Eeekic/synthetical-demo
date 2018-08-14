@@ -4,9 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huawei.projo.Goods;
+import com.huawei.projo.GoodsInCart;
 import com.huawei.projo.Orders;
 import com.huawei.projo.User;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -116,11 +118,26 @@ public class JSONAnalysis {
         boolean result = false;
         if(resJson != null &&  resJson.getString("errCode") != null &&
                 resJson.getString("errCode").equals(CommonUtils.MANAGER_SERVICES_NORMAL_CODE)){
-            if(resJson.getString("resMsg") != null && resJson.getString("resMsg").equals("success")){
+            if(resJson.getString("resMsg") != null && resJson.getString("resMsg").equals("Success")){
                 result = true;
             }
         }
         return  result;
     }
 
+    //Below is Lizhi's part
+    public static List<GoodsInCart> analysisGoodsInCart(JSONObject jsonObject){
+        List<GoodsInCart> goodsInCartList=new ArrayList<GoodsInCart>();
+        if(jsonObject != null &&  jsonObject.getString("errCode") != null &&
+                jsonObject.getString("errCode").equals(CommonUtils.MANAGER_SERVICES_NORMAL_CODE)){
+            JSONArray jsonArray = jsonObject.getJSONArray("resMsg");
+            if(jsonArray != null){
+                for(int i=0;i<jsonArray.size();i++) {
+                 GoodsInCart temp=GoodsInCart.jsonToGoodsInCart(jsonArray.getJSONObject(i));
+                 goodsInCartList.add(temp);
+                }
+            }
+        }
+        return goodsInCartList;
+    }
 }

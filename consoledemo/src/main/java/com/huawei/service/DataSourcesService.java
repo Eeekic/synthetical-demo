@@ -5,6 +5,7 @@ import com.huawei.Utils.CommonUtils;
 import com.huawei.Utils.JSONAnalysis;
 import com.huawei.bean.ManagerServicesConfigBean;
 import com.huawei.projo.Goods;
+import com.huawei.projo.GoodsInCart;
 import com.huawei.projo.Orders;
 import com.huawei.projo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +91,23 @@ public class DataSourcesService {
         return result;
     }
 
+    public String payPendingPayment(String pendingPaymentId,String userId,String goodsId,String goodsPrice){
+        String result = CommonUtils.PAY_FAILED;
+        String url = managerServicesConfigBean.getPayPendingPaymentMethod();
+        Map<String,Object>  map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("goodsId",goodsId);
+        map.put("goodsPrice",goodsPrice);
+        map.put("pendingPaymentId",pendingPaymentId);
+        JSONObject resultJson = httpClientService.getDataFromManagerServices(url,map,HttpClientService.POST_Method_TYPE);
+        if (resultJson != null&&resultJson.getString("errCode")!=null){
+            if(resultJson.getString("resMsg").equals(CommonUtils.PAY_SUCCESS)){
+                result = CommonUtils.PAY_SUCCESS;
+            }
+        }
+        return result;
+    }
+
     public List<Orders>  ordersList(String userId){
         String url = managerServicesConfigBean.getOrderListMethodUrl();
         Map<String,Object>  map = new HashMap<>();
@@ -107,13 +125,22 @@ public class DataSourcesService {
 
         return JSONAnalysis.analysisUserDetail(resultJson);
     }
+    //Below is Lizhi's part
+    public List<GoodsInCart> getGoodsInCart(String userId){
+        String url=managerServicesConfigBean.getPendingPaymentMethodUrl(userId);
+        System.out.println(url);
+        JSONObject resultJson = httpClientService.getDataFromManagerServices(url,HttpClientService.GET_Method_TYPE);
+        List<GoodsInCart> goodsInCartList=JSONAnalysis.analysisGoodsInCart(resultJson);
+        return goodsInCartList;
+    }
 
     public boolean rushToBuyGoods(String userId,String goodsId){
-        boolean result = false;
+
         String url = managerServicesConfigBean.getRushToBuyMethodUrl();
         Map<String,Object>  map = new HashMap<>();
         map.put("userId",userId);
         map.put("goodsId",goodsId);
+
         JSONObject resultJson = httpClientService.getDataFromManagerServices(url,map,HttpClientService.POST_Method_TYPE);
 
         return JSONAnalysis.analysisRushToBuyResponse(resultJson);

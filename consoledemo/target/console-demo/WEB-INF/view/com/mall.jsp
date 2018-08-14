@@ -30,16 +30,17 @@
     <table align="center">
         <tr>
             <td>
-                <form  id="rushToBuyFrom" action="rushToBuy" method="post">
+                <form  id="rushToBuyFrom">
                     <img src="${rushToBuyGoods.goodsPicturePath}"  width="400" height="400">
                     <input type="hidden" name="goodsId" value="${rushToBuyGoods.goodsId}">
+                    <input type="hidden" name="userId" value="${sessionScope.userId}">
                     <table align="center">
                         <tr>
                             <td>
                                 <input type="button" class="rushToBuyBtStyle" value="商品详情" onclick="goodsDetail(${rushToBuyGoods.goodsId})">
                             </td>
                             <td>
-                                <input type="submit" class="rushToBuyBtStyle" value="抢购">
+                                <input type="button" class="rushToBuyBtStyle" value="抢购" onclick="rushToBuy(${rushToBuyGoods.goodsId})">
                             </td>
                         <tr/>
                     </table>
@@ -68,7 +69,7 @@
                             <input type="button" value="商品详情" class="btStyle" onclick="goodsDetail(${goods.goodsId})">
                         </td>
                         <td>
-                            <input type="submit" class="btStyle" value="购买" >
+                            <input type="submit" class="btStyle" value="购买" onclick="sign()">
                         </td>
                     <tr/>
                 </table>
@@ -85,6 +86,36 @@
 <script type="text/javascript">
     function goodsDetail(goodsId) {
         window.location.href="goodsDetail?goodsId="+goodsId;
+    }
+
+    function sign() {
+        var userId = "${sessionScope.userId}".toString();
+        if(userId == "") {
+            $("#buyFrom").attr('action', 'sign');
+            $("#buyFrom").attr('method', 'get');
+            alert("提示：请先登录！");
+        }
+    }
+
+    function rushToBuy(goodsId) {
+        var userId = "${sessionScope.userId}".toString();
+        if(userId == "") {
+            alert("提示：请先登录！");
+            window.location.href="sign";
+        }else {
+            $.ajax({
+                type: 'post',
+                url: 'rushToBuy',
+                data: 'userId=' + userId + '&goodsId=' + goodsId,
+                success: function (data) {
+                    if (data == "Success") {
+                        window.location.href = "shoppingCart?userId=" + userId;
+                    } else {
+                        window.location.href = "rushToBuyFailed";
+                    }
+                }
+            });
+        }
     }
 </script>
 

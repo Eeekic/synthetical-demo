@@ -21,6 +21,7 @@
         <property name="payMethod"  value="${pay}"/>
         <property name="batchAddPendingPaymentMethod"  value="${batchAddPendingPayment}"/>
         <property name="queryPendingPaymentMethod"  value="${queryPendingPayment}"/>
+        <property name="payPendingPaymentMethod"  value="${payPendingPayment}"/>
 
     </bean>
     <!-- 定义service -->

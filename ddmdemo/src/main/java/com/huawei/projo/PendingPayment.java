@@ -107,9 +107,6 @@ public class PendingPayment {
                 pendingPayment.setUserId(jsonObject.getLong("userId"));
                 pendingPayment.setGoodsId(jsonObject.getLong("goodsId"));
                 pendingPayment.setToken(jsonObject.getString("token"));
-                pendingPayment.setGoodsName(jsonObject.getString("goodsName"));
-                pendingPayment.setGoodsPrice(jsonObject.getInteger("goodsPrice"));
-                pendingPayment.setGoodsPicturePath(jsonObject.getString("goodsPicturePath"));
                 pendingPaymentList.add(pendingPayment);
             }
         }catch (Exception e){

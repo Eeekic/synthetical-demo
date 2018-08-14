@@ -24,4 +24,21 @@ public interface PendingPaymentDao {
      */
     List<PendingPayment> queryPendingPayment(long userId);
 
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 16:58 2018/8/14
+     *
+     * @return
+     */
+    String payPendingPayment(long pendingPaymentId,long userId,long goodsId,int goodsPrice);
+
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 17:00 2018/8/14
+     *
+     * @return
+     */
+    PendingPayment queryPendingPaymentById(long pendingPaymentId);
 }

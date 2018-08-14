@@ -124,6 +124,17 @@ public class ManagerService {
         return jsonObject.toJSONString();
     }
 
+    public String payPendingPayment( Map<String, Object> urlVariables){
+        JSONObject jsonObject;
+        String url = dbServicesConfigBean.getPayPendingPaymentMethodUrl();
+        try {
+            jsonObject = dataService.getDataFromDbService(url, urlVariables, DataService.POST_Method_TYPE);
+        } catch (Exception e) {
+            jsonObject = ExceptionProcess.processException(e);
+        }
+        return jsonObject.toJSONString();
+    }
+
 
     public String initRushToBuyGoods(int count){
         JSONObject jsonObject = new JSONObject();

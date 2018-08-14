@@ -27,7 +27,7 @@ public class ScheduledTask {
         kafkaManager.produceMsg(CommonUtils.HEARTBEAT);
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 10)
     public void consumerTask(){
         managerService.recordRushToBuyOrders(timeout);
     }

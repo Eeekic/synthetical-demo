@@ -2,6 +2,7 @@ package com.huawei.dao;
 
 import com.huawei.projo.Orders;
 import com.huawei.projo.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 

@@ -9,6 +9,7 @@ public class ManagerServicesConfigBean {
     private String goodsDetailMethod;
     private String payMethod;
     private String orderListMethod;
+    private String rushToBuyMethod;
 
     public String getManagerServicesUrl() {
         return managerServicesUrl;
@@ -72,5 +73,13 @@ public class ManagerServicesConfigBean {
 
     public void setOrderListMethod(String orderListMethod) {
         this.orderListMethod = orderListMethod;
+    }
+
+    public String getRushToBuyMethodUrl() {
+        return rushToBuyMethod;
+    }
+
+    public void setRushToBuyMethod(String rushToBuyMethod) {
+        this.rushToBuyMethod = managerServicesUrl + "/" + rushToBuyMethod;
     }
 }

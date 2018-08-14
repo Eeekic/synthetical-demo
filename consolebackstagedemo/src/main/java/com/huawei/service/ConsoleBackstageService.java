@@ -52,7 +52,7 @@ public class ConsoleBackstageService {
         JSONObject resultJson = dataService.getDataFromManagerServices(url, dataService.GET_Method_TYPE);
         return JSONAnalysis.analysisObjectString(resultJson,"testUserIdRange");
     }
-    public String pay(String url,Map<String,Object> urlMap){
+    public String rushToBuy(String url,Map<String,Object> urlMap){
 
         long startTime = System.currentTimeMillis();
         JSONObject responseJson = dataService.getDataFromManagerServices(url,urlMap, dataService.POST_Method_TYPE);
