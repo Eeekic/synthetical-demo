@@ -22,7 +22,7 @@
 </head>
 <body>
     <jsp:include page="commonHeaderBanner.jsp"/>
-    <h1 style="color:black" align="center">登录注册</h1>
+    <h1 style="color:black" align="center">登录/注册</h1>
     <div style="width:100%;text-align:center" align="center">
         <div align="left">
             <form id="loginForm" name="loginForm">
