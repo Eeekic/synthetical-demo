@@ -43,7 +43,7 @@
     <H1>商品详情</H1>
 </div>
 <div align="center">
-    <form id="payForm">
+    <form id="payForm" action="payPage" method="post">
         <table align="center">
             <tr>
                 <td>
