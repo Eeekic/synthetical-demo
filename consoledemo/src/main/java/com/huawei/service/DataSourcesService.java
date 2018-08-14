@@ -36,8 +36,8 @@ public class DataSourcesService {
         return JSONAnalysis.analysisRushToBuyGoodsList(resultJson);
     }
 
-    public Goods getGoodsDetail(String goodsId,String goodsType){
-        String url = managerServicesConfigBean.getGoodsDetailMethodUrl(goodsId,goodsType);
+    public Goods getGoodsDetail(String goodsId){
+        String url = managerServicesConfigBean.getGoodsDetailMethodUrl(goodsId);
         JSONObject resultJson = httpClientService.getDataFromManagerServices(url,HttpClientService.GET_Method_TYPE);
         return JSONAnalysis.analysisGoodsDetail(resultJson);
     }
@@ -74,14 +74,13 @@ public class DataSourcesService {
         }
     }
 
-    public String  pay(String userId,String goodsId,String goodsPrice,String goodsType){
+    public String pay(String userId,String goodsId,String goodsPrice){
         String result = CommonUtils.PAY_FAILED;
         String url = managerServicesConfigBean.getPayMethodUrl();
         Map<String,Object>  map = new HashMap<>();
         map.put("userId",userId);
         map.put("goodsId",goodsId);
         map.put("goodsPrice",goodsPrice);
-        map.put("goodsType",goodsType);
         JSONObject resultJson = httpClientService.getDataFromManagerServices(url,map,HttpClientService.POST_Method_TYPE);
         if (resultJson != null&&resultJson.getString("errCode")!=null){
             if(resultJson.getString("resMsg").equals(CommonUtils.PAY_SUCCESS)){

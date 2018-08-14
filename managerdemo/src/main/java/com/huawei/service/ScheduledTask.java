@@ -1,6 +1,7 @@
 package com.huawei.service;
 
-import com.huawei.manager.ConsumerManager;
+import com.huawei.Utils.CommonUtils;
+import com.huawei.manager.KafkaManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -11,14 +12,23 @@ import org.springframework.stereotype.Component;
 @EnableScheduling
 public class ScheduledTask {
 
+    private static final int timeout = 200;
+
     private static Logger log = Logger.getLogger(ManagerService.class);
 
     @Autowired
-    ConsumerManager consumerManager;
+    private KafkaManager kafkaManager;
+
+    @Autowired
+    private ManagerService managerService;
 
     @Scheduled(fixedRate = 60000)
-    public void print(){
-        log.info("Topic:" + consumerManager.subscription());
-        System.out.println(consumerManager.subscription());
+    public void heartbeat(){
+        kafkaManager.produceMsg(CommonUtils.HEARTBEAT);
+    }
+
+    @Scheduled(fixedRate = 5000)
+    public void consumerTask(){
+        managerService.recordRushToBuyOrders(timeout);
     }
 }

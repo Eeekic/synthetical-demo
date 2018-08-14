@@ -2,10 +2,11 @@ package com.huawei.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.huawei.configbean.ManagerServicesConfigBean;
-import com.huawei.service.DataSourcesService;
+import com.huawei.service.ConsoleBackstageService;
 import com.huawei.tools.PrePareRushToBuyTools;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +22,7 @@ public class ViewController {
     private static Logger log = Logger.getLogger(ViewController.class);
 
     @Autowired
-    DataSourcesService dataSourcesService;
+    ConsoleBackstageService consoleBackstageService;
 
     @Autowired
     ManagerServicesConfigBean managerServicesConfigBean;
@@ -37,11 +38,11 @@ public class ViewController {
     @RequestMapping(value="commitPresetDataForRushToBuyGoods", method = RequestMethod.GET)
     @ResponseBody
     public String commitPresetDataForRushToBuyGoods(HttpServletRequest request){
-        String result=null;
+        String result;
         try {
             int rushToBuyGoodsCount = Integer.parseInt(request.getParameter("rushToBuyGoodsCount"));
             if (PrePareRushToBuyTools.getPrivilegeOfCommitData(PrePareRushToBuyTools.PREPARE_RUSH_TO_BUY_GOODS)) {
-                dataSourcesService.produceMessages(rushToBuyGoodsCount);
+                consoleBackstageService.commitPrepareRushToBuyGoods(rushToBuyGoodsCount);
                 result = "success";
             } else {
                 result = "Please do not repeat the submission!";
@@ -61,7 +62,7 @@ public class ViewController {
         try {
             int rushToBuyUsersCount = Integer.parseInt(request.getParameter("rushToBuyUsersCount"));
             if (PrePareRushToBuyTools.getPrivilegeOfCommitData(PrePareRushToBuyTools.PREPARE_TEST_USER)) {
-                dataSourcesService.commitPrepareTestUser(rushToBuyUsersCount);
+                consoleBackstageService.commitPrepareTestUser(rushToBuyUsersCount);
                 result = "success";
             } else {
                 result = "Please do not repeat the submission!";
@@ -77,19 +78,19 @@ public class ViewController {
     @RequestMapping(value="testUserCount", method = RequestMethod.GET)
     @ResponseBody
     public int queryTestUserCount(){
-        return dataSourcesService.queryTestUserCount();
+        return consoleBackstageService.queryTestUserCount();
     }
 
     @RequestMapping(value="rushToBuyGoodsDetail", method = RequestMethod.GET)
     @ResponseBody
     public String queryRushToBuyGoodsDetail(){
-        return dataSourcesService.queryRushToBuyGoodsDetail();
+        return consoleBackstageService.queryRushToBuyGoodsDetail();
     }
 
     @RequestMapping(value="testUserIdRange", method = RequestMethod.GET)
     @ResponseBody
     public String testUserIdRange(){
-        return dataSourcesService.testUserIdRange();
+        return consoleBackstageService.testUserIdRange();
     }
 
     @RequestMapping(value="pay", method = RequestMethod.POST)
@@ -114,13 +115,13 @@ public class ViewController {
             e.printStackTrace();
             return resultJson.toJSONString() ;
         }
-        return dataSourcesService.pay(url,urlMap);
+        return consoleBackstageService.pay(url,urlMap);
     }
 
-    @RequestMapping(value="queryMsgCount")
+    @RequestMapping(value="queryRushToBuyGoodsCount")
     @ResponseBody
-    public int queryMsgCount(){
-        return dataSourcesService.getAvailableMessageAmount();
+    public long queryRushToBuyGoodsCount(){
+        return consoleBackstageService.queryRushToBuyGoodsCount();
     }
 
 }

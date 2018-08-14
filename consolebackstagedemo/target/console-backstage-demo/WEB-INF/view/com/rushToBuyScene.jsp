@@ -362,7 +362,7 @@
         });
         $.ajax({
             type:'get',
-            url:'queryMsgCount',
+            url:'queryRushToBuyGoodsCount',
             data:'',
             success: function (data){
                 if(data >= 0){

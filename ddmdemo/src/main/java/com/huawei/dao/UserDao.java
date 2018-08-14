@@ -12,7 +12,7 @@ public interface UserDao {
      *
      * @return 
      */
-    public User querySimpleUserInfoByName(String userName);
+    User querySimpleUserInfoByName(String userName);
 
     /**
      * create by: sunpeng
@@ -21,7 +21,7 @@ public interface UserDao {
      *
      * @return 
      */
-    public int addUser(User user);
+    int addUser(User user);
 
     /**
      * create by: sunpeng
@@ -30,7 +30,7 @@ public interface UserDao {
      *
      * @return
      */
-    public int updateUserBalance(int price,long userId);
+    int updateUserBalance(int price,long userId);
 
     /**
      * create by: sunpeng
@@ -39,7 +39,7 @@ public interface UserDao {
      *
      * @return
      */
-    public int queryUserBalance(long userId);
+    int queryUserBalance(long userId);
 
     /**
      * create by: sunpeng
@@ -48,7 +48,7 @@ public interface UserDao {
      *
      * @return
      */
-    public User queryUserDetailInfoById(long userId);
+    User queryUserDetailInfoById(long userId);
     /**
      * create by: sunpeng
      * description:
@@ -56,7 +56,7 @@ public interface UserDao {
      *
      * @return
      */
-    public long queryUserId(String userName);
+    long queryUserId(String userName);
 
     /**
      * create by: sunpeng
@@ -65,7 +65,7 @@ public interface UserDao {
      *
      * @return
      */
-    public int addUser(String userName,String userPwd,String userType);
+    int addUser(String userName,String userPwd,String userType);
 
     /**
      * create by: sunpeng
@@ -74,7 +74,7 @@ public interface UserDao {
      *
      * @return
      */
-    public List<User> queryUser(String userType);
+    List<User> queryUser(String userType);
 
     /**
      * create by: sunpeng
@@ -83,7 +83,7 @@ public interface UserDao {
      *
      * @return
      */
-    public int cleanUser(String userType);
+    int cleanUser(String userType);
 
     /**
      * create by: sunpeng
@@ -92,7 +92,7 @@ public interface UserDao {
      *
      * @return
      */
-    public int queryUserCount(String userType);
+    int queryUserCount(String userType);
 
     /**
      * create by: sunpeng
@@ -101,7 +101,7 @@ public interface UserDao {
      *
      * @return
      */
-    public int queryUserMaxId(String userType);
+    int queryUserMaxId(String userType);
 
     /**
      * create by: sunpeng
@@ -110,6 +110,6 @@ public interface UserDao {
      *
      * @return
      */
-    public int queryUserMinId(String userType);
+    int queryUserMinId(String userType);
 
 }

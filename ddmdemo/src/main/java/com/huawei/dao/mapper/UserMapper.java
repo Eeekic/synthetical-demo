@@ -13,7 +13,7 @@ public interface UserMapper {
      *
      * @reurn
      */
-    public int addUser(User user);
+    int addUser(User user);
 
     /**
      * create by: sunpeng
@@ -22,7 +22,7 @@ public interface UserMapper {
      *
      * @return
      */
-    public int addTestUser(@Param("userName")String userName,@Param("userPwd")String userPwd,@Param("userType")String userType);
+    int addTestUser(@Param("userName")String userName,@Param("userPwd")String userPwd,@Param("userType")String userType);
     /**
      * create by: sunpeng
      * description:
@@ -30,7 +30,7 @@ public interface UserMapper {
      *
      * @return 
      */
-    public User querySimpleUserInfoByName(String userName);
+    User querySimpleUserInfoByName(String userName);
     /**
      * create by: sunpeng
      * description:
@@ -38,7 +38,7 @@ public interface UserMapper {
      *
      * @return
      */
-    public int updateUserBalance(@Param("price")int price,@Param("userId")long userId);
+    int updateUserBalance(@Param("price")int price,@Param("userId")long userId);
 
     /**
      * create by: sunpeng
@@ -47,7 +47,7 @@ public interface UserMapper {
      *
      * @return
      */
-    public int queryUserBalance(long userId);
+    int queryUserBalance(long userId);
     /**
      * create by: sunpeng
      * description:
@@ -55,7 +55,7 @@ public interface UserMapper {
      *
      * @return
      */
-    public User queryUserDetailInfoById(long userId);
+    User queryUserDetailInfoById(long userId);
     /**
      * create by: sunpeng
      * description:
@@ -71,9 +71,9 @@ public interface UserMapper {
      *
      * @return
      */
-    public List<User> queryUser(String userType);
+    List<User> queryUser(String userType);
 
-    public long queryUserId(String userName);
+    long queryUserId(String userName);
     /**
      * create by: sunpeng
      * description:
@@ -81,7 +81,7 @@ public interface UserMapper {
      *
      * @return
      */
-    public int cleanUser(String userType);
+    int cleanUser(String userType);
     /**
      * create by: sunpeng
      * description:
@@ -89,16 +89,7 @@ public interface UserMapper {
      *
      * @return
      */
-    public int queryUserCount(String userType);
-
-    /**
-     * create by: sunpeng
-     * description:
-     * create time: 14:45 2018/7/28
-     *
-     * @return
-     */
-    public int queryUserMaxId(String userType);
+    int queryUserCount(String userType);
 
     /**
      * create by: sunpeng
@@ -107,6 +98,15 @@ public interface UserMapper {
      *
      * @return
      */
-    public int queryUserMinId(String userType);
+    int queryUserMaxId(String userType);
+
+    /**
+     * create by: sunpeng
+     * description:
+     * create time: 14:45 2018/7/28
+     *
+     * @return
+     */
+    int queryUserMinId(String userType);
 
 }

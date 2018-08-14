@@ -14,7 +14,7 @@ public interface GoodsMapper {
      *
      * @return 
      */
-    public List<Goods> queryGoodsList(String goodsType);
+    List<Goods> queryGoodsList(String goodsType);
 
     /**
      * create by: sunpeng
@@ -23,7 +23,7 @@ public interface GoodsMapper {
      *
      * @return 
      */
-    public Goods queryGoodsDetail(long goodsId);
+    Goods queryGoodsDetail(long goodsId);
     /**
      * create by: sunpeng
      * description:
@@ -31,7 +31,7 @@ public interface GoodsMapper {
      *
      * @return
      */
-    public int updateGoodsCount(@Param("goodsId")long goodsId,@Param("count")int count);
+    int updateGoodsCount(@Param("goodsId")long goodsId,@Param("count")int count);
 
     /**
      * create by: sunpeng
@@ -40,5 +40,5 @@ public interface GoodsMapper {
      *
      * @return
      */
-    public int queryGoodsCount(long goodsId);
+    int queryGoodsCount(long goodsId);
 }

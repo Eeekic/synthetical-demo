@@ -1,7 +1,8 @@
 package com.huawei.test;
 
 import com.alibaba.fastjson.JSONObject;
-import com.huawei.manager.ConsumerManager;
+import com.huawei.Utils.CommonUtils;
+import com.huawei.manager.KafkaManager;
 import com.huawei.manager.RedisCacheManager;
 import com.huawei.service.ManagerService;
 import org.junit.Test;
@@ -72,12 +73,12 @@ public class DemoTest {
 
     @Test
     public void testGoodsDetailOnRushToBuy(){
-        System.out.println( managerService.goodsDetail("2","RushToBuy"));
+        System.out.println( managerService.goodsDetail("2"));
     }
 
     @Test
     public void testGoodsDetailOnNormal(){
-        System.out.println( managerService.goodsDetail("2","Normal"));
+        System.out.println( managerService.goodsDetail("2"));
     }
 
     @Test
@@ -87,7 +88,7 @@ public class DemoTest {
         urlVariables.put("goodsId","1");
         urlVariables.put("goodsPrice","2");
         urlVariables.put("goodsType","Normal");
-        System.out.println( managerService.pay(urlVariables));
+//        System.out.println( managerService.pay(urlVariables));
     }
 
     @Test
@@ -97,7 +98,7 @@ public class DemoTest {
         urlVariables.put("goodsId","1");
         urlVariables.put("goodsPrice","2");
         urlVariables.put("goodsType","RushToBuy");
-        System.out.println( managerService.pay(urlVariables));
+//        System.out.println( managerService.pay(urlVariables));
     }
     @Test
     public void testOrdersList() {
@@ -107,10 +108,36 @@ public class DemoTest {
     }
 
     @Autowired
-    ConsumerManager consumerManager;
+    KafkaManager kafkaManager;
     @Test
     public void testConsumer() {
-        consumerManager.consumeMsg(200);
+        kafkaManager.consumeMsg(200);
     }
+
+
+    @Test
+    public void testString(){
+        redisCacheManager.set("test","1");
+        System.out.println(redisCacheManager.get("test"));
+        System.out.println(redisCacheManager.incr("test",1));
+        System.out.println(redisCacheManager.incr("test",1));
+        System.out.println(redisCacheManager.incr("test",1));
+        System.out.println(redisCacheManager.incr("test",1));
+    }
+
+    @Test
+    public void testList(){
+        System.out.println(managerService.initRushToBuyGoods(5));
+    }
+
+    @Test
+    public void test(){
+        managerService.recordRushToBuyOrders(500);
+//        for(int i = 0;i < 200;i++){
+//            JSONObject jsonObject =new JSONObject();
+//            managerService.rushToBuy("1","1");
+//        }
+    }
+
 
 }

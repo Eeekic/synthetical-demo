@@ -14,7 +14,7 @@ public interface OrdersMapper {
      *
      * @return 
      */
-    public List<Orders> queryOrdersList(long userId);
+    List<Orders> queryOrdersList(long userId);
 
     /**
      * create by: sunpeng
@@ -23,7 +23,7 @@ public interface OrdersMapper {
      *
      * @return 
      */
-    public int addOrders(Orders orders);
+    int addOrders(Orders orders);
 
     /**
      * create by: sunpeng
@@ -32,7 +32,7 @@ public interface OrdersMapper {
      *
      * @return
      */
-    public int queryRushToBuySuccessCount(@Param("userType")String userType, @Param("tokenDefaultValue")String tokenDefaultValue);
+    int queryRushToBuySuccessCount(@Param("userType")String userType, @Param("tokenDefaultValue")String tokenDefaultValue);
     /**
      * create by: sunpeng
      * description:
@@ -40,6 +40,6 @@ public interface OrdersMapper {
      *
      * @return
      */
-    public List<User> queryRushToBuySuccessUser(@Param("userType")String userType,@Param("tokenDefaultValue")String tokenDefaultValue);
+    List<User> queryRushToBuySuccessUser(@Param("userType")String userType,@Param("tokenDefaultValue")String tokenDefaultValue);
 
 }

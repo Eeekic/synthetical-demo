@@ -15,7 +15,8 @@ import java.util.Map;
 public class ManagerServiceController {
 
     @Autowired
-    ManagerService managerService;
+    private ManagerService managerService;
+
 
     @RequestMapping(value="v1/rest/signIn", method = RequestMethod.POST)
     @ResponseBody
@@ -45,8 +46,7 @@ public class ManagerServiceController {
     @ResponseBody
     public String goodsDetail(HttpServletRequest request){
         String goodsId = request.getParameter("goodsId");
-        String goodsType = request.getParameter("goodsType");
-        return managerService.goodsDetail(goodsId,goodsType);
+        return managerService.goodsDetail(goodsId);
     }
 
     @RequestMapping(value="v1/rest/pay", method = RequestMethod.POST)
@@ -61,9 +61,19 @@ public class ManagerServiceController {
     }
 
 
-    @RequestMapping(value="v1/rest/kafkaConfig", method = RequestMethod.GET)
+    @RequestMapping(value="v1/rest/rushToBuy", method = RequestMethod.POST)
     @ResponseBody
-    public String kafkaConfig(){
-        return "";
+    public String rushToBuy(@RequestBody Map<String, Object> param){
+        String userId = param.get("userId").toString();
+        String goodsId = param.get("goodsId").toString();
+        return managerService.rushToBuy(userId,goodsId);
     }
+
+    @RequestMapping(value="v1/rest/pendingPayment", method = RequestMethod.GET)
+    @ResponseBody
+    public String pendingPayment(HttpServletRequest request){
+        String userId = request.getParameter("userId");
+        return managerService.pendingPayment(userId);
+    }
+
 }

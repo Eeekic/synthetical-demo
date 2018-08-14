@@ -23,12 +23,17 @@
             font-weight:bold;
             width:200px;
         }
+        .pay-div{
+            margin-right:800px;
+        }
     </style>
 </head>
 <body>
 <jsp:include page="commonHeaderBanner.jsp"/>
 
-
+<div align="center" class="pay-div">
+    <H1>付款</H1>
+</div>
 <div align="center">
     <table align="center">
         <tr>
@@ -85,27 +90,20 @@
     <p></p>
     <p></p>
     <div align="center">
-        <input id="paybt" type="button" value="确认付款" class="payBtStyle" onclick="normalPay()">
+        <input id="paybt" type="button" value="确认付款" class="payBtStyle" onclick="pay()">
     </div>
 </div>
 
 <script type="text/javascript">
-    function normalPay() {
+    function pay() {
         var userId='${sessionScope.userId}'.toString();
         if(userId != "" ){
             var goodsId='${goods.goodsId}'.toString();
             var goodsPrice='${goods.goodsPrice}'.toString();
-            var goodsType='${goods.goodsType}'.toString();
-            var urlStr='';
-            if(goodsType=='Normal'){
-                urlStr='normalPay';
-            }else if(goodsType=='RushToBuy'){
-                urlStr='rushToBuyPay';
-            }
-            if(!(goodsId==''||goodsPrice==''||goodsType==''||urlStr=='')) {
+            if(!(goodsId==''||goodsPrice=='')) {
                 $.ajax({
                     type: 'post',
-                    url: urlStr,
+                    url: 'pay',
                     data: 'userId=' + userId + '&goodsId=' + goodsId + '&goodsPrice=' + goodsPrice,
                     success: function (data) {
                         if (data == "PaySuccess") {

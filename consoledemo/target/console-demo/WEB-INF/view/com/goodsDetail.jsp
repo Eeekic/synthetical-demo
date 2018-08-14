@@ -29,6 +29,12 @@
         .goodsInfo{
             margin-right:800px;
         }
+
+        .rushToBuyBt{
+            font-size:20px;
+            width:150px;
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -37,74 +43,76 @@
     <H1>商品详情</H1>
 </div>
 <div align="center">
-    <table align="center">
-        <tr>
-            <td>
-                <img src="${goods.goodsPicturePath}"  width="400" height="400">
-            </td>
-            <td>
-                <table >
-                        <tr>
-                            <td class="tdStyle">
-                                商品ID
-                            </td>
-                            <td>
-                                ${goods.goodsId}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdStyle">
-                                名称
-                            </td>
-                            <td>
-                                ${goods.goodsName}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdStyle">
-                                价格(￥)
-                            </td>
-                            <td>
-                                ${goods.goodsPrice}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdStyle">
-                                简介
-                            </td>
-                            <td>
-                                ${goods.goodsDescribe}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdStyle">
-                                库存数量
-                            </td>
-                            <td>
-                                ${goods.goodsCount}
-                            </td>
-                        </tr>
-                    </table>
-            </td>
-        </tr>
-    </table>
-    <div align="center" class="payBtFloatLeft">
-        <input id="paybt" type="button" value="购买" class="payBtStyle" onclick="pay()">
-    </div>
+    <form id="payForm" action="payPage" method="post">
+        <table align="center">
+            <tr>
+                <td>
+                    <img src="${goods.goodsPicturePath}"  width="400" height="400">
+                </td>
+                <td>
+                    <table >
+                            <tr>
+                                <td class="tdStyle">
+                                    商品ID
+                                </td>
+                                <td>
+                                    ${goods.goodsId}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdStyle">
+                                    名称
+                                </td>
+                                <td>
+                                    ${goods.goodsName}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdStyle">
+                                    价格(￥)
+                                </td>
+                                <td>
+                                    ${goods.goodsPrice}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdStyle">
+                                    简介
+                                </td>
+                                <td>
+                                    ${goods.goodsDescribe}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdStyle">
+                                    库存数量
+                                </td>
+                                <td>
+                                    ${goods.goodsCount}
+                                </td>
+                            </tr>
+                        </table>
+                </td>
+            </tr>
+        </table>
+        <input name="goodsId" value="${goods.goodsId}" type="hidden">
+        <div align="center" class="payBtFloatLeft">
+            <input id="payBt" type="submit" value="购买" class="payBtStyle">
+            <input id="rushToBuyBt" type="submit" value="抢购" class="rushToBuyBt" onclick="rushToBuy()" style="display:none">
+        </div>
+    </form>
 </div>
+
 <script type="text/javascript">
-    function pay() {
-        var goodsId='${goods.goodsId}'.toString();
-        var goodsType='${goods.goodsType}'.toString();
-        var urlStr='';
-        if(goodsType=='Normal'){
-            urlStr='payNormalGoods';
-        }else if(goodsType=='RushToBuy'){
-            urlStr='payRushToBuyGoods';
-        }
-        if(!(urlStr==''||goodsId=='')) {
-            window.location.href = urlStr + "?goodsId=" + goodsId;
-        }
+    var goodsType = "${goods.goodsType}".toString();
+    if(goodsType == "RushToBuy"){
+        $('#payBt').hide();
+        $('#rushToBuyBt').show();
+    }
+
+    function rushToBuy() {
+        $("#payForm").attr('action','rushToBuy');
+        $("#payForm").attr('method','post')
     }
 </script>
 </body>

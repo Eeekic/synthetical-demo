@@ -3,8 +3,11 @@ package com.huawei.service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huawei.Utils.CommonUtils;
+import com.huawei.Utils.ExceptionProcess;
 import com.huawei.dao.OrdersDao;
+import com.huawei.dao.PendingPaymentDao;
 import com.huawei.dao.UserDao;
+import com.huawei.projo.PendingPayment;
 import com.huawei.projo.User;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,9 @@ public class RushToBuyTestSceneDbServices {
 
     @Resource
     private OrdersDao ordersDao;
+
+    @Resource
+    private PendingPaymentDao pendingPaymentDao;
 
     public String addTestUser(int count){
         JSONObject jsonObject = new JSONObject();
@@ -105,6 +111,7 @@ public class RushToBuyTestSceneDbServices {
         }
         return jsonObject.toJSONString();
     }
+
     public String queryRushToBuySuccessUser(){
         JSONObject jsonObject = new JSONObject();
         try {
@@ -135,4 +142,46 @@ public class RushToBuyTestSceneDbServices {
         }
         return jsonObject.toJSONString();
     }
+
+    public String batchAddPendingPayment(String pendingPaymentJsonArrayStr){
+        JSONObject resultJson = new JSONObject();
+        try {
+            List<PendingPayment> pendingPaymentList = PendingPayment.jsonArrayToList(pendingPaymentJsonArrayStr);
+            int result = pendingPaymentDao.batchAdd(pendingPaymentList);
+
+            resultJson.put("errCode", CommonUtils.NORMAL_CODE);
+
+            JSONArray jsonArray = new JSONArray();
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("addCount", result);
+
+            jsonArray.add(jsonObject);
+
+            resultJson.put("resMsg", jsonArray);
+
+            log.info("addCount:" + result);
+        }catch (Exception e){
+            resultJson.put("errCode",CommonUtils.ERROR_CODE);
+            resultJson.put("resMsg",ExceptionProcess.getExceptionInfo(e));
+        }
+        return resultJson.toJSONString();
+    }
+
+    public String queryPendingPayment(long userId){
+        JSONObject resultJson = new JSONObject();
+
+        try {
+            List<PendingPayment>  pendingPaymentList = pendingPaymentDao.queryPendingPayment(userId);
+            resultJson.put("errCode", CommonUtils.NORMAL_CODE);
+            resultJson.put("resMsg",JSONArray.parseArray(pendingPaymentList.toString()));
+
+        }catch (Exception e){
+            resultJson.put("errCode",CommonUtils.ERROR_CODE);
+            resultJson.put("resMsg",ExceptionProcess.getExceptionInfo(e));
+        }
+
+        return resultJson.toJSONString();
+    }
+
 }

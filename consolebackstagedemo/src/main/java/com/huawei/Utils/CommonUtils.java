@@ -18,4 +18,7 @@ public class CommonUtils {
 
     public final static String SIGN_IN = "SignIn";
     public final static String SIGN_UP = "SignUp";
+
+    public final static String SUCCESS = "Success";
+    public final static String FAILED = "Failed";
 }

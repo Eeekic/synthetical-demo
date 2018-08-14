@@ -2,9 +2,11 @@ package com.huawei;
 
 import com.huawei.dao.GoodsDao;
 import com.huawei.dao.OrdersDao;
+import com.huawei.dao.PendingPaymentDao;
 import com.huawei.dao.UserDao;
 import com.huawei.projo.Goods;
 import com.huawei.projo.Orders;
+import com.huawei.projo.PendingPayment;
 import com.huawei.projo.User;
 import com.huawei.service.DbServices;
 import org.junit.Test;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,6 +27,8 @@ public class DemoTest {
     GoodsDao goodsDao;
     @Autowired
     OrdersDao ordersDao;
+    @Autowired
+    PendingPaymentDao pendingPaymentDao;
     @Autowired
     private DbServices dbServices;
 
@@ -66,8 +71,20 @@ public class DemoTest {
     }
 
     @Test
-    public void payTest(){
-//        System.out.println(dbService.pay(1,1,2));
+    public void batchInsertTest(){
+        List<PendingPayment> list = new ArrayList<>();
+        for(int i=0;i<3;i++){
+            PendingPayment pendingPayment = new PendingPayment();
+            pendingPayment.setUserId(i);
+            pendingPayment.setGoodsId(i);
+            list.add(pendingPayment);
+        }
+        System.out.println(pendingPaymentDao.batchAdd(list));
+    }
+
+    @Test
+    public void queryTest(){
+        System.out.println(pendingPaymentDao.queryPendingPayment(1));
     }
 
 }

@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class RedisCacheManager {
+
     private RedisTemplate<String, Object> redisTemplate;
 
     public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
@@ -630,5 +631,16 @@ public class RedisCacheManager {
             e.printStackTrace();
             return 0;
         }
+    }
+
+
+    public String lRightPop(String key) {
+        String value = null;
+        try {
+            value = redisTemplate.opsForList().rightPop(key).toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return value;
     }
 }

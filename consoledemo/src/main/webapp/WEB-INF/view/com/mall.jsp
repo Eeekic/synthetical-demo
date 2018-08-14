@@ -30,16 +30,16 @@
     <table align="center">
         <tr>
             <td>
-                <form  id="rushToBuyFrom" action="rushToBuyGoodsDetail">
+                <form  id="rushToBuyFrom" action="rushToBuy" method="post">
                     <img src="${rushToBuyGoods.goodsPicturePath}"  width="400" height="400">
                     <input type="hidden" name="goodsId" value="${rushToBuyGoods.goodsId}">
                     <table align="center">
                         <tr>
                             <td>
-                                <input type="submit" class="rushToBuyBtStyle" value="商品详情">
+                                <input type="button" class="rushToBuyBtStyle" value="商品详情" onclick="goodsDetail(${rushToBuyGoods.goodsId})">
                             </td>
                             <td>
-                                <input id="rushToBuyBt" type="button" class="rushToBuyBtStyle" value="抢购" onclick="rushToBuyPay(${rushToBuyGoods.goodsId},${rushToBuyGoods.goodsPrice})">
+                                <input type="submit" class="rushToBuyBtStyle" value="抢购">
                             </td>
                         <tr/>
                     </table>
@@ -54,21 +54,21 @@
     <H1>普通商品</H1>
 </div>
 <table align="center">
-    <c:forEach items="${goodsList }" var="good" varStatus="status">
+    <c:forEach items="${goodsList }" var="goods" varStatus="status">
         <c:if test="${status.count%3==1}">
             <tr>
         </c:if>
         <td>
-            <form id="buyFrom" action="normalGoodsDetail">
-                <img src="${good.goodsPicturePath}"  width="300" height="300">
-                <input type="hidden" name="goodsId" value="${good.goodsId}">
+            <form id="buyFrom" action="payPage" method="post">
+                <img src="${goods.goodsPicturePath}"  width="300" height="300">
+                <input type="hidden" name="goodsId" value="${goods.goodsId}">
                 <table align="center">
                     <tr>
                         <td>
-                            <input type="submit" value="商品详情" class="btStyle">
+                            <input type="button" value="商品详情" class="btStyle" onclick="goodsDetail(${goods.goodsId})">
                         </td>
                         <td>
-                            <input id="buyBt" type="button" class="btStyle" value="购买" onclick="normalPay(${good.goodsId},${good.goodsPrice})">
+                            <input type="submit" class="btStyle" value="购买" >
                         </td>
                     <tr/>
                 </table>
@@ -83,11 +83,8 @@
     </c:forEach>
 </table>
 <script type="text/javascript">
-    function normalPay(goodsId) {
-        window.location.href="payNormalGoods?goodsId="+goodsId;
-    }
-    function rushToBuyPay(goodsId) {
-        window.location.href="payRushToBuyGoods?goodsId="+goodsId;
+    function goodsDetail(goodsId) {
+        window.location.href="goodsDetail?goodsId="+goodsId;
     }
 </script>
 

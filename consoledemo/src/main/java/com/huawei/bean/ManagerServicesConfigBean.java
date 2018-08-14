@@ -46,8 +46,8 @@ public class ManagerServicesConfigBean {
         this.goodsListMethod = goodsListMethod;
     }
 
-    public String getGoodsDetailMethodUrl(String goodsId,String goodsType) {
-        return managerServicesUrl + "/" + goodsDetailMethod + "?goodsId=" +goodsId + "&goodsType=" + goodsType;
+    public String getGoodsDetailMethodUrl(String goodsId) {
+        return managerServicesUrl + "/" + goodsDetailMethod + "?goodsId=" +goodsId;
     }
 
     public void setGoodsDetailMethod(String goodsDetailMethod) {

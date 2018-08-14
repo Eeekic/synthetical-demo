@@ -31,7 +31,7 @@ public class DemoTest {
 
     @Test
     public void goodsTest(){
-        Goods goods = dataSourcesService.getGoodsDetail("1",CommonUtils.GOODS_TYPE_NORMAL);
+        Goods goods = dataSourcesService.getGoodsDetail("1");
         System.out.println(goods.toString());
     }
 
@@ -42,7 +42,7 @@ public class DemoTest {
 
     @Test
     public void payTest(){
-        String result = dataSourcesService.pay("1","1","2","Normal");
+        String result = dataSourcesService.pay("1","1","2");
         System.out.println(result);
     }
 

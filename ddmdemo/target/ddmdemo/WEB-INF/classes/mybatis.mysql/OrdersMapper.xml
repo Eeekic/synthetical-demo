@@ -3,14 +3,13 @@
 <mapper namespace="com.huawei.dao.mapper.OrdersMapper" >
 
     <resultMap id="BaseResultMap" type="com.huawei.projo.Orders" >
-        <id column="orders_id" property="ordersId" jdbcType="INTEGER" />
+        <id column="orders_id" property="ordersId" jdbcType="BIGINT" />
         <result column="orders_date" property="ordersDate" jdbcType="VARCHAR" />
-        <result column="user_id" property="userId" jdbcType="INTEGER" />
-        <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="BIGINT" />
+        <result column="goods_id" property="goodsId" jdbcType="BIGINT" />
         <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
         <result column="goods_price" property="goodsPrice" jdbcType="INTEGER" />
         <result column="goods_picture_path" property="goodsPicturePath" jdbcType="VARCHAR"/>
-        <result column="rush_to_buy_token" property="rushToBuyToken" jdbcType="VARCHAR" />
     </resultMap>
 
     <resultMap id="UserResultMap" type="com.huawei.projo.User" >
@@ -28,15 +27,15 @@
   </select>
 
     <insert id="addOrders" parameterType="com.huawei.projo.Orders" >
-    insert into orders (user_id,goods_id,orders_date,rush_to_buy_token)values(#{userId},#{goodsId},#{ordersDate},#{rushToBuyToken})
+    insert into orders (user_id,goods_id,orders_date)values(#{userId},#{goodsId},#{ordersDate})
   </insert>
 
     <select id="queryRushToBuySuccessCount" resultType="int">
-    select count(1) from orders,user where orders.user_id=user.user_id and user_type=#{userType} and rush_to_buy_token!=#{tokenDefaultValue}
+    select count(1) from orders,user where orders.user_id=user.user_id and user_type=#{userType}
   </select>
 
     <select id="queryRushToBuySuccessUser" resultType="com.huawei.projo.User" resultMap="UserResultMap">
-    select user.user_id,user_name from user,orders where user.user_id=orders.user_id and user_type=#{userType} and rush_to_buy_token !=#{tokenDefaultValue} order by user.user_id
+    select user.user_id,user_name from user,orders where user.user_id=orders.user_id and user_type=#{userType} order by user.user_id
   </select>
 
 </mapper>

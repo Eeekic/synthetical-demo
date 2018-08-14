@@ -40,9 +40,13 @@ public class KafkaConfigBean {
     private String connectionsMaxIdleMs;
     private String maxPollRecords;
 
+    private String heartbeatIntervalMs;
+    private String sessionTimeoutMs;
+
     //valid
     private String sslTruststoreLocation = null;
 
+    private Properties producerConfig = null;
     private Properties consumerConfig = null;
 
 
@@ -133,12 +137,17 @@ public class KafkaConfigBean {
     public void setConnectionsMaxIdleMs(String connectionsMaxIdleMs) {
         this.connectionsMaxIdleMs = connectionsMaxIdleMs;
     }
-
     public void setMaxPollRecords(String maxPollRecords) {
         this.maxPollRecords = maxPollRecords;
     }
 
+    public void setHeartbeatIntervalMs(String heartbeatIntervalMs) {
+        this.heartbeatIntervalMs = heartbeatIntervalMs;
+    }
 
+    public void setSessionTimeoutMs(String sessionTimeoutMs) {
+        this.sessionTimeoutMs = sessionTimeoutMs;
+    }
 
     private void setSslTruststoreLocation() {
         if(sslTruststoreLocation == null){
@@ -161,6 +170,29 @@ public class KafkaConfigBean {
         }
     }
 
+
+    public Properties getProducerConfig() {
+        if(producerConfig == null) {
+            producerConfig = new Properties();
+            producerConfig.setProperty("bootstrap.servers", bootstrapServers);
+            producerConfig.setProperty("ssl.truststore.password", sslTruststorePassword);
+            producerConfig.setProperty("acks", acks);
+            producerConfig.setProperty("retries", retries);
+            producerConfig.setProperty("batch.size", batchSize);
+            producerConfig.setProperty("buffer.memory", bufferMemory);
+            producerConfig.setProperty("key.serializer", keySerializer);
+            producerConfig.setProperty("value.serializer", valueSerializer);
+            producerConfig.setProperty("security.protocol", securityProtocol);
+            producerConfig.setProperty("sasl.mechanism", saslMechanism);
+            producerConfig.setProperty("msg.count", msgCount);
+            producerConfig.setProperty("produce.count", produceCount);
+            producerConfig.setProperty("msg.size", msgSize);
+            producerConfig.put("ssl.truststore.location", sslTruststoreLocation);
+            producerConfig.put("topic", topic);
+        }
+        return producerConfig;
+    }
+
     public Properties getConsumerConfig() {
         if(consumerConfig == null) {
             consumerConfig = new Properties();
@@ -177,6 +209,8 @@ public class KafkaConfigBean {
             consumerConfig.setProperty("connections.max.idle.ms", connectionsMaxIdleMs);
             consumerConfig.put("ssl.truststore.location", sslTruststoreLocation);
             consumerConfig.put("max.poll.records",maxPollRecords);
+            consumerConfig.put("session.timeout.ms", sessionTimeoutMs);
+            consumerConfig.put("heartbeat.interval.ms",heartbeatIntervalMs);
         }
         return consumerConfig;
     }

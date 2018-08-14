@@ -12,7 +12,7 @@ public interface GoodsDao {
      *
      * @return
      */
-    public List<Goods> queryGoodsList(String goodsType);
+    List<Goods> queryGoodsList(String goodsType);
 
     /**
      * create by: sunpeng
@@ -21,7 +21,7 @@ public interface GoodsDao {
      *
      * @return
      */
-    public Goods queryGoodsDetail(long goodsId);
+    Goods queryGoodsDetail(long goodsId);
 
     /**
      * create by: sunpeng
@@ -30,7 +30,7 @@ public interface GoodsDao {
      *
      * @return
      */
-    public int updateGoodsCount(long goodsId,int count);
+    int updateGoodsCount(long goodsId,int count);
 
     /**
      * create by: sunpeng
@@ -39,5 +39,5 @@ public interface GoodsDao {
      *
      * @return
      */
-    public int queryGoodsCount(long goodsId);
+    int queryGoodsCount(long goodsId);
 }

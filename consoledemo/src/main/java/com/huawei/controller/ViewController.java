@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -25,7 +24,7 @@ public class ViewController {
     ConsoleBackStageConfigBean consoleBackStageConfigBean;
 
     @RequestMapping(value="sign", method = RequestMethod.GET)
-    public String sign(HttpServletRequest request){
+    public String sign(){
         return "com/sign";
     }
 
@@ -59,56 +58,36 @@ public class ViewController {
         return "com/mall";
     }
 
-
-    @RequestMapping(value="normalGoodsDetail", method = RequestMethod.GET)
+    @RequestMapping(value="goodsDetail", method = RequestMethod.GET)
     public String normalGoodsDetail(HttpServletRequest request){
         String goodsId = request.getParameter("goodsId");
-        String goodsType = CommonUtils.GOODS_TYPE_NORMAL;
-        Goods goods = dataSourcesService.getGoodsDetail(goodsId,goodsType);
-        request.setAttribute("goods",goods);
-        return "com/goodsDetail";
-    }
-    @RequestMapping(value="rushToBuyGoodsDetail", method = RequestMethod.GET)
-    public String rushToBuyGoodsDetail(HttpServletRequest request){
-        String goodsId = request.getParameter("goodsId");
-        String goodsType = CommonUtils.GOODS_TYPE_RUSH_TO_BUY;
-        Goods goods = dataSourcesService.getGoodsDetail(goodsId,goodsType);
+        Goods goods = dataSourcesService.getGoodsDetail(goodsId);
         request.setAttribute("goods",goods);
         return "com/goodsDetail";
     }
 
-    @RequestMapping(value="payNormalGoods", method = RequestMethod.GET)
+    @RequestMapping(value="payPage", method = RequestMethod.POST)
     public String payNormalGoods(HttpServletRequest request){
         String goodsId = request.getParameter("goodsId");
-        String goodsType = CommonUtils.GOODS_TYPE_NORMAL;
-        Goods goods = dataSourcesService.getGoodsDetail(goodsId,goodsType);
-        request.setAttribute("goods",goods);
-        return "com/pay";
-    }
-    @RequestMapping(value="payRushToBuyGoods", method = RequestMethod.GET)
-    public String payRushToBuyGoods(HttpServletRequest request){
-        String goodsId = request.getParameter("goodsId");
-        String goodsType = CommonUtils.GOODS_TYPE_RUSH_TO_BUY;
-        Goods goods = dataSourcesService.getGoodsDetail(goodsId,goodsType);
+        Goods goods = dataSourcesService.getGoodsDetail(goodsId);
         request.setAttribute("goods",goods);
         return "com/pay";
     }
 
-    @RequestMapping(value="normalPay", method = RequestMethod.POST)
+    @RequestMapping(value="rushToBuy", method = RequestMethod.POST)
+    public String shoppingCart(HttpServletRequest request){
+        String userId = request.getParameter("userId");
+        String goodsId = request.getParameter("goodsId");
+        return "com/shoppingCart";
+    }
+
+    @RequestMapping(value="pay", method = RequestMethod.POST)
     @ResponseBody
     public String normalPay(HttpServletRequest request){
         String userId = request.getParameter("userId");
         String goodsId = request.getParameter("goodsId");
         String goodsPrice = request.getParameter("goodsPrice");
-        return dataSourcesService.pay(userId,goodsId,goodsPrice,CommonUtils.GOODS_TYPE_NORMAL);
-    }
-    @RequestMapping(value="rushToBuyPay", method = RequestMethod.POST)
-    @ResponseBody
-    public String rushToBuyPay(HttpServletRequest request){
-        String userId = request.getParameter("userId");
-        String goodsId = request.getParameter("goodsId");
-        String goodsPrice = request.getParameter("goodsPrice");
-        return dataSourcesService.pay(userId,goodsId,goodsPrice,CommonUtils.GOODS_TYPE_RUSH_TO_BUY);
+        return dataSourcesService.pay(userId,goodsId,goodsPrice);
     }
 
     @RequestMapping(value="orders", method = RequestMethod.GET)

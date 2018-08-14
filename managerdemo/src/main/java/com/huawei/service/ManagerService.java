@@ -3,14 +3,13 @@ package com.huawei.service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huawei.Utils.CommonUtils;
+import com.huawei.Utils.ExceptionProcess;
+import com.huawei.Utils.JSONAnalysis;
 import com.huawei.configbean.DbServicesConfigBean;
-import com.huawei.configbean.KafkaConfigBean;
-import com.huawei.manager.ConsumerManager;
-import com.huawei.manager.RedisCacheManager;
+import com.huawei.manager.KafkaManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,22 +20,13 @@ public class ManagerService {
     private static Logger log = Logger.getLogger(ManagerService.class);
 
     @Autowired
-    private RestTemplate restTemplate;
-
-    @Autowired
     private DbServicesConfigBean dbServicesConfigBean;
 
     @Autowired
-    private RedisCacheManager redisCacheManager;
+    private KafkaManager kafkaManager;
 
     @Autowired
-    private ConsumerManager consumerManager;
-
-    private final static String POST_Method_TYPE = "Post";
-    private final static String GET_Method_TYPE = "Get";
-
-    private final static String GOODS_DETAIL = "GoodsDetail";
-
+    private DataService dataService;
 
     public String signIn(Map<String, Object> urlVariables){
         String url = dbServicesConfigBean.querySimpleUserInfoUrl();
@@ -44,13 +34,12 @@ public class ManagerService {
         try {
             Map<String,Object> dbUrlVariables = new HashMap<>();
             dbUrlVariables.put("userName",urlVariables.get("userName"));
-            resultJson = getDataFromDbService( url, dbUrlVariables,"SignIn",POST_Method_TYPE);
+            resultJson = JSONAnalysis.analysisDbJson(dataService.getDataFromDbService( url, dbUrlVariables, DataService.POST_Method_TYPE));
 
             String userPwd = urlVariables.get("userPwd").toString();
             String dbUserPwd = resultJson.getJSONArray("resMsg").getJSONObject(0).getString("userPwd");
 
             if(dbUserPwd.equals(userPwd)){
-                resultJson.getJSONArray("resMsg").getJSONObject(0).put("sun","peng");
                 JSONArray jsonArray = new JSONArray();
                 JSONObject jsonObject = resultJson.getJSONArray("resMsg").getJSONObject(0);
                 jsonObject.remove("userPwd");
@@ -62,7 +51,7 @@ public class ManagerService {
                 resultJson.put("signInResult",CommonUtils.SING_IN_FAILED);
             }
         }catch (Exception e){
-            resultJson = processException(e);
+            resultJson = ExceptionProcess.processException(e);
         }
         return resultJson.toJSONString();
     }
@@ -71,9 +60,9 @@ public class ManagerService {
         String url = dbServicesConfigBean.queryUserDetailInfoByIdUrl();
         JSONObject jsonObject;
         try {
-            jsonObject = getDataFromDbService( url, urlVariables,"UserDetail",POST_Method_TYPE);
+            jsonObject = JSONAnalysis.analysisDbJson(dataService.getDataFromDbService( url, urlVariables, DataService.POST_Method_TYPE));
         }catch (Exception e){
-            jsonObject = processException(e);
+            jsonObject = ExceptionProcess.processException(e);
         }
         return jsonObject.toJSONString();
     }
@@ -82,9 +71,9 @@ public class ManagerService {
         String url = dbServicesConfigBean.getAddUserUrl();
         JSONObject jsonObject;
         try {
-            jsonObject = getDataFromDbService( url, urlVariables,"SignUp",POST_Method_TYPE);
+            jsonObject = JSONAnalysis.analysisDbJson(dataService.getDataFromDbService( url, urlVariables, DataService.POST_Method_TYPE));
         }catch (Exception e){
-            jsonObject = processException(e);
+            jsonObject = ExceptionProcess.processException(e);
         }
         return jsonObject.toJSONString();
     }
@@ -94,144 +83,105 @@ public class ManagerService {
         String url = dbServicesConfigBean.getQueryGoodsListUrl(goodsType);
         JSONObject jsonObject;
         try {
-            jsonObject = getDataFromDbService( url, "GoodsList",GET_Method_TYPE);
+            jsonObject = JSONAnalysis.analysisDbJson(dataService.getDataFromDbService( url, DataService.GET_Method_TYPE));
         }catch (Exception e){
-            jsonObject = processException(e);
+            jsonObject = ExceptionProcess.processException(e);
         }
         return jsonObject.toJSONString();
     }
 
-    public String goodsDetail(String goodsId,String goodsType){
+    public String goodsDetail(String goodsId){
         String url = dbServicesConfigBean.getQueryGoodsDetailUrl(goodsId);
         JSONObject jsonObject;
         try {
-            jsonObject = getDataWithRedis( url,"GoodsDetail",GET_Method_TYPE,goodsId,goodsType);
+            jsonObject = dataService.getDataWithRedis( url,DataService.GET_Method_TYPE,goodsId);
         }catch (Exception e){
-            jsonObject = processException(e);
+            jsonObject = ExceptionProcess.processException(e);
         }
         return jsonObject.toJSONString();
     }
-
-    public String pay( Map<String, Object> urlVariables){
-        String goodsType = urlVariables.get("goodsType").toString();
-        JSONObject jsonObject;
-
-        if(goodsType.equals(CommonUtils.RUSH_TO_BUY)) {
-            String rushToBuyToken = consumerManager.consumeMsg(500);
-
-            log.info(rushToBuyToken);
-
-            if(rushToBuyToken==null){
-                jsonObject = new JSONObject();
-                jsonObject.put("errCode",CommonUtils.NOMAL_CODE);
-                jsonObject.put("resMsg",CommonUtils.RUSH_TO_BUY_FAILED);
-                return jsonObject.toJSONString();
-            }else {
-                urlVariables.put("rushToBuyToken",rushToBuyToken);
-            }
-        }
-        String url = dbServicesConfigBean.getPayUrl();
-        try {
-            jsonObject = getDataFromDbService(url, urlVariables, "Pay", POST_Method_TYPE);
-        } catch (Exception e) {
-            jsonObject = processException(e);
-        }
-        return jsonObject.toJSONString();
-    }
-
 
     public String orderList( Map<String, Object> urlVariables){
         String url = dbServicesConfigBean.getQueryOrdersListUrl();
         JSONObject jsonObject;
         try {
-            jsonObject = getDataFromDbService( url, urlVariables,"OrderList",POST_Method_TYPE);
+            jsonObject = JSONAnalysis.analysisDbJson(dataService.getDataFromDbService( url, urlVariables, DataService.POST_Method_TYPE));
         }catch (Exception e){
-            jsonObject = processException(e);
+            jsonObject = ExceptionProcess.processException(e);
         }
         return jsonObject.toJSONString();
     }
 
-    private JSONObject getDataFromDbService(String url,String method,String methodType){
-        return getDataFromDbService( url, null,method,methodType);
+
+    public String pay( Map<String, Object> urlVariables){
+        JSONObject jsonObject;
+        String url = dbServicesConfigBean.getPayUrl();
+        try {
+            jsonObject = dataService.getDataFromDbService(url, urlVariables, DataService.POST_Method_TYPE);
+        } catch (Exception e) {
+            jsonObject = ExceptionProcess.processException(e);
+        }
+        return jsonObject.toJSONString();
     }
 
-    @Autowired
-    KafkaConfigBean kafkaConfigBean;
 
-    private JSONObject getDataFromDbService(String url,Map<String, Object> urlVariables,String method,String methodType){
-        JSONObject jsonObject =new JSONObject();
-        JSONObject result = null;
-        if (methodType.equals(POST_Method_TYPE)) {
-            result = restTemplate.postForObject(url, urlVariables, JSONObject.class);
-        }else {
-            result = restTemplate.getForObject(url, JSONObject.class);
-        }
-        if(result !=null && result.get("errCode") != null && result.get("errCode").equals(CommonUtils.DB_NOMAL_CODE)){
-            jsonObject.put("errCode",CommonUtils.NOMAL_CODE);
-            jsonObject.put("resMsg",result.get("resMsg"));
+    public String initRushToBuyGoods(int count){
+        JSONObject jsonObject = new JSONObject();
+        if(dataService.initRushToBuyGoods(count)){
+            jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
+            jsonObject.put("resMsg",CommonUtils.SUCCESS);
         }else {
             jsonObject.put("errCode",CommonUtils.ERROR_CODE);
-            if(result != null) {
-                JSONArray jsonArray = new JSONArray();
-                jsonArray.add(result);
-                jsonObject.put("resMsg", jsonArray);
-            }else{
-                jsonObject.put("resMsg", method + ":Database service return is null!");
-            }
+            jsonObject.put("resMsg",CommonUtils.FAILED);
         }
-        return jsonObject;
+        return jsonObject.toJSONString();
     }
 
-    private JSONObject getDataWithRedis(String url,String method,String methodType,String key,String goodsType){
-        JSONObject result = null;
-        if(!goodsType.equals(CommonUtils.RUSH_TO_BUY)) {
-            switch (method) {
-                case GOODS_DETAIL:
-                    result = getJSONObjectFromRedis(key);
-                    break;
-            }
-        }
-        if(result == null) {
-            result = getDataFromDbService(url,method,methodType);
-            if(!goodsType.equals(CommonUtils.RUSH_TO_BUY)) {
-                if(result.getString("errCode").equals(CommonUtils.NOMAL_CODE)) {
-                    try {
-                        redisCacheManager.set(key, result);
-                    } catch (Exception e) {
-                        log.error(e);
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-        return result;
-    }
-
-    private JSONObject getJSONObjectFromRedis(String key){
-        JSONObject jsonObject = null;
-        try {
-            Object value = redisCacheManager.get(key);
-            if (value != null) {
-                jsonObject = JSONObject.parseObject(value.toString());
-            }
-        }catch (Exception e){
-            log.error(e);
-            e.printStackTrace();
-        }
-        return jsonObject;
-    }
-
-    private JSONObject processException(Exception e){
+    public String rushToBuy(String userId,String goodsId){
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("errCode",CommonUtils.ERROR_CODE);
-        jsonObject.put("resMsg",getExceptionInfo(e));
-        return jsonObject;
+        String token = dataService.obtainRushToBuyToken();
+        if(token != null){
+            JSONObject msgJson = new JSONObject();
+            msgJson.put("token",token);
+            msgJson.put("userId",userId);
+            msgJson.put("goodsId",goodsId);
+            boolean sendResult = kafkaManager.produceMsg(msgJson.toJSONString());
+            if(sendResult) {
+                jsonObject.put("errCode", CommonUtils.NORMAL_CODE);
+                jsonObject.put("resMsg", CommonUtils.SUCCESS);
+                log.info("Rush to buy success!");
+            }else {
+                jsonObject.put("errCode",CommonUtils.ERROR_CODE);
+                jsonObject.put("resMsg",CommonUtils.FAILED);
+                log.error("Rush to buy error:Send msg failed!");
+            }
+        }else {
+            jsonObject.put("errCode",CommonUtils.ERROR_CODE);
+            jsonObject.put("resMsg",CommonUtils.FAILED);
+            log.error("Rush to buy error:Obtain token failed!");
+        }
+        return jsonObject.toJSONString();
     }
 
-    private static String getExceptionInfo(Exception e){
-        log.error(e);
-        e.printStackTrace();
-        return e.getCause() + ":" + e.getMessage();
+    public void recordRushToBuyOrders(int timeout){
+        JSONArray jsonArray = kafkaManager.consumeMsg(timeout);
+        if( jsonArray.size() > 0 ){
+            String url = dbServicesConfigBean.getBatchAddPendingPaymentMethodUrl();
+            Map<String,Object> urlVariables = new HashMap<>();
+            urlVariables.put("pendingPayments",jsonArray.toJSONString());
+            JSONObject jsonObject = dataService.getDataFromDbService( url, urlVariables, DataService.POST_Method_TYPE);
+            log.info(jsonObject.toJSONString());
+        }
     }
 
+    public String pendingPayment(String userId){
+        String url = dbServicesConfigBean.getQueryPendingPaymentMethodUrl(userId);
+        JSONObject jsonObject;
+        try {
+            jsonObject = JSONAnalysis.analysisDbJson(dataService.getDataFromDbService( url, DataService.GET_Method_TYPE));
+        }catch (Exception e){
+            jsonObject = ExceptionProcess.processException(e);
+        }
+        return jsonObject.toJSONString();
+    }
 }

@@ -14,7 +14,7 @@ public interface OrdersDao {
      *
      * @return
      */
-    public List<Orders> queryOrdersList(long userId);
+    List<Orders> queryOrdersList(long userId);
 
     /**
      * create by: sunpeng
@@ -23,7 +23,7 @@ public interface OrdersDao {
      *
      * @return
      */
-    public int addOrders(Orders orders);
+    int addOrders(Orders orders);
 
     /**
      * create by: sunpeng
@@ -32,7 +32,7 @@ public interface OrdersDao {
      *
      * @return
      */
-    public int queryRushToBuySuccessCount(String userType,String tokenDefaultValue);
+    int queryRushToBuySuccessCount(String userType,String tokenDefaultValue);
     /**
      * create by: sunpeng
      * description:
@@ -40,5 +40,5 @@ public interface OrdersDao {
      *
      * @return
      */
-    public List<User> queryRushToBuySuccessUser(String userType,String tokenDefaultValue);
+    List<User> queryRushToBuySuccessUser(String userType,String tokenDefaultValue);
 }

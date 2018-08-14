@@ -19,6 +19,9 @@
         <property name="queryGoodsListMethod"  value="${queryGoodsList}"/>
         <property name="queryOrdersListMethod"  value="${queryOrdersList}"/>
         <property name="payMethod"  value="${pay}"/>
+        <property name="batchAddPendingPaymentMethod"  value="${batchAddPendingPayment}"/>
+        <property name="queryPendingPaymentMethod"  value="${queryPendingPayment}"/>
+
     </bean>
     <!-- 定义service -->
 
@@ -59,10 +62,12 @@
         <property name="enableAutoCommit" value="${enable.auto.commit}" />
         <property name="connectionsMaxIdleMs" value="${connections.max.idle.ms}" />
         <property name="maxPollRecords" value="${max.poll.records}"/>
+        <property name="heartbeatIntervalMs" value="${heartbeat.interval.ms}" />
+        <property name="sessionTimeoutMs" value="${session.timeout.ms}"/>
 
     </bean>
 
-    <bean id="consumerManager" class="com.huawei.manager.ConsumerManager" init-method="initKafkaConsumerClient">
+    <bean id="consumerManager" class="com.huawei.manager.KafkaManager" init-method="initKafkaClient">
         <property name="kafkaConfigBean" ref="kafkaConfigBean"/>
     </bean>
 

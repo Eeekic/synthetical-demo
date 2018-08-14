@@ -71,12 +71,7 @@ public class DbServiceController {
         long userId = Long.parseLong(param.get("userId").toString());
         long goodsId = Long.parseLong(param.get("goodsId").toString());
         int goodsPrice = Integer.parseInt(param.get("goodsPrice").toString());
-        String goodsType = param.get("goodsType").toString();
-        String RushToBuyToken = CommonUtils.DEFAULT_VALUE;
-        if(goodsType.equals(CommonUtils.GOODS_TYPE_RUSH_TO_BUY)){
-            RushToBuyToken = param.get("rushToBuyToken").toString();
-        }
-        return dbServices.pay(userId,goodsId,goodsPrice,RushToBuyToken);
+        return dbServices.pay(userId,goodsId,goodsPrice);
     }
 
     @RequestMapping(value="v1/rest/queryBalance", method = RequestMethod.POST)
