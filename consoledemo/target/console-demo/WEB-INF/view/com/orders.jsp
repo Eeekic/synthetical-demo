@@ -25,7 +25,7 @@
 <body>
     <jsp:include page="commonHeaderBanner.jsp"/>
     <div>
-        <form id="ordersFrom">
+        <form id="ordersFrom" style="display:none">
             <table align="center">
                 <tr>
                     <td class="ordersTableStyle"><h3>订单号</h3></td>
@@ -49,7 +49,7 @@
         </form>
     </div>
     <div align="center">
-        <form action="mall" id="noOrdersFrom">
+        <form action="mall" id="noOrdersFrom" style="display:none">
             <H1>没有商品订单信息!</H1>
             <br>
             <br>

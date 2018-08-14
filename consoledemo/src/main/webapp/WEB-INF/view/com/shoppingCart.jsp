@@ -9,16 +9,12 @@
             width:150px;
             align:center;
         }
-        .ordersTableStyleLong{
-            width:200px;
-            align:center;
-        }
     </style>
 </head>
 <body>
     <jsp:include page="commonHeaderBanner.jsp"/>
     <div>
-        <form id="goodsFrom">
+        <form id="goodsFrom" style="display:none">
         <table align="center" id="ordersTable">
             <tr>
                 <td class="ordersTableStyle"><h3>待付款编号</h3></td>
@@ -41,7 +37,7 @@
         </form>
     </div>
     <div align="center">
-        <form action="mall" id="noGoodsFrom">
+        <form action="mall" id="noGoodsFrom" style="display:none">
             <H1>您还没有未付款的商品!</H1>
             <br>
             <br>
