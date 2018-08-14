@@ -108,4 +108,16 @@ public class DataSourcesService {
         return JSONAnalysis.analysisUserDetail(resultJson);
     }
 
+    public boolean rushToBuyGoods(String userId,String goodsId){
+        boolean result = false;
+        String url = managerServicesConfigBean.getRushToBuyMethodUrl();
+        Map<String,Object>  map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("goodsId",goodsId);
+        JSONObject resultJson = httpClientService.getDataFromManagerServices(url,map,HttpClientService.POST_Method_TYPE);
+
+        return JSONAnalysis.analysisRushToBuyResponse(resultJson);
+    }
+
+
 }

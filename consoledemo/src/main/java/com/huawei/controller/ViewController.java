@@ -78,7 +78,14 @@ public class ViewController {
     public String shoppingCart(HttpServletRequest request){
         String userId = request.getParameter("userId");
         String goodsId = request.getParameter("goodsId");
-        return "com/shoppingCart";
+
+        boolean rushToBuyResult = dataSourcesService.rushToBuyGoods(userId,goodsId);
+
+        if(rushToBuyResult) {
+            return "com/shoppingCart";
+        }else {
+            return "com/rushToBuyFailed";
+        }
     }
 
     @RequestMapping(value="pay", method = RequestMethod.POST)

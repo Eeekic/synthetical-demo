@@ -30,6 +30,8 @@
         <property name="goodsDetailMethod"  value="${goodsDetailMethod}"/>
         <property name="payMethod"  value="${payMethod}"/>
         <property name="orderListMethod"  value="${orderListMethod}"/>
+        <property name="rushToBuyMethod"  value="${rushToBuyMethod}"/>
+        <property name="pendingPaymentMethod"  value="${pendingPaymentMethod}"/>
     </bean>
 
     <bean id="consoleBackStageConfigBean" class="com.huawei.bean.ConsoleBackStageConfigBean">

@@ -1,5 +1,6 @@
 package com.huawei.Utils;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huawei.projo.Goods;
@@ -109,6 +110,17 @@ public class JSONAnalysis {
             }
         }
         return user;
+    }
+
+    public static boolean analysisRushToBuyResponse(JSONObject resJson){
+        boolean result = false;
+        if(resJson != null &&  resJson.getString("errCode") != null &&
+                resJson.getString("errCode").equals(CommonUtils.MANAGER_SERVICES_NORMAL_CODE)){
+            if(resJson.getString("resMsg") != null && resJson.getString("resMsg").equals("success")){
+                result = true;
+            }
+        }
+        return  result;
     }
 
 }

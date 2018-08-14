@@ -140,4 +140,9 @@ public class DemoTest {
     }
 
 
+    @Test
+    public void testRushToBuy(){
+        System.out.println(managerService.rushToBuy("1","5"));
+    }
+
 }

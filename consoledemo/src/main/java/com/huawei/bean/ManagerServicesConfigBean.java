@@ -9,6 +9,8 @@ public class ManagerServicesConfigBean {
     private String goodsDetailMethod;
     private String payMethod;
     private String orderListMethod;
+    private String rushToBuyMethod;
+    private String pendingPaymentMethod;
 
     public void setManagerServicesUrl(String managerServicesUrl) {
         this.managerServicesUrl = managerServicesUrl;
@@ -68,5 +70,21 @@ public class ManagerServicesConfigBean {
 
     public void setOrderListMethod(String orderListMethod) {
         this.orderListMethod = orderListMethod;
+    }
+
+    public String getRushToBuyMethodUrl() {
+        return managerServicesUrl + "/" + rushToBuyMethod;
+    }
+
+    public void setRushToBuyMethod(String rushToBuyMethod) {
+        this.rushToBuyMethod = rushToBuyMethod;
+    }
+
+    public String getPendingPaymentMethodUrl(String userId) {
+        return managerServicesUrl + "/" + pendingPaymentMethod + "?userId=" +userId;
+    }
+
+    public void setPendingPaymentMethod(String pendingPaymentMethod) {
+        this.pendingPaymentMethod = pendingPaymentMethod;
     }
 }
