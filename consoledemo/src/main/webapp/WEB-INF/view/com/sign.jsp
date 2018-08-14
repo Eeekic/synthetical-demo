@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>登录注册</title>
+    <title>登录/注册</title>
     <style type="text/css">
         .loginBtStyle{
             font-size:15px;
