@@ -2,11 +2,11 @@ package com.huawei;
 
 import com.huawei.dao.GoodsDao;
 import com.huawei.dao.OrdersDao;
-import com.huawei.dao.PendingPaymentDao;
+import com.huawei.dao.PendingPaymentOrdersDao;
 import com.huawei.dao.UserDao;
 import com.huawei.projo.Goods;
 import com.huawei.projo.Orders;
-import com.huawei.projo.PendingPayment;
+import com.huawei.projo.PendingPaymentOrders;
 import com.huawei.projo.User;
 import com.huawei.service.DbServices;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class DemoTest {
     @Autowired
     OrdersDao ordersDao;
     @Autowired
-    PendingPaymentDao pendingPaymentDao;
+    PendingPaymentOrdersDao pendingPaymentOrdersDao;
     @Autowired
     private DbServices dbServices;
 
@@ -72,20 +72,20 @@ public class DemoTest {
 
     @Test
     public void batchInsertTest(){
-        List<PendingPayment> list = new ArrayList<>();
+        List<PendingPaymentOrders> list = new ArrayList<>();
         for(int i=0;i<3;i++){
-            PendingPayment pendingPayment = new PendingPayment();
-            pendingPayment.setUserId(i);
-            pendingPayment.setGoodsId(i);
-            pendingPayment.setToken("-");
-            list.add(pendingPayment);
+            PendingPaymentOrders pendingPaymentOrders = new PendingPaymentOrders();
+            pendingPaymentOrders.setUserId(i);
+            pendingPaymentOrders.setGoodsId(i);
+            pendingPaymentOrders.setToken("-");
+            list.add(pendingPaymentOrders);
         }
-        System.out.println(pendingPaymentDao.batchAdd(list));
+        System.out.println(pendingPaymentOrdersDao.batchAdd(list));
     }
 
     @Test
     public void queryTest(){
-        System.out.println(pendingPaymentDao.queryPendingPayment(1));
+        System.out.println(pendingPaymentOrdersDao.queryPendingPaymentOrders(1));
     }
 
 }

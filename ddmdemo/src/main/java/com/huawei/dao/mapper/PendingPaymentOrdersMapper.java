@@ -1,11 +1,11 @@
 package com.huawei.dao.mapper;
 
-import com.huawei.projo.PendingPayment;
+import com.huawei.projo.PendingPaymentOrders;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface PendingPaymentMapper {
+public interface PendingPaymentOrdersMapper {
     /**
      * create by: sunpeng
      * description:
@@ -13,7 +13,7 @@ public interface PendingPaymentMapper {
      *
      * @return
      */
-    int batchAdd(@Param("pendingPaymentList")List<PendingPayment> pendingPaymentList);
+    int batchAdd(@Param("pendingPaymentOrdersList")List<PendingPaymentOrders> pendingPaymentOrdersList);
 
     /**
      * create by: sunpeng
@@ -22,7 +22,7 @@ public interface PendingPaymentMapper {
      *
      * @return a
      */
-    List<PendingPayment> queryPendingPayment(long userId);
+    List<PendingPaymentOrders> queryPendingPaymentOrders(long userId);
 
     /**
      * create by: sunpeng
@@ -31,14 +31,6 @@ public interface PendingPaymentMapper {
      *
      * @return
      */
-    int setPayedTrue(long pendingPaymentId);
+    int updatePendingPaymentOrders(@Param("ordersId") long ordersId,@Param("date") String date);
 
-    /**
-     * create by: sunpeng
-     * description:
-     * create time: 17:00 2018/8/14
-     *
-     * @return
-     */
-    PendingPayment queryPendingPaymentById(long pendingPaymentId);
 }

@@ -2,12 +2,12 @@ package com.huawei.projo;
 
 import com.alibaba.fastjson.JSONObject;
 
-public class GoodsInCart {
+public class PendingPaymentOrders {
     private long goodsId;
     private long userId;
     private String goodsName;
     private String goodsPicturePath;
-    private long pendingPaymentId;
+    private long ordersId;
     private int goodsPrice;
 
     public long getGoodsId() {
@@ -42,12 +42,12 @@ public class GoodsInCart {
         this.goodsPicturePath = goodsPicturePath;
     }
 
-    public long getPendingPaymentId() {
-        return pendingPaymentId;
+    public long getOrdersId() {
+        return ordersId;
     }
 
-    public void setPendingPaymentId(long pendingPaymentId) {
-        this.pendingPaymentId = pendingPaymentId;
+    public void setOrdersId(long ordersId) {
+        this.ordersId = ordersId;
     }
 
     public int getGoodsPrice() {
@@ -68,20 +68,20 @@ public class GoodsInCart {
         jsonObject.put("goodsName",goodsName);
         jsonObject.put("goodsPrice",goodsPrice);
         jsonObject.put("goodsPicturePath",goodsPicturePath);
-        jsonObject.put("pendingPaymentId",pendingPaymentId);
+        jsonObject.put("ordersId",ordersId);
         jsonObject.put("userId",userId);
         return jsonObject;
     }
 
-    public static GoodsInCart jsonToGoodsInCart(JSONObject jsonObject){
-        GoodsInCart goodsInCart=new GoodsInCart();
-        goodsInCart.setGoodsId(jsonObject.getLong("goodsId"));
-        goodsInCart.setGoodsName(jsonObject.getString("goodsName"));
-        goodsInCart.setGoodsPicturePath(jsonObject.getString("goodsPicturePath"));
-        goodsInCart.setGoodsPrice(jsonObject.getInteger("goodsPrice"));
-        goodsInCart.setPendingPaymentId(jsonObject.getLong("pendingPaymentId"));
-        goodsInCart.setUserId(jsonObject.getLong("userId"));
-        return goodsInCart;
+    public static PendingPaymentOrders jsonToGoodsInCart(JSONObject jsonObject){
+        PendingPaymentOrders pendingPaymentOrders =new PendingPaymentOrders();
+        pendingPaymentOrders.setGoodsId(jsonObject.getLong("goodsId"));
+        pendingPaymentOrders.setGoodsName(jsonObject.getString("goodsName"));
+        pendingPaymentOrders.setGoodsPicturePath(jsonObject.getString("goodsPicturePath"));
+        pendingPaymentOrders.setGoodsPrice(jsonObject.getInteger("goodsPrice"));
+        pendingPaymentOrders.setOrdersId(jsonObject.getLong("ordersId"));
+        pendingPaymentOrders.setUserId(jsonObject.getLong("userId"));
+        return pendingPaymentOrders;
     }
 
 

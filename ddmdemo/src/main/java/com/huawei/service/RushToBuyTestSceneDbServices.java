@@ -5,9 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.huawei.Utils.CommonUtils;
 import com.huawei.Utils.ExceptionProcess;
 import com.huawei.dao.OrdersDao;
-import com.huawei.dao.PendingPaymentDao;
+import com.huawei.dao.PendingPaymentOrdersDao;
 import com.huawei.dao.UserDao;
-import com.huawei.projo.PendingPayment;
+import com.huawei.projo.PendingPaymentOrders;
 import com.huawei.projo.User;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class RushToBuyTestSceneDbServices {
     private OrdersDao ordersDao;
 
     @Resource
-    private PendingPaymentDao pendingPaymentDao;
+    private PendingPaymentOrdersDao pendingPaymentOrdersDao;
 
     public String addTestUser(int count){
         JSONObject jsonObject = new JSONObject();
@@ -146,8 +146,8 @@ public class RushToBuyTestSceneDbServices {
     public String batchAddPendingPayment(String pendingPaymentJsonArrayStr){
         JSONObject resultJson = new JSONObject();
         try {
-            List<PendingPayment> pendingPaymentList = PendingPayment.jsonArrayToList(pendingPaymentJsonArrayStr);
-            int result = pendingPaymentDao.batchAdd(pendingPaymentList);
+            List<PendingPaymentOrders> pendingPaymentOrdersList = PendingPaymentOrders.jsonArrayToList(pendingPaymentJsonArrayStr);
+            int result = pendingPaymentOrdersDao.batchAdd(pendingPaymentOrdersList);
 
             resultJson.put("errCode", CommonUtils.NORMAL_CODE);
 
@@ -172,9 +172,9 @@ public class RushToBuyTestSceneDbServices {
         JSONObject resultJson = new JSONObject();
 
         try {
-            List<PendingPayment>  pendingPaymentList = pendingPaymentDao.queryPendingPayment(userId);
+            List<PendingPaymentOrders> pendingPaymentOrdersList = pendingPaymentOrdersDao.queryPendingPaymentOrders(userId);
             resultJson.put("errCode", CommonUtils.NORMAL_CODE);
-            resultJson.put("resMsg",JSONArray.parseArray(pendingPaymentList.toString()));
+            resultJson.put("resMsg",JSONArray.parseArray(pendingPaymentOrdersList.toString()));
 
         }catch (Exception e){
             resultJson.put("errCode",CommonUtils.ERROR_CODE);

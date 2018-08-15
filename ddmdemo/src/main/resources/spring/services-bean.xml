@@ -14,5 +14,5 @@
     <bean id="ordersDao" class="com.huawei.dao.impl.OrdersImpl"/>
     <bean id="goodsDao" class="com.huawei.dao.impl.GoodsImpl"/>
     <bean id="payDao" class="com.huawei.dao.impl.PayImpl"/>
-    <bean id="pendingPayment" class="com.huawei.dao.impl.PendingPaymentImpl"/>
+    <bean id="pendingPaymentOrders" class="com.huawei.dao.impl.PendingPaymentOrdersImpl"/>
 </beans>

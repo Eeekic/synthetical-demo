@@ -3,7 +3,7 @@ package com.huawei.controller;
 import com.huawei.Utils.CommonUtils;
 import com.huawei.bean.ConsoleBackStageConfigBean;
 import com.huawei.projo.Goods;
-import com.huawei.projo.GoodsInCart;
+import com.huawei.projo.PendingPaymentOrders;
 import com.huawei.projo.Orders;
 import com.huawei.projo.User;
 import com.huawei.service.DataSourcesService;
@@ -85,8 +85,8 @@ public class ViewController {
         boolean rushToBuyResult = dataSourcesService.rushToBuyGoods(userId,goodsId);
 
         if(rushToBuyResult) {
-            List<GoodsInCart> goodsInCartList=dataSourcesService.getGoodsInCart(userId);
-            request.setAttribute("goodsInCartList",goodsInCartList);
+            List<PendingPaymentOrders> pendingPaymentOrdersList =dataSourcesService.getGoodsInCart(userId);
+            request.setAttribute("pendingPaymentOrdersList", pendingPaymentOrdersList);
             result = "Success";
         }
         return result;
@@ -95,9 +95,9 @@ public class ViewController {
     @RequestMapping(value="shoppingCart", method = RequestMethod.GET)
     public String shoppingCart(HttpServletRequest request){
         String userId = request.getParameter("userId");
-        List<GoodsInCart> goodsInCartList=dataSourcesService.getGoodsInCart(userId);
-        request.setAttribute("goodsInCartList",goodsInCartList);
-        request.setAttribute("goodsInCartListSize",goodsInCartList.size());
+        List<PendingPaymentOrders> pendingPaymentOrdersList =dataSourcesService.getGoodsInCart(userId);
+        request.setAttribute("pendingPaymentOrdersList", pendingPaymentOrdersList);
+        request.setAttribute("goodsInCartListSize", pendingPaymentOrdersList.size());
         return "com/shoppingCart";
     }
 
@@ -113,12 +113,12 @@ public class ViewController {
     @RequestMapping(value="payPendingPayment", method = RequestMethod.POST)
     @ResponseBody
     public String payPendingPayment(HttpServletRequest request){
-        String pendingPaymentId = request.getParameter("pendingPaymentId");
+        String ordersId = request.getParameter("ordersId");
         String userId = request.getParameter("userId");
         String goodsId = request.getParameter("goodsId");
         String goodsPrice = request.getParameter("goodsPrice");
 
-        return dataSourcesService.payPendingPayment(pendingPaymentId,userId,goodsId,goodsPrice);
+        return dataSourcesService.payPendingPayment(ordersId,userId,goodsId,goodsPrice);
     }
 
     @RequestMapping(value="orders", method = RequestMethod.GET)

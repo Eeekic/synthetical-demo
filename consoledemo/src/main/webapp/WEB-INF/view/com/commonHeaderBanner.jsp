@@ -101,7 +101,7 @@
 <body>
     <ul>
         <li><a class="active" href="mall">主页</a></li>
-        <li><a class="active" href="mall">水果店</a></li>
+        <li><a>水果店</a></li>
         <div class="dropdown" >
             <a id="loginBt" class="dropbtn">请登录</a>
             <div class="dropdown-content">

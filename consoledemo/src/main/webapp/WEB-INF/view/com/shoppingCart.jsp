@@ -22,15 +22,15 @@
                 <td class="ordersTableStyle"><h3>商品图像</h3></td>
                 <td class="ordersTableStyle"><h3>价格</h3></td>
             </tr>
-            <c:forEach items="${goodsInCartList}" var="orders" varStatus="status">
+            <c:forEach items="${pendingPaymentOrdersList}" var="orders" varStatus="status">
                 <tr>
-                    <td class="ordersTableStyle">${orders.pendingPaymentId}</td>
+                    <td class="ordersTableStyle">${orders.ordersId}</td>
                     <td class="ordersTableStyle">${orders.goodsId}</td>
                     <td class="ordersTableStyle">
                         <img src="${orders.goodsPicturePath}"  width="70" height="70">
                     </td>
                     <td class="ordersTableStyle">${orders.goodsPrice}</td>
-                    <td><input id="payBt" type="button" onclick="pay(${orders.goodsPrice},${orders.goodsId},${orders.pendingPaymentId})" value="支付"></td>
+                    <td><input id="payBt" type="button" onclick="pay(${orders.goodsPrice},${orders.goodsId},${orders.ordersId})" value="支付"></td>
                 </tr>
             </c:forEach>
         </table>
@@ -57,19 +57,19 @@
         $('#noGoodsFrom').hide();
     }
 
-    function pay(goodsPrice,goodsId,pendingPaymentId){
+    function pay(goodsPrice,goodsId,ordersId){
         var userId='${sessionScope.userId}'.toString();
         if(userId != "" ){
 
             goodsId=goodsId.toString();
             goodsPrice=goodsPrice.toString();
-            pendingPaymentId=pendingPaymentId.toString();
+            ordersId=ordersId.toString();
 
             if(!(goodsId==''||goodsPrice=='')) {
                 $.ajax({
                     type: 'post',
                     url: 'payPendingPayment',
-                    data: 'userId=' + userId + '&goodsId=' + goodsId + '&goodsPrice=' + goodsPrice + '&pendingPaymentId=' + pendingPaymentId,
+                    data: 'userId=' + userId + '&goodsId=' + goodsId + '&goodsPrice=' + goodsPrice + '&ordersId=' + ordersId,
                     success: function (data) {
                         if (data == "PaySuccess") {
                             window.location.href = "shoppingCart?userId=" + userId;

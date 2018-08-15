@@ -1,9 +1,6 @@
 package com.huawei;
 
-import com.huawei.Utils.CommonUtils;
-import com.huawei.projo.GoodsInCart;
-import com.huawei.projo.User;
-import com.huawei.service.ApplicationContextRegister;
+import com.huawei.projo.PendingPaymentOrders;
 import com.huawei.bean.ManagerServicesConfigBean;
 import com.huawei.projo.Goods;
 import com.huawei.service.DataSourcesService;
@@ -14,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -48,9 +44,9 @@ public class DemoTest {
     }
     @Test
     public void TestCart(){
-        List<GoodsInCart> goodsInCartList=dataSourcesService.getGoodsInCart("1");
-        for(int i=0;i!=goodsInCartList.size();++i){
-            System.out.println(goodsInCartList.get(i).toString());
+        List<PendingPaymentOrders> pendingPaymentOrdersList =dataSourcesService.getGoodsInCart("1");
+        for(int i = 0; i!= pendingPaymentOrdersList.size(); ++i){
+            System.out.println(pendingPaymentOrdersList.get(i).toString());
         }
     }
 

@@ -1,10 +1,9 @@
 package com.huawei.Utils;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huawei.projo.Goods;
-import com.huawei.projo.GoodsInCart;
+import com.huawei.projo.PendingPaymentOrders;
 import com.huawei.projo.Orders;
 import com.huawei.projo.User;
 
@@ -126,18 +125,18 @@ public class JSONAnalysis {
     }
 
     //Below is Lizhi's part
-    public static List<GoodsInCart> analysisGoodsInCart(JSONObject jsonObject){
-        List<GoodsInCart> goodsInCartList=new ArrayList<GoodsInCart>();
+    public static List<PendingPaymentOrders> analysisGoodsInCart(JSONObject jsonObject){
+        List<PendingPaymentOrders> pendingPaymentOrdersList =new ArrayList<PendingPaymentOrders>();
         if(jsonObject != null &&  jsonObject.getString("errCode") != null &&
                 jsonObject.getString("errCode").equals(CommonUtils.MANAGER_SERVICES_NORMAL_CODE)){
             JSONArray jsonArray = jsonObject.getJSONArray("resMsg");
             if(jsonArray != null){
                 for(int i=0;i<jsonArray.size();i++) {
-                 GoodsInCart temp=GoodsInCart.jsonToGoodsInCart(jsonArray.getJSONObject(i));
-                 goodsInCartList.add(temp);
+                 PendingPaymentOrders temp=PendingPaymentOrders.jsonToGoodsInCart(jsonArray.getJSONObject(i));
+                 pendingPaymentOrdersList.add(temp);
                 }
             }
         }
-        return goodsInCartList;
+        return pendingPaymentOrdersList;
     }
 }

@@ -10,6 +10,7 @@ public class Orders {
     private String goodsName;
     private int goodsPrice;
     private String goodsPicturePath;
+    private boolean isPayed;
 
 
     public long getOrdersId() {
@@ -66,6 +67,14 @@ public class Orders {
 
     public void setGoodsPicturePath(String goodsPicturePath) {
         this.goodsPicturePath = goodsPicturePath;
+    }
+
+    public boolean isPayed() {
+        return isPayed;
+    }
+
+    public void setPayed(boolean payed) {
+        isPayed = payed;
     }
 
     @Override

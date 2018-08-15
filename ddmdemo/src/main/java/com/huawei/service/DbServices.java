@@ -26,7 +26,7 @@ public class DbServices {
     private PayDao payDao;
 
     @Resource
-    private PendingPaymentDao pendingPaymentDao;
+    private PendingPaymentOrdersDao pendingPaymentOrdersDao;
 
     public String querySimpleUserInfoByName(String userName){
         JSONObject jsonObject;
@@ -139,10 +139,10 @@ public class DbServices {
         return jsonObject.toJSONString();
     }
 
-    public String payPendingPayment(long pendingPaymentId,long userId,long goodsId,int goodsPrice){
+    public String payPendingPayment(long ordersId,long userId,long goodsId,int goodsPrice){
         JSONObject jsonObject = new JSONObject();
         try{
-            String result = pendingPaymentDao.payPendingPayment(pendingPaymentId,userId,goodsId,goodsPrice);
+            String result = pendingPaymentOrdersDao.payPendingPaymentOrders(ordersId,userId,goodsId,goodsPrice);
             jsonObject.put("errCode",CommonUtils.NORMAL_CODE);
             jsonObject.put("resMsg",result);
         }catch (Exception e){

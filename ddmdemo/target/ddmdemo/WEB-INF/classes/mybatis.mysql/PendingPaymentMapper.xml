@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.huawei.dao.mapper.PendingPaymentMapper" >
+<mapper namespace="com.huawei.dao.mapper.PendingPaymentOrdersMapper" >
 
-    <resultMap id="BaseResultMap" type="com.huawei.projo.PendingPayment" >
-        <id column="pending_payment_id" property="pendingPaymentId" jdbcType="BIGINT" />
+    <resultMap id="BaseResultMap" type="com.huawei.projo.PendingPaymentOrders" >
+        <id column="orders_id" property="ordersId" jdbcType="BIGINT" />
         <result column="is_payed" property="isPayed" jdbcType="VARCHAR" />
         <result column="token" property="token" jdbcType="VARCHAR" />
         <result column="user_id" property="userId" jdbcType="BIGINT" />
@@ -14,18 +14,18 @@
     </resultMap>
 
     <insert id="batchAdd" parameterType="java.util.List">
-        insert into pending_payment (user_id,goods_id,token)values
-        <foreach collection="pendingPaymentList" item="item" index="index" separator=",">
+        insert into orders (user_id,goods_id,token)values
+        <foreach collection="pendingPaymentOrdersList" item="item" index="index" separator=",">
             (#{item.userId,jdbcType=BIGINT},#{item.goodsId,jdbcType=BIGINT},#{item.token,jdbcType=VARCHAR})
         </foreach>
     </insert>
 
-    <select id="queryPendingPayment" resultType="com.huawei.projo.PendingPayment" parameterType="long"  resultMap="BaseResultMap">
-    select pending_payment_id,user_id,goods.goods_id,goods_name,goods_price,goods_picture_path from pending_payment,goods where user_id=#{userId} and pending_payment.goods_id=goods.goods_id and is_payed=false order by pending_payment_id desc
+    <select id="queryPendingPaymentOrders" resultType="com.huawei.projo.PendingPaymentOrders" parameterType="long" resultMap="BaseResultMap">
+    select orders_id,user_id,goods.goods_id,goods_name,goods_price,goods_picture_path from orders,goods where user_id=#{userId} and orders.goods_id=goods.goods_id and is_payed=false order by orders_id desc
     </select>
 
-    <update id="setPayedTrue" parameterType="long">
-        update pending_payment set is_payed=true where pending_payment_id=#{pendingPaymentId}
+    <update id="updatePendingPaymentOrders">
+        update orders set is_payed=true,orders_date=#{date} where orders_id=#{ordersId}
     </update>
 
 </mapper>

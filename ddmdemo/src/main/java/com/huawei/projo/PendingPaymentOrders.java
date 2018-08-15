@@ -7,11 +7,11 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PendingPayment {
+public class PendingPaymentOrders {
 
-    private static Logger log = Logger.getLogger(PendingPayment.class);
+    private static Logger log = Logger.getLogger(PendingPaymentOrders.class);
 
-    private long pendingPaymentId;
+    private long ordersId;
     private boolean isPayed;
     private String token;
     private long userId;
@@ -20,12 +20,12 @@ public class PendingPayment {
     private int goodsPrice;
     private String goodsPicturePath;
 
-    public long getPendingPaymentId() {
-        return pendingPaymentId;
+    public long getOrdersId() {
+        return ordersId;
     }
 
-    public void setPendingPaymentId(long pendingPaymentId) {
-        this.pendingPaymentId = pendingPaymentId;
+    public void setOrdersId(long ordersId) {
+        this.ordersId = ordersId;
     }
 
     public long getUserId() {
@@ -87,7 +87,7 @@ public class PendingPayment {
     @Override
     public String toString(){
         JSONObject jsonObject =new JSONObject();
-        jsonObject.put("pendingPaymentId",pendingPaymentId);
+        jsonObject.put("ordersId",ordersId);
         jsonObject.put("userId",userId);
         jsonObject.put("goodsId",goodsId);
         jsonObject.put("goodsName",goodsName);
@@ -97,23 +97,23 @@ public class PendingPayment {
         return jsonObject.toJSONString();
     }
 
-    public static List<PendingPayment> jsonArrayToList(String pendingPaymentJsonArrayStr){
-        List<PendingPayment> pendingPaymentList = new ArrayList<>();
+    public static List<PendingPaymentOrders> jsonArrayToList(String pendingPaymentJsonArrayStr){
+        List<PendingPaymentOrders> pendingPaymentOrdersList = new ArrayList<>();
         try {
             JSONArray jsonArray = JSONArray.parseArray(pendingPaymentJsonArrayStr);
             for(int i = 0;i < jsonArray.size();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                PendingPayment pendingPayment =new PendingPayment();
-                pendingPayment.setUserId(jsonObject.getLong("userId"));
-                pendingPayment.setGoodsId(jsonObject.getLong("goodsId"));
-                pendingPayment.setToken(jsonObject.getString("token"));
-                pendingPaymentList.add(pendingPayment);
+                PendingPaymentOrders pendingPaymentOrders =new PendingPaymentOrders();
+                pendingPaymentOrders.setUserId(jsonObject.getLong("userId"));
+                pendingPaymentOrders.setGoodsId(jsonObject.getLong("goodsId"));
+                pendingPaymentOrders.setToken(jsonObject.getString("token"));
+                pendingPaymentOrdersList.add(pendingPaymentOrders);
             }
         }catch (Exception e){
             log.error(e);
             e.printStackTrace();
         }
-        return pendingPaymentList;
+        return pendingPaymentOrdersList;
     }
 
 }

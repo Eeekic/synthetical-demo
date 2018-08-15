@@ -29,6 +29,7 @@ public class PayImpl implements PayDao {
                 orders.setUserId(userId);
                 orders.setGoodsId(goodsId);
                 orders.setOrdersDate(CommonUtils.getNowTime());
+                orders.setPayed(true);
                 ordersDao.addOrders(orders);
                 userDao.updateUserBalance(goodsPrice, userId);
                 goodsDao.updateGoodsCount(goodsId,1);
