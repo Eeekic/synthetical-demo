@@ -53,7 +53,7 @@
             <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
         </property>
         <!--开启事务  -->
-        <property name="enableTransactionSupport" value="true"/>
+        <property name="enableTransactionSupport" value="false"/>
     </bean>
 
     <!--自定义redis工具类,在需要缓存的地方注入此类  -->
