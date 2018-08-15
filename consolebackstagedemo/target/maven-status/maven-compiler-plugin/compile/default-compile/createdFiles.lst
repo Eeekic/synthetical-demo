@@ -1,0 +1,15 @@
+com\huawei\manager\RedisCacheManager.class
+com\huawei\projo\Goods.class
+com\huawei\configbean\ManagerServicesConfigBean.class
+com\huawei\runnable\PrepareTestUserRunnable.class
+com\huawei\tools\PrePareRushToBuyTools.class
+com\huawei\service\ApplicationContextRegister.class
+com\huawei\Utils\CommonUtils.class
+com\huawei\service\DataService.class
+com\huawei\Utils\JSONAnalysis.class
+com\huawei\configbean\DbServicesConfigBean.class
+com\huawei\projo\Orders.class
+com\huawei\projo\User.class
+com\huawei\controller\ViewController.class
+com\huawei\runnable\PrepareRushToBuyGoodsRunnable.class
+com\huawei\service\ConsoleBackstageService.class

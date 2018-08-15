@@ -1,0 +1,12 @@
+com\huawei\projo\Goods.class
+com\huawei\service\ApplicationContextRegister.class
+com\huawei\Utils\CommonUtils.class
+com\huawei\Utils\JSONAnalysis.class
+com\huawei\service\HttpClientService.class
+com\huawei\projo\Orders.class
+com\huawei\projo\User.class
+com\huawei\controller\ViewController.class
+com\huawei\bean\ConsoleBackStageConfigBean.class
+com\huawei\projo\PendingPaymentOrders.class
+com\huawei\bean\ManagerServicesConfigBean.class
+com\huawei\service\DataSourcesService.class

@@ -40,6 +40,6 @@ public interface OrdersMapper {
      *
      * @return
      */
-    List<User> queryRushToBuySuccessUser(@Param("userType")String userType,@Param("tokenDefaultValue")String tokenDefaultValue);
+    List<User>  queryRushToBuySuccessUser(@Param("userType")String userType,@Param("tokenDefaultValue")String tokenDefaultValue);
 
 }
