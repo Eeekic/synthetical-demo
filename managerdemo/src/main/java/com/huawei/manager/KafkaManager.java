@@ -102,7 +102,7 @@ public class KafkaManager {
             kafkaConsumer.commitSync();
             log.info("Consume success!Msg count:" + jsonArray.size());
         }catch (Exception e){
-            log.error(e);
+            log.error("consumeMsg:" + e);
             e.printStackTrace();
         }
         return jsonArray;

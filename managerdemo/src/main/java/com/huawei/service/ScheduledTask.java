@@ -25,6 +25,7 @@ public class ScheduledTask {
     @Scheduled(fixedRate = 60000)
     public void heartbeat(){
         kafkaManager.produceMsg(CommonUtils.HEARTBEAT);
+        log.info(CommonUtils.HEARTBEAT);
     }
 
     @Scheduled(fixedRate = 10)
