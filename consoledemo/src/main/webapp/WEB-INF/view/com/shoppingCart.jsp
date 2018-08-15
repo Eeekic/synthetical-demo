@@ -63,7 +63,7 @@
 
             goodsId=goodsId.toString();
             goodsPrice=goodsPrice.toString();
-            goodsPrice=pendingPaymentId.toString();
+            pendingPaymentId=pendingPaymentId.toString();
 
             if(!(goodsId==''||goodsPrice=='')) {
                 $.ajax({

@@ -56,7 +56,14 @@ public class DemoTest {
 
     @Test
     public void testRushToBuy(){
-        System.out.println(dataSourcesService.rushToBuyGoods("1","5"));
+        System.out.println(dataSourcesService.rushToBuyGoods("2","5"));
     }
+
+    @Test
+    public void pendingPaymentTest(){
+        String result = dataSourcesService.payPendingPayment("262","87456","5","2");
+        System.out.println(result);
+    }
+
 
 }
