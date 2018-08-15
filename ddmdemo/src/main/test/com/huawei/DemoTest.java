@@ -77,6 +77,7 @@ public class DemoTest {
             PendingPayment pendingPayment = new PendingPayment();
             pendingPayment.setUserId(i);
             pendingPayment.setGoodsId(i);
+            pendingPayment.setToken("-");
             list.add(pendingPayment);
         }
         System.out.println(pendingPaymentDao.batchAdd(list));

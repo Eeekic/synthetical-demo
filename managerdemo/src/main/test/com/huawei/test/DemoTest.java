@@ -1,9 +1,12 @@
 package com.huawei.test;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huawei.Utils.CommonUtils;
+import com.huawei.configbean.DbServicesConfigBean;
 import com.huawei.manager.KafkaManager;
 import com.huawei.manager.RedisCacheManager;
+import com.huawei.service.DataService;
 import com.huawei.service.ManagerService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -143,6 +146,30 @@ public class DemoTest {
     @Test
     public void testRushToBuy(){
         System.out.println(managerService.rushToBuy("1","5"));
+    }
+
+    @Autowired
+    private DataService dataService;
+    @Autowired
+    private DbServicesConfigBean dbServicesConfigBean;
+
+    @Test
+    public void testAddBatch(){
+        JSONArray jsonArray = new JSONArray();
+        for(int i=0;i<5;i++){
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("userId",i);
+            jsonObject.put("goodsId",i);
+            jsonObject.put("token","token"+i);
+            jsonArray.add(jsonObject);
+        }
+        if( jsonArray.size() > 0 ){
+            String url = dbServicesConfigBean.getBatchAddPendingPaymentMethodUrl();
+            Map<String,Object> urlVariables = new HashMap<>();
+            urlVariables.put("pendingPayments",jsonArray.toJSONString());
+            JSONObject resultJson = dataService.getDataFromDbService( url, urlVariables, DataService.POST_Method_TYPE);
+            System.out.println(resultJson.toJSONString());
+        }
     }
 
 }

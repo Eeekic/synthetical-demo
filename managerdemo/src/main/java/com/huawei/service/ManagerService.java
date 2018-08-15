@@ -152,6 +152,7 @@ public class ManagerService {
         JSONObject jsonObject = new JSONObject();
         String token = dataService.obtainRushToBuyToken();
         if(token != null){
+            log.info("RushToBuy token:" + token);
             JSONObject msgJson = new JSONObject();
             msgJson.put("token",token);
             msgJson.put("userId",userId);
@@ -181,7 +182,7 @@ public class ManagerService {
             Map<String,Object> urlVariables = new HashMap<>();
             urlVariables.put("pendingPayments",jsonArray.toJSONString());
             JSONObject jsonObject = dataService.getDataFromDbService( url, urlVariables, DataService.POST_Method_TYPE);
-            log.info(jsonObject.toJSONString());
+            log.info("recordRushToBuyOrders:" + jsonObject.toJSONString());
         }
     }
 

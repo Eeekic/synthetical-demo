@@ -99,7 +99,6 @@ public class PendingPayment {
 
     public static List<PendingPayment> jsonArrayToList(String pendingPaymentJsonArrayStr){
         List<PendingPayment> pendingPaymentList = new ArrayList<>();
-        System.out.println(pendingPaymentJsonArrayStr);
         try {
             JSONArray jsonArray = JSONArray.parseArray(pendingPaymentJsonArrayStr);
             for(int i = 0;i < jsonArray.size();i++){

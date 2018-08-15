@@ -160,7 +160,7 @@ public class RushToBuyTestSceneDbServices {
 
             resultJson.put("resMsg", jsonArray);
 
-            log.info("addCount:" + result);
+            log.info("batchAddPendingPayment:Add count " + result);
         }catch (Exception e){
             resultJson.put("errCode",CommonUtils.ERROR_CODE);
             resultJson.put("resMsg",ExceptionProcess.getExceptionInfo(e));
