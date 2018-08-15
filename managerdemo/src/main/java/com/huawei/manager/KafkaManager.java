@@ -92,7 +92,7 @@ public class KafkaManager {
         try {
             ConsumerRecords<String, String> records = kafkaConsumer.poll(timeout);
             Iterator<ConsumerRecord<String, String>> it = records.iterator();
-            if(it.hasNext()){
+            while(it.hasNext()){
                 ConsumerRecord<String, String> cr = it.next();
                 if(!cr.value().equals(CommonUtils.HEARTBEAT)){
                     jsonArray.add(JSONObject.parseObject(cr.value()));
