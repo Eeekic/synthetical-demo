@@ -68,7 +68,7 @@
             <h3>●环境申请与Demo部署</h3>
             <div class="div-left">
                 主要包括Demo在在华为云上所需要的各种资源（主要包括CCE集群、DDM、DCS、DMS以及ELB等）的申请，以及通过整整Demo的部署。
-                <a href="<%=path %>/doc/rushToBuySceneDeploy.html">点击查看更多</a>
+                <a href="<%=path %>/doc/demo-use-simple-explanation.html">点击查看更多</a>
             </div>
         </div>
         <div>
@@ -80,7 +80,7 @@
         <div>
             <h3>●CPTS配置与压测</h3>
             <div class="div-left">
-                根据步骤三种设置的场景，取抢购时所需要的相关参数（userId、goodsId、goodsPrice以及goodsType），结合CPTS进行多人抢购场景测试。
+                根据步骤三种设置的场景，取抢购时所需要的相关参数（userId、goodsId），结合CPTS进行多人抢购场景测试。
             </div>
         </div>
 
@@ -99,16 +99,14 @@
         <h3>（一）、接口说明(manager对应节点)</h3>
         <div class="div-left">
             <h4 >支付接口</h4>
-            <ul><li>rest接口：<strong>v1/rest/pay</strong></li>
+            <ul><li>rest接口：<strong>/v1/rest/rushToBuy</strong></li>
                 <li>请求类别：post</li>
                 <li>请求参数：</li>
             </ul>
             <pre class="front-style">
         {
             "userId":"1",
-            "goodsId":"1",
-            "goodsPrice":"2",
-            "goodsType":"RushToBuy"
+            "goodsId":"1"
         }
             </pre>
 
