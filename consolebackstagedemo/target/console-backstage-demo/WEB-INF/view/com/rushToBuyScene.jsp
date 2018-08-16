@@ -67,8 +67,8 @@
         <div>
             <h3>●环境申请与Demo部署</h3>
             <div class="div-left">
-                主要包括Demo在在华为云上所需要的各种资源（主要包括CCE集群、DDM、DCS、DMS以及ELB等）的申请，以及通过整整Demo的部署。
-                <a href="<%=path %>/doc/demo-use-simple-explanation.html">点击查看更多</a>
+                主要包括Demo在在华为云上所需要的各种资源（主要包括CCE集群、DDM、DCS、DMS以及ELB等）的申请，以及通过整个Demo的部署。
+                <a href="<%=path %>/doc/demo-deploy-simple-explanation.html">点击查看更多</a>
             </div>
         </div>
         <div>
