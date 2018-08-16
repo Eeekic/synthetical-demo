@@ -122,7 +122,7 @@
                 data: 'userId=' + userId + '&goodsId=' + ${goods.goodsId},
                 success: function (data) {
                     if (data == "Success") {
-                        window.location.href = "shoppingCart?userId=" + userId;
+                        window.location.href = "pendingPaymentOrders?userId=" + userId;
                     } else {
                         window.location.href = "rushToBuyFailed";
                     }

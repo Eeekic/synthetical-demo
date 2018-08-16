@@ -93,7 +93,7 @@ public class ViewController {
     }
 
     @RequestMapping(value="pendingPaymentOrders", method = RequestMethod.GET)
-    public String shoppingCart(HttpServletRequest request){
+    public String pendingPaymentOrders(HttpServletRequest request){
         String userId = request.getParameter("userId");
         List<PendingPaymentOrders> pendingPaymentOrdersList =dataSourcesService.pendingPaymentOrders(userId);
         request.setAttribute("pendingPaymentOrdersList", pendingPaymentOrdersList);
