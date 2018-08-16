@@ -24,7 +24,7 @@
 </div>
 
 <div align="right" class="rush-to-buy-ref-div">
-    <a href="${rushToBuyScene}" class="rush-to-buy-ref-color"><h2>●基于DMS Kafka消息队列的商品抢购场景</h2></a>
+    <a href="${rushToBuyScene}" class="rush-to-buy-ref-color"><h2>●商品限量抢购场景</h2></a>
 </div>
 <div align="center">
     <table align="center">
