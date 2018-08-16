@@ -44,7 +44,7 @@ public class DemoTest {
     }
     @Test
     public void TestCart(){
-        List<PendingPaymentOrders> pendingPaymentOrdersList =dataSourcesService.getGoodsInCart("1");
+        List<PendingPaymentOrders> pendingPaymentOrdersList =dataSourcesService.pendingPaymentOrders("1");
         for(int i = 0; i!= pendingPaymentOrdersList.size(); ++i){
             System.out.println(pendingPaymentOrdersList.get(i).toString());
         }

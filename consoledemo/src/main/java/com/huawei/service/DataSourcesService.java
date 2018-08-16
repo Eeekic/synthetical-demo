@@ -125,10 +125,9 @@ public class DataSourcesService {
 
         return JSONAnalysis.analysisUserDetail(resultJson);
     }
-    //Below is Lizhi's part
-    public List<PendingPaymentOrders> getGoodsInCart(String userId){
+
+    public List<PendingPaymentOrders> pendingPaymentOrders(String userId){
         String url=managerServicesConfigBean.getPendingPaymentMethodUrl(userId);
-        System.out.println(url);
         JSONObject resultJson = httpClientService.getDataFromManagerServices(url,HttpClientService.GET_Method_TYPE);
         List<PendingPaymentOrders> pendingPaymentOrdersList =JSONAnalysis.analysisGoodsInCart(resultJson);
         return pendingPaymentOrdersList;

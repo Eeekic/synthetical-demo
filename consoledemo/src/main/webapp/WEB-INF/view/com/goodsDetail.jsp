@@ -113,9 +113,8 @@
     function rushToBuy() {
         var userId = "${sessionScope.userId}".toString();
         if(userId == "") {
-            $("#payForm").attr('action', 'sign');
-            $("#payForm").attr('method', 'get');
             alert("提示：请先登录！");
+            window.location.href="sign";
         }else {
             $.ajax({
                 type: 'post',

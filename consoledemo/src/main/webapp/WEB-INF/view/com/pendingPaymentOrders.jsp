@@ -72,7 +72,7 @@
                     data: 'userId=' + userId + '&goodsId=' + goodsId + '&goodsPrice=' + goodsPrice + '&ordersId=' + ordersId,
                     success: function (data) {
                         if (data == "PaySuccess") {
-                            window.location.href = "shoppingCart?userId=" + userId;
+                            window.location.href = "pendingPaymentOrders?userId=" + userId;
                         } else {
                             alert("提示：付款失败！");
                         }

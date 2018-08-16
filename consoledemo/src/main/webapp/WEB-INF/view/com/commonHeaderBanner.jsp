@@ -108,7 +108,7 @@
                 <form method="post">
                     <a href="userDetail?userId=${sessionScope.userId}" id="personInfoHref" target="_blank" style="display:none">个人信息</a>
                     <a href="orders?userId=${sessionScope.userId}" id="orderInfoHref"target="_blank" style="display:none">您的订单</a>
-                    <a href="shoppingCart?userId=${sessionScope.userId}" id="pendingPaymentHref"target="_blank" style="display:none">未支付订单</a>
+                    <a href="pendingPaymentOrders?userId=${sessionScope.userId}" id="pendingPaymentHref"target="_blank" style="display:none">未支付订单</a>
                     <a onclick="signOut()" id="exitHref" target="" style="display:none">退出</a>
                     <a href="sign" id="signHref" target="_blank">登录/注册</a>
                 </form>

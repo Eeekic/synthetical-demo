@@ -85,20 +85,20 @@ public class ViewController {
         boolean rushToBuyResult = dataSourcesService.rushToBuyGoods(userId,goodsId);
 
         if(rushToBuyResult) {
-            List<PendingPaymentOrders> pendingPaymentOrdersList =dataSourcesService.getGoodsInCart(userId);
+            List<PendingPaymentOrders> pendingPaymentOrdersList =dataSourcesService.pendingPaymentOrders(userId);
             request.setAttribute("pendingPaymentOrdersList", pendingPaymentOrdersList);
             result = "Success";
         }
         return result;
     }
 
-    @RequestMapping(value="shoppingCart", method = RequestMethod.GET)
+    @RequestMapping(value="pendingPaymentOrders", method = RequestMethod.GET)
     public String shoppingCart(HttpServletRequest request){
         String userId = request.getParameter("userId");
-        List<PendingPaymentOrders> pendingPaymentOrdersList =dataSourcesService.getGoodsInCart(userId);
+        List<PendingPaymentOrders> pendingPaymentOrdersList =dataSourcesService.pendingPaymentOrders(userId);
         request.setAttribute("pendingPaymentOrdersList", pendingPaymentOrdersList);
         request.setAttribute("goodsInCartListSize", pendingPaymentOrdersList.size());
-        return "com/shoppingCart";
+        return "com/pendingPaymentOrders";
     }
 
     @RequestMapping(value="pay", method = RequestMethod.POST)

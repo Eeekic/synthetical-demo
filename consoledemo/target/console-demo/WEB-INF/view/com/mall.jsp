@@ -60,7 +60,7 @@
             <tr>
         </c:if>
         <td>
-            <form id="buyFrom" action="payPage" method="post">
+            <form id="buyFrom${goods.goodsId}" action="payPage" method="post">
                 <img src="${goods.goodsPicturePath}"  width="300" height="300">
                 <input type="hidden" name="goodsId" value="${goods.goodsId}">
                 <table align="center">
@@ -69,7 +69,7 @@
                             <input type="button" value="商品详情" class="btStyle" onclick="goodsDetail(${goods.goodsId})">
                         </td>
                         <td>
-                            <input type="submit" class="btStyle" value="购买" onclick="sign()">
+                            <input type="submit" class="btStyle" value="购买" onclick="validIsSignIn(${goods.goodsId})">
                         </td>
                     <tr/>
                 </table>
@@ -88,11 +88,12 @@
         window.location.href="goodsDetail?goodsId="+goodsId;
     }
 
-    function sign() {
+    function validIsSignIn(goodsId) {
         var userId = "${sessionScope.userId}".toString();
+        var formName = "#buyFrom" + goodsId.toString();
         if(userId == "") {
-            $("#buyFrom").attr('action', 'sign');
-            $("#buyFrom").attr('method', 'get');
+            $(formName).attr('action', 'sign');
+            $(formName).attr('method', 'get');
             alert("提示：请先登录！");
         }
     }
@@ -109,7 +110,7 @@
                 data: 'userId=' + userId + '&goodsId=' + goodsId,
                 success: function (data) {
                     if (data == "Success") {
-                        window.location.href = "shoppingCart?userId=" + userId;
+                        window.location.href = "pendingPaymentOrders?userId=" + userId;
                     } else {
                         window.location.href = "rushToBuyFailed";
                     }
